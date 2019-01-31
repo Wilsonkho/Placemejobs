@@ -118,8 +118,8 @@ public class Manager
         {
             SqlConnection con;
             con = new SqlConnection();
-            con.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB; Initial Catalog = Placemejobs; Integrated Security=True";
-
+            //con.ConnectionString = "Data Source=DataBaist; Initial Catalog = Placemejobs; Integrated Security=True";
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
             SqlCommand cmd;
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -133,7 +133,7 @@ public class Manager
             Email.Value = NewUser.UserEmail;
 
             SqlParameter Password = new SqlParameter();
-            Password.ParameterName = "@Hash";
+            Password.ParameterName = "@Password";
             Password.SqlDbType = SqlDbType.NChar;
             Password.Direction = ParameterDirection.Input;
             Password.Value = NewUser.UserPassword;
