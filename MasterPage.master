@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
-
+<link href="Themes/MasterPage/StyleSheet.css" rel="stylesheet" />
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
