@@ -9,20 +9,20 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Welcome.Text = " Hello, " + Context.User.Identity.Name + "<br/>";
-        CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
+        //Welcome.Text = " Hello, " + Context.User.Identity.Name + "<br/>";
+        //CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
 
-        Response.Write("Authenticated Identity is: " + cp.Identity.Name);
-        Response.Write("<p>");
+        //Response.Write("Authenticated Identity is: " + cp.Identity.Name);
+        //Response.Write("<p>");
         
-        if (cp.IsInRole("Administrator"))
-        {
-            Response.Write(cp.Identity.Name + " is a Admin <br/>");
-        }
-        if (cp.IsInRole("Candidate"))
-        {
-            Response.Write(cp.Identity.Name + " is a Candidate <br/>");
-        }
+        //if (cp.IsInRole("Administrator"))
+        //{
+        //    Response.Write(cp.Identity.Name + " is a Admin <br/>");
+        //}
+        //if (cp.IsInRole("Candidate"))
+        //{
+        //    Response.Write(cp.Identity.Name + " is a Candidate <br/>");
+        //}
 
     }
 
