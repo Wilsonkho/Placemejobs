@@ -1,4 +1,23 @@
-﻿body {
+﻿.Main {
+    margin-top: 3rem;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
 
+body {
+    margin: 0 0 20rem 0;
+}
+
+footer {
+    position: absolute;
+    left: 0; bottom: 0;
+}
+
+@media (min-width:320px){  }
+@media (min-width:480px){  }
+@media (min-width:640px){  }
+@media (min-width:768px){  }
+@media (min-width:1024px){  }
