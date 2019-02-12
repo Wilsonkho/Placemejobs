@@ -14,7 +14,7 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active ">
-          <img src="Images/banner1.jpg" height="65%" width="100%"/>
+          <img src="Images/banner1.jpg" height="65%" width="100%" />
         <div class="container">
           <div class="carousel-caption text-left">
             <h1>Example headline.</h1>
