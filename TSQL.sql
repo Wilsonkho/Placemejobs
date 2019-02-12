@@ -22,7 +22,7 @@ CREATE TABLE Profession (
 	ProfessionID INT IDENTITY(1,1) PRIMARY KEY,
 	[Description] VARCHAR(30)
 	)
-
+	
 CREATE TABLE Skillset (
 	SkillsetID INT IDENTITY(1,1) PRIMARY KEY,
 	[Description] VARCHAR(30),
@@ -64,7 +64,7 @@ CREATE TABLE UserJobPosting(
 CREATE TABLE JobPostingSKillSet(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
 	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
-	PRIMARY KEY (JobPostingID, SKillsetID)
+	PRIMARY KEY (JobPostingID, SKillsetID))
 
 
 
