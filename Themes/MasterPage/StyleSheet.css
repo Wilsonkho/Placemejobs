@@ -9,11 +9,13 @@ html {
 
 body {
     margin: 0 0 20rem 0;
+    padding-bottom:5rem;
 }
 
-footer {
+.footer {
     position: absolute;
-    left: 0; bottom: 0;
+    bottom:0;
+    width:100%;
 }
 
 @media (min-width:320px){  }

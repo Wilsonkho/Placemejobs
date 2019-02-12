@@ -4,26 +4,7 @@
 <%--    <h3>Using Forms Authentication</h3>
     <asp:Label ID="Welcome" runat="server" />
     <p><asp:Button ID="Button1" OnClick="Signout_Click" Text="Sign Out" runat="server" /></p>--%>
-
-<%--    <html lang="en">--%>
-<%--  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
-    <title>Carousel Template · Bootstrap</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/carousel/">--%>
-
-    <!-- Custom styles for this template -->
-<%--    <link href="carousel.css" rel="stylesheet">
-  </head>
-  <body>--%>
-      
-
-
-<%--<main role="main">--%>
+   
 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -32,7 +13,7 @@
       <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      <div class="carousel-item active ">
           <img src="Images/banner1.jpg" height="65%" width="100%"/>
         <div class="container">
           <div class="carousel-caption text-left">
@@ -84,7 +65,7 @@
   </div>
 
 
-    <div class="container">
+<div class="container">
 
     <hr class="featurette-divider">
 
@@ -101,8 +82,5 @@
 
 
   </div><!-- /.container -->
-
-<%-- </main>
-</html>--%>
 </asp:Content>
 
