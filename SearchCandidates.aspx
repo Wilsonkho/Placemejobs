@@ -1,13 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SearchCandidates.aspx.cs" Inherits="SearchCandidates" %>
+﻿<%@ Page Title="Candidate Search" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SearchCandidates.aspx.cs" Inherits="SearchCandidates" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
         <h1>Search Candidates</h1>
 
      <asp:Table runat="server" ID="AddCustomerTable">
@@ -80,6 +73,4 @@
             </asp:TableRow>
 
         </asp:Table>
-    </form>
-</body>
-</html>
+</asp:Content>
