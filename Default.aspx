@@ -16,9 +16,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/carousel/">
 
-    <!-- Bootstrap core CSS -->
-<link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
-
 
     <style>
       .bd-placeholder-img {
