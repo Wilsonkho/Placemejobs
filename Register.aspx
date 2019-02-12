@@ -12,6 +12,16 @@
     <asp:Panel runat="server" ID="RegPanel" >
     <table>
         <tr>
+            <td>First Name: </td>
+            <td><asp:TextBox ID="FirstNameBox" runat="server" /></td>
+            <td><asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="UserPass" ErrorMessage="Cannot be empty" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>Last Name: </td>
+            <td><asp:TextBox ID="LastNameBox"  runat="server" /></td>
+            <td><asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="UserPass" ErrorMessage="Cannot be empty" runat="server" /></td>
+        </tr>
+        <tr>
             <td>Email address:</td>
             <td><asp:Textbox ID="UserEmail" runat="server" /></td>
             <td><asp:RequiredFieldValidator ID="RequiredFieldvalidator1" ControlToValidate="UserEmail" Display="Dynamic" ErrorMessage="Cannot be empty." runat="server" /></td>
@@ -23,7 +33,7 @@
         </tr>
         
     </table>
-    <asp:Label ID="Confirmation" runat="server" /><asp:HyperLink runat="server" Text="Log in now!" NavigateUrl="~/Logon.aspx" Visible="false" ID ="Login"/>
+    <asp:Label ID="Confirmation" runat="server" /><asp:HyperLink runat="server" Text="Log in now!" NavigateUrl="~/Login.aspx" Visible="false" ID ="Login"/>
     <br />
     <asp:Button ID="Reg" OnClick="Reg_Click" Text="Register" runat="server" />
     <p><asp:Label ID="Msg" ForeColor="Red" runat="server" /></p>

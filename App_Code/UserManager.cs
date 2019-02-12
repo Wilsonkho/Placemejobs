@@ -138,8 +138,23 @@ public class Manager
             Password.Direction = ParameterDirection.Input;
             Password.Value = NewUser.UserPassword;
 
+            SqlParameter FirstName = new SqlParameter();
+            FirstName.ParameterName = "@FirstName";
+            FirstName.SqlDbType = SqlDbType.NChar;
+            FirstName.Direction = ParameterDirection.Input;
+            FirstName.Value = NewUser.FirstName;
+
+            SqlParameter LastName = new SqlParameter();
+            LastName.ParameterName = "@LastName";
+            LastName.SqlDbType = SqlDbType.NChar;
+            LastName.Direction = ParameterDirection.Input;
+            LastName.Value = NewUser.LastName;
+
+            
             cmd.Parameters.Add(Email);
             cmd.Parameters.Add(Password);
+            cmd.Parameters.Add(FirstName);
+            cmd.Parameters.Add(LastName);
 
             con.Open();
             cmd.ExecuteNonQuery();

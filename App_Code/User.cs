@@ -7,9 +7,12 @@ using System.Web;
 /// </summary>
 public class User
 {
+    private string _firstName;
+    private string _lastName;
     private string _userEmail;
     private string _userPassword;
     private string _salt;
+  
     public User()
     {
         //
@@ -17,6 +20,16 @@ public class User
         //
     }
 
+    public string FirstName
+    {
+        get { return this._firstName; }
+        set { this._firstName = value; }
+    }
+    public string LastName
+    {
+        get { return this._lastName; }
+        set { this._lastName = value; }
+    }
     public string UserEmail
     {
         get

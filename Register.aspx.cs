@@ -20,6 +20,8 @@ public partial class Register : System.Web.UI.Page
         User NewUser = new User();
         NewUser.UserEmail = UserEmail.Text;
         NewUser.UserPassword = UserPass.Text;
+        NewUser.FirstName = FirstNameBox.Text;
+        NewUser.LastName = LastNameBox.Text;
 
         Controller Control = new Controller();
         if (Control.AddUser(NewUser))
