@@ -3,16 +3,15 @@ CREATE DATABASE Placemejobs
 CREATE TABLE Users (
 	UserID INT IDENTITY (1,1) PRIMARY KEY,
 	Email VARCHAR(100),
-	Phone VARCHAR(10),
-	FirstName VARCHAR(15) NOT NULL,
-	LastName VARCHAR(15) NOT NULL,
-	[Resume] VARBINARY(MAX),
-	CoverLetter VARBINARY(MAX),
-	[Password] VARCHAR(100),
-	ActiveInactive BIT,
-	Roles VARCHAR (10)
+	Phone VARCHAR(10) NULL,
+	FirstName VARCHAR(15),
+	LastName VARCHAR(15),
+	[Resume] VARBINARY(MAX) NULL,
+	CoverLetter VARBINARY(MAX) NULL,
+	[Password] VARCHAR(100) NULL,
+	ActiveInactive BIT NULL,
+	Roles VARCHAR (10) NOT NULL
 	)
-
 
 CREATE TABLE Region (
 	RegionID INT IDENTITY (1,1) PRIMARY KEY,
@@ -45,17 +44,35 @@ CREATE TABLE UserProfession (
 	PRIMARY KEY (UserID, ProfessionID)
 	)
 
+
 CREATE TABLE UserSkillset (
 	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
 	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
 	PRIMARY KEY (UserID, SkillsetID)
 	)
 
+CREATE TABLE UserRegion(
+	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
+	RegionID INT CHECK (RegionID > 0) FOREIGN KEY REFERENCES Region(RegionID),
+	PRIMARY KEY (UserID, RegionID))
 
-CREATE PROCEDURE AddUser @Email VARCHAR(100), @Password VARCHAR(100) 
+CREATE TABLE UserJobPosting(
+	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
+	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
+	PRIMARY KEY (UserID, JobPostingID))
+
+CREATE TABLE JobPostingSKillSet(
+	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
+	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
+	PRIMARY KEY (JobPostingID, SKillsetID)
+
+
+
+CREATE PROCEDURE AddUser @Email VARCHAR(100), @Password VARCHAR(100) ,@FirstName VARCHAR(15), @LastName VARCHAR(15)
 	AS
-		INSERT INTO Users (Email, [Password], Roles)
-		VALUES (@Email, @Password, 'Candidate')
+		INSERT INTO Users (Email, [Password], FirstName, LastName, Roles)
+		VALUES (@Email, @Password, @FirstName, @LastName, 'Candidate')
+
 
 
 CREATE PROCEDURE GetUser @Email VARCHAR(100) 
@@ -68,3 +85,8 @@ CREATE PROCEDURE GetRoles @Email VARCHAR(100)
 	AS 
 		SELECT Roles FROM Users
 		WHERE Email=@Email
+
+
+DROP TABLE UserSkillset
+DROP TABLE UserProfession
+DROP TABLE Users
