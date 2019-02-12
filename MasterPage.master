@@ -1,0 +1,22 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Placemejobs - <%: Page.Title %></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h1>Placemejobs</h1>
+        <hr />
+        <div>
+            <asp:ContentPlaceHolder id="MainContent" runat="server" />
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; <%: DateTime.Now.Year %> - Placemejobs Recruitment Management System</p>
+        </footer>
+    </form>
+</body>
+</html>

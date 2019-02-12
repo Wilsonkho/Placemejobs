@@ -1,13 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
+﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server" id="Head1">
-    <title>Placemejobs - Login</title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h3>Login Page</h3>
     
     <table>
@@ -29,7 +22,4 @@
     </table>
     <asp:Button ID="LoginButton" OnClick="Login_Click" Text="Login" runat="server" />
     <p><asp:Label ID="Msg" ForeColor="Red" runat="server" /></p>
-
-    </form>
-</body>
-</html>
+</asp:Content>
