@@ -1,17 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Forms Authentication = Default Page</title>
-</head>
-<body>
-    
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h3>Using Forms Authentication</h3>
-        <asp:Label ID="Welcome" runat="server" />
-    <form id="form1" runat="server">
-        <p><asp:Button ID="SignOutButton" OnClick="Signout_Click" Text="Sign Out" runat="server" /></p>
-    </form>
-</body>
-</html>
+    <asp:Label ID="Welcome" runat="server" />
+    <p><asp:Button ID="Button1" OnClick="Signout_Click" Text="Sign Out" runat="server" /></p>
+</asp:Content>
+
