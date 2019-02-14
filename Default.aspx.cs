@@ -5,24 +5,27 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Security.Principal;
+using System.Web.UI.HtmlControls;
+
 public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         //Welcome.Text = " Hello, " + Context.User.Identity.Name + "<br/>";
-        //CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
+        CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
 
         //Response.Write("Authenticated Identity is: " + cp.Identity.Name);
         //Response.Write("<p>");
-        
-        //if (cp.IsInRole("Administrator"))
-        //{
-        //    Response.Write(cp.Identity.Name + " is a Admin <br/>");
-        //}
-        //if (cp.IsInRole("Candidate"))
-        //{
-        //    Response.Write(cp.Identity.Name + " is a Candidate <br/>");
-        //}
+
+        if (cp.IsInRole("Administrator"))
+        {
+            
+        }
+        if (cp.IsInRole("Candidate"))
+        {
+            //HtmlAnchor h = (HtmlAnchor)this.Master.FindControl("MainContent").FindControl("RegisterCandidate");
+            //h.Visible = false;
+        }
 
     }
 
