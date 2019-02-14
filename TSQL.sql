@@ -37,6 +37,9 @@ CREATE TABLE JobPosting (
 	[Date] DATE,
 	[Status] VARCHAR(10)
 	)
+ALTER TABLE JobPosting
+	ADD EmployerPhone VARCHAR(10), CompanyName VARCHAR(30)
+
 
 CREATE TABLE UserProfession (
 	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
@@ -86,7 +89,29 @@ CREATE PROCEDURE GetRoles @Email VARCHAR(100)
 		SELECT Roles FROM Users
 		WHERE Email=@Email
 
+CREATE PROCEDURE GetAllJobPostings 
+	AS 
+		SELECT JobPostingID 
+		FROM JobPosting
 
-DROP TABLE UserSkillset
-DROP TABLE UserProfession
-DROP TABLE Users
+
+CREATE PROCEDURE JobMatch @JobID INT
+	AS 
+		SELECT Users.UserID 
+		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
+					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
+					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
+					INNER JOIN Profession ON UserProfession.ProfessionID=Profession.ProfessionID
+					INNER JOIN Skillset ON Skillset.SkillsetID=UserSkillset.SkillsetID
+					INNER JOIN Region ON Region.RegionID=UserRegion.RegionID
+					INNER JOIN JobPostingSKillSet ON Skillset.SkillsetID=JobPostingSKillSet.SkillsetID
+					INNER JOIN JobPosting ON JobPosting.ProfessionID=Profession.ProfessionID
+					AND JobPosting.JobPostingID=JobPostingSKillSet.JobPostingID
+					AND JobPosting.RegionID=Region.RegionID
+		WHERE JobPosting.JobPostingID=@JobID
+
+/*** View All Tables and Table Entries***/
+DECLARE @sqlText VARCHAR(MAX)
+SET @sqlText = ''
+SELECT @sqlText = @sqlText + ' SELECT * FROM ' + QUOTENAME(name) + CHAR(13) FROM sys.tables
+EXEC(@sqlText)
