@@ -26,6 +26,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="AddJobPosting.aspx">Add Job Posting</a>
               </li>
+            <li class="nav-item">
+                <a class="nav-link" href="CandidateManagement.aspx">Manage Candidates</a>
+              </li>
             </ul>
           </div>
         </nav>
