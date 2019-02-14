@@ -4,7 +4,7 @@
 <%--    <h3>Using Forms Authentication</h3>
     <asp:Label ID="Welcome" runat="server" />
     <p><asp:Button ID="Button1" OnClick="Signout_Click" Text="Sign Out" runat="server" /></p>--%>
-   
+    <link href="Themes/Default/StyleSheet.css" rel="stylesheet" />
 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
