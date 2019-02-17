@@ -31,7 +31,7 @@
 
             <asp:TableRow>
                 <asp:TableCell>
-                    <asp:Button runat="server" ID="CVUpload" Text="Upload CV"/>
+                    <asp:FileUpload runat="server" ID="ResumeUpload" />
                 </asp:TableCell>
             </asp:TableRow>
          </asp:Table>
@@ -63,11 +63,12 @@
 
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Submit" Text="Submit Candidate" /></asp:TableCell>
+                <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Submit" Text="Submit Candidate" OnClick="Submit_Click" /></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow>
                 <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" /></asp:TableCell>
             </asp:TableRow>
         </asp:Table>
+        <asp:Label runat="server" ID="Msg" />
         <br /><br />
 </asp:Content>

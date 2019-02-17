@@ -20,7 +20,7 @@ public partial class Register : System.Web.UI.Page
         NewUser.FirstName = FirstNameBox.Text;
         NewUser.LastName = LastNameBox.Text;
 
-        Controller Control = new Controller();
+        PRMS Control = new PRMS();
         if (Control.AddUser(NewUser))
         {
             Confirmation.Text = "User account created. ";

@@ -20,7 +20,7 @@ public partial class Login : System.Web.UI.Page
         ReturnUser.UserEmail = UserEmail.Text;
         ReturnUser.UserPassword = UserPass.Text;
 
-        Controller con = new Controller();
+        PRMS con = new PRMS();
 
         if (con.GetUser(ReturnUser))
         {
