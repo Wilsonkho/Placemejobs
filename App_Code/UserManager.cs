@@ -242,4 +242,103 @@ public class Manager
 
     }
 
+    public bool AddCandidate(User newcandidate)
+    {
+        bool success = false;
+
+        try
+        {
+            SqlConnection con;
+            con = new SqlConnection();
+            //con.ConnectionString = "Data Source=DataBaist; Initial Catalog = Placemejobs; Integrated Security=True";
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+            SqlCommand cmd;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "AddCandidateAsAdmin";
+
+            SqlParameter Email = new SqlParameter();
+            Email.ParameterName = "@Email";
+            Email.SqlDbType = SqlDbType.NVarChar;
+            Email.Direction = ParameterDirection.Input;
+            Email.Value = newcandidate.UserEmail;
+
+            SqlParameter FirstName = new SqlParameter();
+            FirstName.ParameterName = "@FirstName";
+            FirstName.SqlDbType = SqlDbType.NVarChar;
+            FirstName.Direction = ParameterDirection.Input;
+            FirstName.Value = newcandidate.FirstName;
+
+            SqlParameter LastName = new SqlParameter();
+            LastName.ParameterName = "@LastName";
+            LastName.SqlDbType = SqlDbType.NVarChar;
+            LastName.Direction = ParameterDirection.Input;
+            LastName.Value = newcandidate.LastName;
+
+            SqlParameter Resume = new SqlParameter();
+            Resume.ParameterName = "@Resume";
+            Resume.SqlDbType = SqlDbType.NChar;
+            Resume.Direction = ParameterDirection.Input;
+            Resume.Value = newcandidate.Resume;
+
+            SqlParameter CoverLetter = new SqlParameter();
+            CoverLetter.ParameterName = "@CoverLetter";
+            CoverLetter.SqlDbType = SqlDbType.NChar;
+            CoverLetter.Direction = ParameterDirection.Input;
+            CoverLetter.Value = newcandidate.CoverLetter;
+
+            cmd.Parameters.Add(Email);
+            cmd.Parameters.Add(FirstName);
+            cmd.Parameters.Add(LastName);
+            cmd.Parameters.Add(Resume);
+            cmd.Parameters.Add(CoverLetter);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            success = true;
+            }
+        catch
+        {
+            return success;
+        }
+        return success;
+
+    }
+
+    public int GetUserIDByEmail(string userEmail)
+    {
+        int userID;
+
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetUserIDByEmail";
+
+        SqlParameter Email = new SqlParameter();
+        Email.ParameterName = "@Email";
+        Email.SqlDbType = SqlDbType.VarChar;
+        Email.Direction = ParameterDirection.Input;
+        Email.Value = userEmail;
+
+        cmd.Parameters.Add(Email);
+
+        con.Open();
+        SqlDataReader reader = cmd.ExecuteReader();
+        reader.Read();
+
+        userID = Convert.ToInt32(reader["UserID"]);
+
+        con.Close();
+        return userID;
+
+    }
+
 }

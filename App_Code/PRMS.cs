@@ -30,13 +30,32 @@ public class PRMS
 
     public bool UploadResume(string resume)
     {
-        bool success = false;
+        bool confirmation = false;
 
         Manager userManager = new Manager();
-        success = userManager.UploadResume(resume);
+        confirmation = userManager.UploadResume(resume);
 
-        return success;
+        return confirmation;
     }
 
+    public bool AddCandidate (User newCandidate)
+    {
+        bool confirmation = false;
+
+        Manager userManager = new Manager();
+        confirmation = userManager.AddCandidate(newCandidate);
+
+        return confirmation;
+    }
+
+    public int GetUserIDByEmail (string email)
+    {
+        int userID;
+
+        Manager userManager = new Manager();
+        userID = userManager.GetUserIDByEmail(email);
+
+        return userID;
+    }
 
 }
