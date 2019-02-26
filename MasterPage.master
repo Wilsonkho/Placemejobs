@@ -24,19 +24,21 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="Default.aspx" >Home</a>
+                <a  class="nav-link" href="Default.aspx" id="DefaultLink" runat="server">Home <span class="sr-only">(current)</span></a>
               <li class="nav-item">
-                <a class="nav-link" href="RegisterCandidate.aspx" id="RegisterCandidate" >Register Candidate</a>                  
+                <a class="nav-link" href="RegisterCandidate.aspx" id="RegisterCandidateLink" runat="server" >Register Candidate</a>                  
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="AddJobPosting.aspx" id="AddJobPosting">Add Job Posting</a>
+                <a class="nav-link" href="AddJobPosting.aspx" id="AddJobPostingLink" runat="server">Add Job Posting</a>
               </li>
             <li class="nav-item">
-                <a class="nav-link" href="CandidateManagement.aspx" id="CandidateManagement">Manage Candidates</a>
+                <a class="nav-link" href="CandidateManagement.aspx" id="CandidateManagementLink" runat="server">Manage Candidates</a>
               </li>
             </ul>
           </div>
         </nav>
+
+
         
         <hr />
         <div class="Main">

@@ -24,5 +24,23 @@ public partial class MasterPage : System.Web.UI.MasterPage
             //HtmlAnchor h = Master.FindControl("RegisterCandidate") as HtmlAnchor;
             //h.Visible = false;
         }
+
+        String activepage = Request.RawUrl;
+        if (activepage.Contains("Default.aspx"))
+        {
+            DefaultLink.Attributes.Add("class", "active");
+        }
+        else if (activepage.Contains("RegisterCandidate.aspx"))
+        {
+            RegisterCandidateLink.Attributes.Add("class", "active");
+        }
+        else if (activepage.Contains("AddJobPosting.aspx"))
+        {
+            AddJobPostingLink.Attributes.Add("class", "active");
+        }
+        else if (activepage.Contains("CandidateManagement.aspx"))
+        {
+            CandidateManagementLink.Attributes.Add("class", "active");
+        }
     }
 }
