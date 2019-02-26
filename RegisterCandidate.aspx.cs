@@ -15,7 +15,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        int userid = 25;
+        int userid = 26;
         if (ResumeUpload.HasFile)
         {
 
@@ -38,13 +38,23 @@ public partial class RegisterCandidate : System.Web.UI.Page
                 ResumeUpload.SaveAs(Server.MapPath("~/Files/" + userid + "/" + "Resume/" + ResumeUpload.FileName));
 
                 //Send file to database
-                string fileName = ResumeUpload.PostedFile.FileName;
+                bool confirmation = false;
+                PRMS controller = new PRMS();
+                string resume = ResumeUpload.PostedFile.FileName;
+                confirmation = controller.UploadResume(resume);
 
-                Msg.Text = "Successfully submitted a resume.";
+                if (confirmation)
+                {
+                    Msg.Text = "Successfully submitted a resume.";
+                }
+                else
+                {
+                    Msg.Text = "Error uploading resume. Please contact customer support for assistance.";
+                }
             }
             else
             {
-                Msg.Text = "Only .pdf and .docx files are accepted.";
+                Msg.Text = "Only .pdf and .docx resume files are accepted.";
             }
         }
     }

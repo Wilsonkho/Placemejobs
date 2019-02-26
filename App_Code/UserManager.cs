@@ -200,4 +200,46 @@ public class Manager
         return UserRole;
 
     }
+
+    public bool UploadResume(string resume)
+    {
+        bool success = false;
+
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "AddResume";
+
+        SqlParameter Resume = new SqlParameter();
+        Resume.ParameterName = "@Resume";
+        Resume.SqlDbType = SqlDbType.VarChar;
+        Resume.Direction = ParameterDirection.Input;
+        Resume.Value = resume;
+
+        cmd.Parameters.Add(Resume);
+
+        con.Open();
+
+        int rowCount = cmd.ExecuteNonQuery();
+
+        con.Close();
+
+        if (rowCount != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+
+        return success;
+
+    }
+
 }
