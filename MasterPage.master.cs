@@ -28,19 +28,24 @@ public partial class MasterPage : System.Web.UI.MasterPage
         String activepage = Request.RawUrl;
         if (activepage.Contains("Default.aspx"))
         {
-            DefaultLink.Attributes.Add("class", "active");
+            DefaultLink.Attributes.Add("class", "nav-link active");
         }
         else if (activepage.Contains("RegisterCandidate.aspx"))
         {
-            RegisterCandidateLink.Attributes.Add("class", "active");
+            RegisterCandidateLink.Attributes.Add("class", "nav-link active");
         }
         else if (activepage.Contains("AddJobPosting.aspx"))
         {
-            AddJobPostingLink.Attributes.Add("class", "active");
+            AddJobPostingLink.Attributes.Add("class", "nav-link active");
         }
         else if (activepage.Contains("CandidateManagement.aspx"))
         {
-            CandidateManagementLink.Attributes.Add("class", "active");
+            CandidateManagementLink.Attributes.Add("class", "nav-link active");
         }
+        else
+        {
+            DefaultLink.Attributes.Add("class", "nav-link active");
+        }
+
     }
 }
