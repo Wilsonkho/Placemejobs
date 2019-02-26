@@ -1,15 +1,17 @@
 ﻿<%@ Page Title="Add Job Posting" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AddJobPosting.aspx.cs" Inherits="AddJobPosting" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-         <h1>Add Job Posting</h1>
+                  <br /><br />
+            <h1 class="text-center">Add Job Posting</h1>
+         <br />
 
-     <asp:Table runat="server" ID="AddPostingTable">
+     <asp:Table runat="server" ID="AddPostingTable" HorizontalAlign="Center" CssClass="table-active">
 
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Job Posting Title:</asp:TableCell>
-                <asp:TableCell>
-                    <asp:TextBox runat="server" ID="JobPostingTitleTextBox"></asp:TextBox>                  
+                <asp:TableCell ColumnSpan="2">
+                    <asp:TextBox runat="server" ID="JobPostingTitleTextBox" Class="form-control"></asp:TextBox>                  
                     <asp:RequiredFieldValidator ID="JobPostingRequiredFieldValidator" runat="server" ErrorMessage="Job Posting Title is required"
                          ControlToValidate="JobPostingTitleTextBox" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
                 </asp:TableCell>
@@ -18,29 +20,32 @@
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Skillset:</asp:TableCell>
                 <asp:TableCell>
-                    <asp:TextBox runat="server" ID="Skillset"></asp:TextBox>
+                    <asp:DropDownList runat="server" ID="Skillset" Class="form-control"></asp:DropDownList>
+                </asp:TableCell>
+                <asp:TableCell  >
+                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-secondary" CausesValidation="false"/>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Region:</asp:TableCell>
-                <asp:TableCell>
-                    <asp:DropDownList runat="server" ID="Region"></asp:DropDownList>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:DropDownList runat="server" ID="Region" Class="form-control"></asp:DropDownList>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Description:</asp:TableCell>
-                <asp:TableCell>
-                    <asp:TextBox runat="server" ID="Description" Wrap="true"></asp:TextBox>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:TextBox runat="server" ID="Description" Wrap="true" Class="form-control"></asp:TextBox>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Submit" Text="Submit" /></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Submit" class="btn btn-secondary"/></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" /></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" class="btn btn-secondary"/></asp:TableCell>
             </asp:TableRow>
         </asp:Table>
         <br /><br />
