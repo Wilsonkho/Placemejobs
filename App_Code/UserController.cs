@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 
 
-public class PRMS
+public class Controller
 {
 
     public bool GetUser(User LoginUser)
@@ -27,16 +27,10 @@ public class PRMS
         Manager Roles = new Manager();
         return Roles.GetRoles(LoginUser);
     }
-
-    public bool UploadResume(string resume)
+    public User ViewQualifiedCandidates(int JobPostingID)
     {
-        bool success = false;
-
-        Manager userManager = new Manager();
-        success = userManager.UploadResume(resume);
-
-        return success;
+        AdministratorManager administrator = new AdministratorManager();
+        return administrator.GetQualifiedCandidates(JobPostingID);
     }
-
-
+   
 }
