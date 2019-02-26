@@ -11,6 +11,7 @@
     <script src="Scripts/bootstrap.min.js"></script>
 </head>
 <body>
+    
     <form id="form1" runat="server">
         
         
@@ -46,6 +47,6 @@
 </body>
 <div class="footer">
     <hr />
-    <p>&copy; <%: DateTime.Now.Year %> - Placemejobs Recruitment Management System wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+    <p>&copy; <%: DateTime.Now.Year %> - Placemejobs Recruitment Management System </p>
 </div>
 </html>

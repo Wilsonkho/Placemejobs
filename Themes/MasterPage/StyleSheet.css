@@ -11,6 +11,7 @@
     body {
         margin: 0 0 20rem 0;
         padding-bottom: 5rem;
+        
     }
 
     .footer {
@@ -30,4 +31,26 @@
 }
 
 @media (min-width:1024px) {
+     .Main {
+        margin: 3rem 15rem 0 15rem;
+        
+        
+    }
 }
+
+.table-active>tbody{
+    background-color:lightblue;
+    border:dashed;
+    padding
+}
+
+.table-active>tbody>tr>td{
+    padding: 0 1rem 1.5rem 0;
+    background-color:transparent;
+    border-radius: 1rem;
+}
+ .table-active>thead>tr>td{
+     padding-top:30px;
+ }
+    
+
