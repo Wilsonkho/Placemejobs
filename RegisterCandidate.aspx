@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="Register Candidate" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="RegisterCandidate.aspx.cs" Inherits="RegisterCandidate" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-         <h1>Register Candidate</h1><br /><br /><br />
-
+         <br /><br />
+            <h1 class="text-center">Register Candidate</h1>
+         <br />
      <asp:Table runat="server" ID="RegisterCandidateTable" HorizontalAlign="Center" Class="table-active">
 
 
@@ -30,11 +31,18 @@
             </asp:TableRow>
 
             <asp:TableRow >
-                <asp:TableCell ColumnSpan="3">
+                <asp:TableCell HorizontalAlign="Right">Resume:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
                     <asp:FileUpload runat="server" ID="ResumeUpload" />
                 </asp:TableCell>
             </asp:TableRow>
-         
+
+            <asp:TableRow >
+                <asp:TableCell HorizontalAlign="Right">Cover Letter:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:FileUpload runat="server" ID="CoverLetterUpload" />
+                </asp:TableCell>
+            </asp:TableRow>
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Profession:</asp:TableCell>
@@ -49,7 +57,7 @@
                     <asp:DropDownList runat="server" ID="Skillset" Wrap="true" Class="form-control"></asp:DropDownList>
                 </asp:TableCell>
                 <asp:TableCell  >
-                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-primary"/>
+                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-secondary" CausesValidation="false"/>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -62,10 +70,10 @@
 
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Submit Candidate" OnClick="Submit_Click" Class="btn btn-primary"/></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Submit Candidate" OnClick="Submit_Click" Class="btn btn-secondary"/></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" Class="btn btn-primary"/></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" Class="btn btn-secondary"/></asp:TableCell>
             </asp:TableRow>
         </asp:Table>
         <asp:Label runat="server" ID="Msg" />

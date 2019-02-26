@@ -22,12 +22,20 @@
 }
 
 @media (min-width:480px) {
+    
+        
 }
 
 @media (min-width:640px) {
+    .Main {
+        margin: 3rem 15rem 0 15rem;
+        
 }
 
 @media (min-width:768px) {
+    .Main {
+        margin: 3rem 15rem 0 15rem;
+        
 }
 
 @media (min-width:1024px) {
@@ -39,18 +47,18 @@
 }
 
 .table-active>tbody{
-    background-color:lightblue;
-    border:dashed;
-    padding
+    background-color:#d8e7f6;
 }
 
 .table-active>tbody>tr>td{
-    padding: 0 1rem 1.5rem 0;
+    padding: 1rem 1rem 1rem 1rem;
     background-color:transparent;
     border-radius: 1rem;
 }
  .table-active>thead>tr>td{
      padding-top:30px;
  }
+
+
     
 
