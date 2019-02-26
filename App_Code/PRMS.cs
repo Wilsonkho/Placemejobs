@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 
 
-public class Controller
+public class PRMS
 {
 
     public bool GetUser(User LoginUser)
