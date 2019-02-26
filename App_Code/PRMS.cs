@@ -28,5 +28,15 @@ public class PRMS
         return Roles.GetRoles(LoginUser);
     }
 
-   
+    public bool UploadResume(string resume)
+    {
+        bool success = false;
+
+        Manager userManager = new Manager();
+        success = userManager.UploadResume(resume);
+
+        return success;
+    }
+
+
 }

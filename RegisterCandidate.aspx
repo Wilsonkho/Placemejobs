@@ -31,11 +31,18 @@
             </asp:TableRow>
 
             <asp:TableRow >
-                <asp:TableCell ColumnSpan="3">
+                <asp:TableCell HorizontalAlign="Right">Resume:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
                     <asp:FileUpload runat="server" ID="ResumeUpload" />
                 </asp:TableCell>
             </asp:TableRow>
-         
+
+            <asp:TableRow >
+                <asp:TableCell HorizontalAlign="Right">Cover Letter:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:FileUpload runat="server" ID="CoverLetterUpload" />
+                </asp:TableCell>
+            </asp:TableRow>
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Profession:</asp:TableCell>
