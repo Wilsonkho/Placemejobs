@@ -2,7 +2,7 @@ CREATE DATABASE Placemejobs
 
 CREATE TABLE Users (
 	UserID INT IDENTITY (1,1) PRIMARY KEY,
-	Email VARCHAR(100),
+	Email VARCHAR(100) UNIQUE,
 	Phone VARCHAR(10) NULL,
 	FirstName VARCHAR(15),
 	LastName VARCHAR(15),
@@ -12,6 +12,8 @@ CREATE TABLE Users (
 	ActiveInactive BIT NULL,
 	Roles VARCHAR (10) NOT NULL
 	)
+
+
 
 CREATE TABLE Region (
 	RegionID INT IDENTITY (1,1) PRIMARY KEY,
@@ -100,9 +102,9 @@ CREATE PROCEDURE GetAllSkillsets
 		SELECT [Description]
 		FROM Skillset
 
-CREATE PROCEDURE JobMatch @JobID INT
+ALTER PROCEDURE JobMatch @JobID INT
 	AS 
-		SELECT DISTINCT Users.UserID, (FirstName + LastName) AS NAME, Phone, [Resume]
+		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS NAME, Phone, Email, CoverLetter ,[Resume] 
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
 					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
 					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
@@ -135,7 +137,7 @@ CREATE PROCEDURE MatchRegion @JobID INT, @RegionID INT
 
 CREATE PROCEDURE MatchSkillset @JobID INT, @SkillsetID INT 
 	AS 
-		SELECT DISTINCT Users.UserID, (FirstName + LastName) AS Name, Phone, [Resume]
+		SELECT DISTINCT Users.UserID, (FirstName + ' ' + LastName) AS Name, Phone, Email,[Resume]
 		FROM Users	INNER JOIN UserSkillset ON Users.UserID=UserSkillset.UserID
 					INNER JOIN Skillset ON UserSkillset.SkillsetID=Skillset.SkillsetID
 					INNER JOIN JobPostingSKillSet ON Skillset.SkillsetID=JobPostingSKillSet.SkillsetID
