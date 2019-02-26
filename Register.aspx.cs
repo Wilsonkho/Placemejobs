@@ -21,6 +21,7 @@ public partial class Register : System.Web.UI.Page
         NewUser.LastName = LastNameBox.Text;
 
         PRMS Control = new PRMS();
+
         if (Control.AddUser(NewUser))
         {
             Confirmation.Text = "User account created. ";
