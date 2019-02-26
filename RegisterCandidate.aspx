@@ -47,7 +47,7 @@
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Profession:</asp:TableCell>
                 <asp:TableCell  ColumnSpan="2">
-                    <asp:TextBox runat="server" ID="Profession" Wrap="true" Class="form-control"></asp:TextBox>
+                    <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control"></asp:DropDownList>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -64,7 +64,7 @@
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Region:</asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:TextBox runat="server" ID="Region" Wrap="true" Class="form-control"></asp:TextBox>
+                    <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control"></asp:DropDownList>
                 </asp:TableCell>
             </asp:TableRow>
 
