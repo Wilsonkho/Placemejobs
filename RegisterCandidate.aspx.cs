@@ -76,7 +76,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
                     di.Delete(true);
                 }
 
-                ResumeUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + ResumeUpload.FileName));
+                CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
             }
             else
             {
