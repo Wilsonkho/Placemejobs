@@ -144,6 +144,77 @@ CREATE PROCEDURE MatchSkillset @JobID INT, @SkillsetID INT
 		WHERE JobPosting.JobPostingID=@JobID AND Skillset.SkillsetID=@SkillsetID
 
 
+-- Upload Resume and Cover Letter
+CREATE PROCEDURE AddResume(
+    @Resume VARCHAR(100) = NULL
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    BEGIN
+        INSERT INTO Users
+        (
+            Resume
+        )
+        VALUES
+        (
+            @Resume
+        )
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('AddResume Error: Insert error.',16,1)
+    RETURN @ReturnCode
+
+CREATE PROCEDURE AddCoverLetter(
+    @CoverLetter VARCHAR(100) = NULL
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    BEGIN
+        INSERT INTO Users
+        (
+            CoverLetter
+        )
+        VALUES
+        (
+            @CoverLetter
+        )
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('AddCoverLetter Error: Insert error.',16,1)
+    RETURN @ReturnCode
+
+-- Get Resume and Cover Letter
+CREATE PROCEDURE GetCV(
+    @UserID INT = NULL
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    IF @UserID IS NULL
+        RAISERROR('GetCV Error: All parameters required @UserID.',16,1)
+    ELSE
+    BEGIN
+        SELECT Resume, CoverLetter
+        FROM Users
+        WHERE UserID = @UserID
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('GetCV Error: Select error.',16,1)
+    RETURN @ReturnCode
+
+
+
 
 /*** View All Tables and Table Entries***/
 DECLARE @sqlText VARCHAR(MAX)

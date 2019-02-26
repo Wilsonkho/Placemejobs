@@ -32,5 +32,10 @@ public class Controller
         AdministratorManager administrator = new AdministratorManager();
         return administrator.GetQualifiedCandidates(JobPostingID);
     }
-   
+   public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
+    {
+        AdministratorManager administrator = new AdministratorManager();
+        return administrator.AssignCandidateJobPosting(userid, jobpostingid, status);
+
+    }
 }
