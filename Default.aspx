@@ -75,7 +75,7 @@
         provided with right opportunity they can perform their best to take organization to elevated heights. Our team is continuously in touch with the prospective 
         Employers and job aspirants to provide the best solutions which can meet both side requirements.</p>
     <p class="lead">Candidates / working professionals are encouraged to send their CVs/ resumes to CV@placemejob.com to move forward on their career path. 
-        We belive that career building is a continuous process for each person and we provide career solutions to all job aspirants. Every CV is considered 
+        We believe that career building is a continuous process for each person and we provide career solutions to all job aspirants. Every CV is considered 
         seriously and based on the availability of suitable openings, it is positioned to prospective employer for hirings. If you are a corporate employer 
         please get in touch with us and we shall be more than happy to assist you to meet your requirements.</p>
 

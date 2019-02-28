@@ -102,7 +102,11 @@ CREATE PROCEDURE GetAllSkillsets
 
 ALTER PROCEDURE JobMatch @JobID INT
 	AS 
+<<<<<<< HEAD
 		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS NAME, Phone, Email, CoverLetter ,[Resume] 
+=======
+		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
+>>>>>>> 8c8705653407c8c8ff88207217b183e4c5284bd4
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
 					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
 					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
@@ -143,6 +147,77 @@ CREATE PROCEDURE MatchSkillset @JobID INT, @SkillsetID INT
 		WHERE JobPosting.JobPostingID=@JobID AND Skillset.SkillsetID=@SkillsetID
 
 
+-- Upload Resume and Cover Letter
+CREATE PROCEDURE AddResume(
+    @Resume VARCHAR(100) = NULL
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    BEGIN
+        INSERT INTO Users
+        (
+            Resume
+        )
+        VALUES
+        (
+            @Resume
+        )
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('AddResume Error: Insert error.',16,1)
+    RETURN @ReturnCode
+
+CREATE PROCEDURE AddCoverLetter(
+    @CoverLetter VARCHAR(100) = NULL
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    BEGIN
+        INSERT INTO Users
+        (
+            CoverLetter
+        )
+        VALUES
+        (
+            @CoverLetter
+        )
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('AddCoverLetter Error: Insert error.',16,1)
+    RETURN @ReturnCode
+
+-- Get Resume and Cover Letter
+CREATE PROCEDURE GetCV(
+    @UserID INT = NULL
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    IF @UserID IS NULL
+        RAISERROR('GetCV Error: All parameters required @UserID.',16,1)
+    ELSE
+    BEGIN
+        SELECT Resume, CoverLetter
+        FROM Users
+        WHERE UserID = @UserID
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('GetCV Error: Select error.',16,1)
+    RETURN @ReturnCode
+
+
+
 
 /*** View All Tables and Table Entries***/
 DECLARE @sqlText VARCHAR(MAX)
@@ -157,3 +232,8 @@ UPDATE Userskillset SET SkillsetID='5' WHERE UserID='2' AND SkillsetID='3'
 UPDATE UserRegion SET RegionID='4' WHERE UserID='2' AND RegionID='1'
 UPDATE UserProfession SET ProfessionID='5' WHERE UserID='2'
 EXEC JobMatch '4'
+
+Alter PROCEDURE GetAllCandidates
+	AS
+		SELECT FirstName, LastName, Email, Phone, Resume, CoverLetter
+		FROM Users
