@@ -10,7 +10,13 @@ public partial class RegisterCandidate : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        PRMS controller = new PRMS();
+        Profession.DataSource = controller.GetProfessions();
+        Profession.DataTextField = "Description";
+        Profession.DataValueField = "ProfessionID";
+        Profession.DataBind();
+        //controller.GetSkillsets();
+        //controller.GetRegions();
     }
 
     protected void Submit_Click(object sender, EventArgs e)
@@ -84,5 +90,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
             }
         }
     }
+
+
 
 }

@@ -7,14 +7,7 @@
      <asp:Table runat="server" ID="RegisterCandidateTable" HorizontalAlign="Center" Class="table-active">
 
 
-            <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right">Email:</asp:TableCell>
-                <asp:TableCell ColumnSpan="2">
-                    <asp:TextBox runat="server" ID="EmailTextBox" Class="form-control"></asp:TextBox>                  
-                    <asp:RequiredFieldValidator ID="EmailRequiredFieldValidator" runat="server" ErrorMessage="Email is required"
-                         ControlToValidate="EmailTextBox" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
-                </asp:TableCell>
-            </asp:TableRow>
+
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right" >First Name:</asp:TableCell>
@@ -27,6 +20,15 @@
                 <asp:TableCell HorizontalAlign="Right">Last Name:</asp:TableCell>
                 <asp:TableCell  ColumnSpan="2">
                     <asp:TextBox runat="server" ID="LastName" Class="form-control"></asp:TextBox>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell HorizontalAlign="Right">Email:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:TextBox runat="server" ID="EmailTextBox" Class="form-control"></asp:TextBox>                  
+                    <asp:RequiredFieldValidator ID="EmailRequiredFieldValidator" runat="server" ErrorMessage="Email is required"
+                         ControlToValidate="EmailTextBox" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -46,8 +48,11 @@
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Profession:</asp:TableCell>
-                <asp:TableCell  ColumnSpan="2">
+                <asp:TableCell>
                     <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control"></asp:DropDownList>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button runat="server" ID="AddProfession" Text="Add" Class="btn btn-secondary" CausesValidation="false"/>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -63,8 +68,11 @@
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Region:</asp:TableCell>
-                <asp:TableCell ColumnSpan="2">
+                <asp:TableCell>
                     <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control"></asp:DropDownList>
+                </asp:TableCell>
+                <asp:TableCell  >
+                    <asp:Button runat="server" ID="AddRegion" Text="Add" Class="btn btn-secondary" CausesValidation="false"/>
                 </asp:TableCell>
             </asp:TableRow>
 
