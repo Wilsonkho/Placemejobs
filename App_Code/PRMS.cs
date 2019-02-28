@@ -58,4 +58,34 @@ public class PRMS
         return userID;
     }
 
+    public Profession[] GetProfessions()
+    {
+        Profession[] professions;
+
+        Professions professionManager = new Professions();
+        professions = professionManager.GetProfessions();
+
+        return professions;
+    }
+
+    public Skillset[] GetSkillsets()
+    {
+        Skillset[] skillsets;
+
+        Skillsets skillsetManager = new Skillsets();
+        skillsets = skillsetManager.GetSkillsets();
+
+        return skillsets;
+    }
+
+    public Region[] GetRegions()
+    {
+        Region[] regions;
+
+        Regions regionManager = new Regions();
+        regions = regionManager.GetRegions();
+
+        return regions;
+    }
+
 }

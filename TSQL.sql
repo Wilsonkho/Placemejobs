@@ -6,13 +6,12 @@ CREATE TABLE Users (
 	Phone VARCHAR(10) NULL,
 	FirstName VARCHAR(15),
 	LastName VARCHAR(15),
-	[Resume] VARCHAR(100) NULL,
-	CoverLetter VARCHAR(100) NULL,
+	[Resume] VARBINARY(MAX) NULL,
+	CoverLetter VARBINARY(MAX) NULL,
 	[Password] VARCHAR(100) NULL,
 	ActiveInactive BIT NULL,
 	Roles VARCHAR (10) NOT NULL
 	)
-
 
 CREATE TABLE Region (
 	RegionID INT IDENTITY (1,1) PRIMARY KEY,
@@ -103,7 +102,11 @@ CREATE PROCEDURE GetAllSkillsets
 
 ALTER PROCEDURE JobMatch @JobID INT
 	AS 
-		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS Name, Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
+<<<<<<< HEAD
+		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS NAME, Phone, Email, CoverLetter ,[Resume] 
+=======
+		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
+>>>>>>> 8c8705653407c8c8ff88207217b183e4c5284bd4
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
 					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
 					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
@@ -229,3 +232,8 @@ UPDATE Userskillset SET SkillsetID='5' WHERE UserID='2' AND SkillsetID='3'
 UPDATE UserRegion SET RegionID='4' WHERE UserID='2' AND RegionID='1'
 UPDATE UserProfession SET ProfessionID='5' WHERE UserID='2'
 EXEC JobMatch '4'
+
+Alter PROCEDURE GetAllCandidates
+	AS
+		SELECT FirstName, LastName, Email, Phone, Resume, CoverLetter
+		FROM Users
