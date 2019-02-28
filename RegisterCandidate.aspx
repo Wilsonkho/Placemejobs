@@ -46,33 +46,53 @@
                 </asp:TableCell>
             </asp:TableRow>
 
-            <asp:TableRow>
+            <asp:TableRow ID="ProfessionRow" runat="server">
                 <asp:TableCell HorizontalAlign="Right">Profession:</asp:TableCell>
                 <asp:TableCell>
-                    <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control" AppendDataBoundItems="true">
+                    </asp:DropDownList>
                 </asp:TableCell>
                 <asp:TableCell>
-                    <asp:Button runat="server" ID="AddProfession" Text="Add" Class="btn btn-secondary" CausesValidation="false"/>
+                    <asp:Button runat="server" ID="AddProfession" Text="Add" Class="btn btn-secondary" CausesValidation="false" OnClick="AddProfession_Click"/>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
+                <asp:TableCell ColumnSpan="3">
+                    <asp:Label ID="professionsLabel" runat="server">Professions: </asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow ID="SkillsetRow" runat="server">
                 <asp:TableCell HorizontalAlign="Right">Skillset:</asp:TableCell>
                 <asp:TableCell >
-                    <asp:DropDownList runat="server" ID="Skillset" Wrap="true" Class="form-control"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="Skillset" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
                 <asp:TableCell  >
-                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-secondary" CausesValidation="false"/>
+                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-secondary" CausesValidation="false" OnClick="AddSkill_Click" PostBackUrl/>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
+                <asp:TableCell ColumnSpan="3">
+                    <asp:Label ID="skillsetsLabel" runat="server">Skills: </asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow ID="RegionRow" runat="server">
                 <asp:TableCell HorizontalAlign="Right">Region:</asp:TableCell>
                 <asp:TableCell>
-                    <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
                 <asp:TableCell  >
-                    <asp:Button runat="server" ID="AddRegion" Text="Add" Class="btn btn-secondary" CausesValidation="false"/>
+                    <asp:Button runat="server" ID="AddRegion" Text="Add" Class="btn btn-secondary" CausesValidation="false" OnClick="AddRegion_Click"/>
+                </asp:TableCell>
+            </asp:TableRow>
+
+
+            <asp:TableRow>
+                <asp:TableCell ColumnSpan="3">
+                    <asp:Label ID="regionsLabel" runat="server">Regions: </asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 

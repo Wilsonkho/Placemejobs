@@ -62,30 +62,30 @@ public class PRMS
     {
         Profession[] professions;
 
-        Professions manager = new Professions();
-        professions = manager.GetProfessions();
+        Professions professionManager = new Professions();
+        professions = professionManager.GetProfessions();
 
         return professions;
     }
 
-    public Profession[] GetSkillsets()
+    public Skillset[] GetSkillsets()
     {
-        Profession[] professions;
+        Skillset[] skillsets;
 
-        Professions manager = new Professions();
-        professions = manager.GetProfessions();
+        Skillsets skillsetManager = new Skillsets();
+        skillsets = skillsetManager.GetSkillsets();
 
-        return professions;
+        return skillsets;
     }
 
-    public Profession[] GetRegions()
+    public Region[] GetRegions()
     {
-        Profession[] professions;
+        Region[] regions;
 
-        Professions manager = new Professions();
-        professions = manager.GetProfessions();
+        Regions regionManager = new Regions();
+        regions = regionManager.GetRegions();
 
-        return professions;
+        return regions;
     }
 
 }

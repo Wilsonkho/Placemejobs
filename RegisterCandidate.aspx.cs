@@ -8,15 +8,26 @@ using System.Web.UI.WebControls;
 
 public partial class RegisterCandidate : System.Web.UI.Page
 {
+    List<Profession> professions;
+    List<Skillset> skillsets;
+    List<Region> regions;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        PRMS controller = new PRMS();
-        Profession.DataSource = controller.GetProfessions();
-        Profession.DataTextField = "Description";
-        Profession.DataValueField = "ProfessionID";
-        Profession.DataBind();
-        //controller.GetSkillsets();
-        //controller.GetRegions();
+
+        if (!IsPostBack)
+        {
+            BindDropDowns();
+            professionsLabel.Visible = false;
+            skillsetsLabel.Visible = false;
+            regionsLabel.Visible = false;
+
+            professions = new List<Profession>();
+            skillsets = new List<Skillset>();
+            regions = new List<Region>();
+        }
+
+        
     }
 
     protected void Submit_Click(object sender, EventArgs e)
@@ -92,5 +103,55 @@ public partial class RegisterCandidate : System.Web.UI.Page
     }
 
 
+    protected void BindDropDowns()
+    {
+        PRMS controller = new PRMS();
 
+        Profession.DataSource = controller.GetProfessions();
+        Profession.DataTextField = "Description";
+        Profession.DataValueField = "ProfessionID";
+        Profession.Items.Insert(0, new ListItem("Select Profession...", "0"));
+        Profession.DataBind();
+
+        Skillset.DataSource = controller.GetSkillsets();
+        Skillset.DataTextField = "Description";
+        Skillset.DataValueField = "SkillsetID";
+        Skillset.Items.Insert(0, new ListItem("Select Skillset...", "0"));
+        Skillset.DataBind();
+
+        Region.DataSource = controller.GetRegions();
+        Region.DataTextField = "Description";
+        Region.DataValueField = "RegionID";
+        Region.Items.Insert(0, new ListItem("Select Region...", "0"));
+        Region.DataBind();
+
+
+    }
+
+    protected void AddProfession_Click(object sender, EventArgs e)
+    {
+        Profession newProfession = new Profession();
+
+        newProfession.ProfessionID = int.Parse(Profession.SelectedValue);
+        newProfession.Description = Profession.SelectedItem.ToString();
+
+        professions.Add(newProfession);
+
+        professionsLabel.Visible = true;
+        professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
+
+        
+    }
+
+    protected void AddSkill_Click(object sender, EventArgs e)
+    {
+        skillsetsLabel.Visible = true;
+        skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+    }
+
+    protected void AddRegion_Click(object sender, EventArgs e)
+    {
+        regionsLabel.Visible = true;
+        regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+    }
 }

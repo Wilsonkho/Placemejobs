@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-/// <summary>
-/// Summary description for Profession
-/// </summary>
+﻿
 public class Profession
 {
     private int _professionID;
