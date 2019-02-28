@@ -6,13 +6,12 @@ CREATE TABLE Users (
 	Phone VARCHAR(10) NULL,
 	FirstName VARCHAR(15),
 	LastName VARCHAR(15),
-	[Resume] VARCHAR(100) NULL,
-	CoverLetter VARCHAR(100) NULL,
+	[Resume] VARBINARY(MAX) NULL,
+	CoverLetter VARBINARY(MAX) NULL,
 	[Password] VARCHAR(100) NULL,
 	ActiveInactive BIT NULL,
 	Roles VARCHAR (10) NOT NULL
 	)
-
 
 CREATE TABLE Region (
 	RegionID INT IDENTITY (1,1) PRIMARY KEY,
@@ -103,7 +102,7 @@ CREATE PROCEDURE GetAllSkillsets
 
 ALTER PROCEDURE JobMatch @JobID INT
 	AS 
-		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS Name, Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
+		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS NAME, Phone, Email, CoverLetter ,[Resume] 
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
 					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
 					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
