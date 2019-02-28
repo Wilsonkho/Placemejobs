@@ -103,7 +103,7 @@ CREATE PROCEDURE GetAllSkillsets
 
 ALTER PROCEDURE JobMatch @JobID INT
 	AS 
-		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS Name, Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
+		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
 					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
 					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
@@ -229,3 +229,8 @@ UPDATE Userskillset SET SkillsetID='5' WHERE UserID='2' AND SkillsetID='3'
 UPDATE UserRegion SET RegionID='4' WHERE UserID='2' AND RegionID='1'
 UPDATE UserProfession SET ProfessionID='5' WHERE UserID='2'
 EXEC JobMatch '4'
+
+Alter PROCEDURE GetAllCandidates
+	AS
+		SELECT FirstName, LastName, Email, Phone, Resume, CoverLetter
+		FROM Users
