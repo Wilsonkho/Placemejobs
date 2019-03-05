@@ -36,75 +36,154 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        bool success = false;
-        User newCandidate = new User();
-        newCandidate.UserEmail = (EmailTextBox.Text == "") ? null : EmailTextBox.Text;
-        newCandidate.FirstName = FirstName.Text;
-        newCandidate.LastName = LastName.Text;
-        newCandidate.Phone = Phone.Text;
-        newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
-        newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
+        List<int> list;
+        bool dropdownsChecked = true;
+        list = (List<int>)Session["professions"];
+        if (list == null)
+        {
+            dropdownsChecked = false;
+        }
+        list = (List<int>)Session["skills"];
+        if (list == null)
+        {
+            dropdownsChecked = false;
+        }
+        list = (List<int>)Session["regions"];
+        if (list == null)
+        {
+            dropdownsChecked = false;
+        }
 
-        PRMS controller = new PRMS();
-        success = controller.AddCandidate(newCandidate);
-
-
-        int userID;
-
-        userID = controller.GetUserIDByEmail(EmailTextBox.Text);
-
-        if (ResumeUpload.HasFile)
+        if (dropdownsChecked)
         {
 
-            string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
+            bool success = false;
+            User newCandidate = new User();
+            newCandidate.UserEmail = EmailTextBox.Text;
+            newCandidate.FirstName = FirstName.Text;
+            newCandidate.LastName = LastName.Text;
+            newCandidate.Phone = Phone.Text;
+            newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
+            newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : CoverLetterUpload.PostedFile.FileName;
 
-            if (fileExtension == ".pdf" || fileExtension == ".docx")
+            PRMS controller = new PRMS();
+
+           
+
+            #region add user
+            success = controller.AddCandidate(newCandidate);
+
+            if (success)
             {
-                Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/Resume/"));
-
-                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/Resume/"));
-                foreach (FileInfo file in directory.GetFiles())
+                try
                 {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo di in directory.GetDirectories())
-                {
-                    di.Delete(true);
-                }
+                    int userID;
+                    userID = controller.GetUserIDByEmail(EmailTextBox.Text);
 
-                ResumeUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "Resume/" + ResumeUpload.FileName));
+                    if (ResumeUpload.HasFile)
+                    {
+
+                        string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
+
+                        if (fileExtension == ".pdf" || fileExtension == ".docx")
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/Resume/"));
+
+                            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/Resume/"));
+                            foreach (FileInfo file in directory.GetFiles())
+                            {
+                                file.Delete();
+                            }
+                            foreach (DirectoryInfo di in directory.GetDirectories())
+                            {
+                                di.Delete(true);
+                            }
+
+                            ResumeUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "Resume/" + ResumeUpload.FileName));
+                        }
+                        else
+                        {
+                            Msg.Text = "Only .pdf and .docx resume files are accepted.";
+                        }
+                    }
+                    if (CoverLetterUpload.HasFile)
+                    {
+
+                        string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
+
+                        if (fileExtension == ".pdf" || fileExtension == ".docx")
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
+
+                            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
+                            foreach (FileInfo file in directory.GetFiles())
+                            {
+                                file.Delete();
+                            }
+                            foreach (DirectoryInfo di in directory.GetDirectories())
+                            {
+                                di.Delete(true);
+                            }
+
+                            CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
+                        }
+                        else
+                        {
+                            Msg.Text = "Only .pdf and .docx cover letter files are accepted.";
+                        }
+                    }
+                    //Set color to green
+                    Results.Text = "Candidate was added";
+
+                    #region add professions
+                    int newUserID;
+                    newUserID = controller.GetUserIDByEmail(EmailTextBox.Text);
+
+                    List<int> professions = (List<int>)Session["professions"];
+                    foreach (int profession in professions)
+                    {
+                        controller.AddUserProfessions(newUserID, profession);
+                    }
+
+                    #endregion
+
+                    #region add skills
+                    List<int> skills = (List<int>)Session["skills"];
+                    foreach (int skill in skills)
+                    {
+                        controller.AddUserSkills(newUserID, skill);
+                    }
+
+                    #endregion
+                    #region add regions
+                    List<int> regions = (List<int>)Session["regions"];
+                    foreach (int region in regions)
+                    {
+                        controller.AddUserProfessions(newUserID, region);
+                    }
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    Results.Text = ex.ToString();
+                }
             }
-            else
+            else //if(success)
             {
-                Msg.Text = "Only .pdf and .docx resume files are accepted.";
+                Results.Text = "Candidate was not added";
             }
+            #endregion
+
+            
         }
-        if (CoverLetterUpload.HasFile)
+        else //if(dropdownsChecked)
         {
-
-            string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
-
-            if (fileExtension == ".pdf" || fileExtension == ".docx")
-            {
-                Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
-
-                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
-                foreach (FileInfo file in directory.GetFiles())
-                {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo di in directory.GetDirectories())
-                {
-                    di.Delete(true);
-                }
-
-                CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
-            }
-            else
-            {
-                Msg.Text = "Only .pdf and .docx cover letter files are accepted.";
-            }
+            Results.Text = "Candidate must have at least one profession, skill, and region added.";
         }
+    
+
+
+        
     }
 
 

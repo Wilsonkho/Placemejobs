@@ -49,4 +49,56 @@ public class Skillsets
 
 
     }
+
+    public bool AddUserSkill(int userID, int skillID)
+    {
+        bool Success;
+
+        SqlConnection PlacemeJobsConnection;
+        PlacemeJobsConnection = new SqlConnection();
+        PlacemeJobsConnection.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddUserSkillsetCommand;
+        AddUserSkillsetCommand = new SqlCommand();
+        AddUserSkillsetCommand.CommandType = CommandType.StoredProcedure;
+        AddUserSkillsetCommand.Connection = PlacemeJobsConnection;
+        AddUserSkillsetCommand.CommandText = "AddUserSkillset";
+
+        SqlParameter UserID;
+        UserID = new SqlParameter();
+        UserID.ParameterName = "@UserID";
+        UserID.SqlDbType = SqlDbType.Int;
+        UserID.Direction = ParameterDirection.Input;
+        UserID.Value = userID;
+
+        SqlParameter SkillID;
+        SkillID = new SqlParameter();
+        SkillID.ParameterName = "@SkillID";
+        SkillID.SqlDbType = SqlDbType.Int;
+        SkillID.Direction = ParameterDirection.Input;
+        SkillID.Value = skillID;
+
+        SqlParameter ReturnParameter;
+        ReturnParameter = new SqlParameter();
+        ReturnParameter.ParameterName = "ReturnValue";
+        ReturnParameter.Direction = ParameterDirection.ReturnValue;
+
+        AddUserSkillsetCommand.Parameters.Add(UserID);
+        AddUserSkillsetCommand.Parameters.Add(SkillID);
+        AddUserSkillsetCommand.Parameters.Add(ReturnParameter);
+
+        PlacemeJobsConnection.Open();
+
+
+        AddUserSkillsetCommand.ExecuteNonQuery();
+        if ((int)AddUserSkillsetCommand.Parameters["ReturnValue"].Value == 0)
+        {
+            Success = true;
+        }
+        else
+        {
+            Success = false;
+        }
+        return Success;
+    }
 }

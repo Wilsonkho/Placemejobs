@@ -46,4 +46,57 @@ public class Regions
 
 
     }
+
+
+    public bool AddUserRegion(int userID, int regionID)
+    {
+        bool Success;
+
+        SqlConnection PlacemeJobsConnection;
+        PlacemeJobsConnection = new SqlConnection();
+        PlacemeJobsConnection.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddUserRegionCommand;
+        AddUserRegionCommand = new SqlCommand();
+        AddUserRegionCommand.CommandType = CommandType.StoredProcedure;
+        AddUserRegionCommand.Connection = PlacemeJobsConnection;
+        AddUserRegionCommand.CommandText = "AddUserRegion";
+
+        SqlParameter UserID;
+        UserID = new SqlParameter();
+        UserID.ParameterName = "@UserID";
+        UserID.SqlDbType = SqlDbType.Int;
+        UserID.Direction = ParameterDirection.Input;
+        UserID.Value = userID;
+
+        SqlParameter RegionID;
+        RegionID = new SqlParameter();
+        RegionID.ParameterName = "@RegionID";
+        RegionID.SqlDbType = SqlDbType.Int;
+        RegionID.Direction = ParameterDirection.Input;
+        RegionID.Value = regionID;
+
+        SqlParameter ReturnParameter;
+        ReturnParameter = new SqlParameter();
+        ReturnParameter.ParameterName = "ReturnValue";
+        ReturnParameter.Direction = ParameterDirection.ReturnValue;
+
+        AddUserRegionCommand.Parameters.Add(UserID);
+        AddUserRegionCommand.Parameters.Add(RegionID);
+        AddUserRegionCommand.Parameters.Add(ReturnParameter);
+
+        PlacemeJobsConnection.Open();
+
+
+        AddUserRegionCommand.ExecuteNonQuery();
+        if ((int)AddUserRegionCommand.Parameters["ReturnValue"].Value == 0)
+        {
+            Success = true;
+        }
+        else
+        {
+            Success = false;
+        }
+        return Success;
+    }
 }
