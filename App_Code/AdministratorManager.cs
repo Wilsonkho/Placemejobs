@@ -18,9 +18,9 @@ public class AdministratorManager
        
     }
 
-    public User GetQualifiedCandidates(int JobPostingID)
+    public List<User> GetQualifiedCandidates(int JobPostingID)
     {
-        User QualifiedCandidates = new User();
+        List<User> qualifiedCandidates = new List<User>();
 
         SqlConnection con;
         con = new SqlConnection();
@@ -51,21 +51,24 @@ public class AdministratorManager
         //double textvalue = Convert.ToDouble(unitprice.Text.ToString());
         while (QualifiedCandidatesReader.Read())
         {
-            QualifiedCandidates.FirstName = QualifiedCandidatesReader["Name"].ToString();
-            QualifiedCandidates.LastName = QualifiedCandidatesReader["Name"].ToString();
-            QualifiedCandidates.Phone = QualifiedCandidatesReader["Phone"].ToString();
-            QualifiedCandidates.UserEmail = QualifiedCandidatesReader["Email"].ToString();
-            QualifiedCandidates.Profession = QualifiedCandidatesReader["Profession"].ToString();
-            QualifiedCandidates.Region = QualifiedCandidatesReader["Region"].ToString();
-            QualifiedCandidates.CoverLetter = QualifiedCandidatesReader["CoverLetter"].ToString();
-            QualifiedCandidates.Resume = QualifiedCandidatesReader["Resume"].ToString();
-           
-            
+            User aCandidate = new User();
+
+            aCandidate.UserID = Convert.ToInt32(QualifiedCandidatesReader["UserID"]);
+            aCandidate.FirstName = QualifiedCandidatesReader["FirstName"].ToString();
+            aCandidate.LastName = QualifiedCandidatesReader["LastName"].ToString();
+            aCandidate.Phone = QualifiedCandidatesReader["Phone"].ToString();
+            aCandidate.UserEmail = QualifiedCandidatesReader["Email"].ToString();
+            aCandidate.Profession = QualifiedCandidatesReader["Profession"].ToString();
+            aCandidate.Region = QualifiedCandidatesReader["Region"].ToString();
+            aCandidate.CoverLetter = QualifiedCandidatesReader["CoverLetter"].ToString();
+            aCandidate.Resume = QualifiedCandidatesReader["Resume"].ToString();
+
+            qualifiedCandidates.Add(aCandidate);
         }
-        return QualifiedCandidates;
-        QualifiedCandidatesReader.Close();
-        con.Close();
         
+        con.Close();
+        return qualifiedCandidates;
+
     }
 
     public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)

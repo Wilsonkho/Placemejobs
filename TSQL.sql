@@ -92,7 +92,7 @@ CREATE PROCEDURE GetRoles @Email VARCHAR(100)
 /*** Job Search Procedures***/
 CREATE PROCEDURE GetAllJobPostings 
 	AS 
-		SELECT CompanyName,[Description]
+		SELECT JobPostingID,CompanyName,[Description]
 		FROM JobPosting
 
 CREATE PROCEDURE GetAllSkillsets
@@ -118,7 +118,9 @@ ALTER PROCEDURE JobMatch @JobID INT
 					AND JobPosting.JobPostingID=JobPostingSKillSet.JobPostingID
 					AND JobPosting.RegionID=UserRegion.RegionID
 		WHERE JobPosting.JobPostingID=@JobID
-
+--EXEC JobMatch 4
+-- SELECT * FROM JobPosting
+-- SELECT * FROM Users
 
 
 CREATE PROCEDURE MatchProfession @JobID INT, @ProfessionID INT

@@ -27,15 +27,15 @@ public class Controller
         Manager Roles = new Manager();
         return Roles.GetRoles(LoginUser);
     }
-    public User ViewQualifiedCandidates(int JobPostingID)
-    {
-        AdministratorManager administrator = new AdministratorManager();
-        return administrator.GetQualifiedCandidates(JobPostingID);
-    }
-   public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
-    {
-        AdministratorManager administrator = new AdministratorManager();
-        return administrator.AssignCandidateJobPosting(userid, jobpostingid, status);
+   // public User ViewQualifiedCandidates(int JobPostingID)
+   // {
+   //     AdministratorManager administrator = new AdministratorManager();
+   //     return administrator.GetQualifiedCandidates(JobPostingID);
+   // }
+   //public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
+   // {
+   //     AdministratorManager administrator = new AdministratorManager();
+   //     return administrator.AssignCandidateJobPosting(userid, jobpostingid, status);
 
-    }
+   // }
 }

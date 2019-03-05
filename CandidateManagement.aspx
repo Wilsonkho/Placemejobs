@@ -67,8 +67,6 @@
                          { 'data': 'LastName' },
                          { 'data': 'UserEmail' },  
                          { 'data': 'Phone' },   
-                         { 'data': 'Profession' },
-                         {'data':'Region'},
                          { 'data': 'CoverLetter' },
                          { 'data': 'Resume' }
                          ]  
@@ -106,8 +104,6 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Profession</th>
-                <th>Region</th>
                 <th>Cover</th>
                 <th>Resume</th>
             </tr>
@@ -115,6 +111,6 @@
 
 
     </table>
-
+    <asp:Table ID="BasicTable" runat="server" border="1" />
 </asp:Content>
 

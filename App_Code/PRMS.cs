@@ -88,4 +88,24 @@ public class PRMS
         return regions;
     }
 
+    public List<User> GetQualifiedCandidates(int jobPostingID)
+    {
+        List<User> candidateList = new List<User>();
+
+        AdministratorManager administrationManager = new AdministratorManager();
+        candidateList = administrationManager.GetQualifiedCandidates(jobPostingID);
+
+        return candidateList;
+    }
+
+    public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
+    {
+        bool confirmation = false;
+
+        AdministratorManager administrationManager = new AdministratorManager();
+        confirmation = administrationManager.AssignCandidateJobPosting(userid, jobpostingid, status);
+
+        return confirmation;
+    }
+
 }
