@@ -25,81 +25,166 @@ public partial class RegisterCandidate : System.Web.UI.Page
             professions = new List<Profession>();
             skillsets = new List<Skillset>();
             regions = new List<Region>();
+
+            Session["professions"] = null;
+            Session["skills"] = null;
+            Session["regions"] = null;
+            Session["FileUpload1"] = null;
         }
 
-        
     }
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        bool success = false;
-        User newCandidate = new User();
-        newCandidate.UserEmail = EmailTextBox.Text;
-        newCandidate.FirstName = FirstName.Text;
-        newCandidate.LastName = LastName.Text;
-        newCandidate.Resume = ResumeUpload.PostedFile.FileName;
-        newCandidate.CoverLetter = CoverLetterUpload.PostedFile.FileName;
+        List<int> list;
+        bool dropdownsChecked = true;
+        list = (List<int>)Session["professions"];
+        if (list == null)
+        {
+            dropdownsChecked = false;
+        }
+        list = (List<int>)Session["skills"];
+        if (list == null)
+        {
+            dropdownsChecked = false;
+        }
+        list = (List<int>)Session["regions"];
+        if (list == null)
+        {
+            dropdownsChecked = false;
+        }
 
-        PRMS controller = new PRMS();
-        success = controller.AddCandidate(newCandidate);
-
-
-        int userID;
-
-        userID = controller.GetUserIDByEmail(EmailTextBox.Text);
-
-        if (ResumeUpload.HasFile)
+        if (dropdownsChecked)
         {
 
-            string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
+            bool success = false;
+            User newCandidate = new User();
+            newCandidate.UserEmail = EmailTextBox.Text;
+            newCandidate.FirstName = FirstName.Text;
+            newCandidate.LastName = LastName.Text;
+            newCandidate.Phone = Phone.Text;
+            newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
+            newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : CoverLetterUpload.PostedFile.FileName;
 
-            if (fileExtension == ".pdf" || fileExtension == ".docx")
+            PRMS controller = new PRMS();
+
+           
+
+            #region add user
+            success = controller.AddCandidate(newCandidate);
+
+            if (success)
             {
-                Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/Resume/"));
-
-                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/Resume/"));
-                foreach (FileInfo file in directory.GetFiles())
+                try
                 {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo di in directory.GetDirectories())
-                {
-                    di.Delete(true);
-                }
+                    int userID;
+                    userID = controller.GetUserIDByEmail(EmailTextBox.Text);
 
-                ResumeUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "Resume/" + ResumeUpload.FileName));
+                    if (ResumeUpload.HasFile)
+                    {
+
+                        string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
+
+                        if (fileExtension == ".pdf" || fileExtension == ".docx")
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/Resume/"));
+
+                            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/Resume/"));
+                            foreach (FileInfo file in directory.GetFiles())
+                            {
+                                file.Delete();
+                            }
+                            foreach (DirectoryInfo di in directory.GetDirectories())
+                            {
+                                di.Delete(true);
+                            }
+
+                            ResumeUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "Resume/" + ResumeUpload.FileName));
+                        }
+                        else
+                        {
+                            Msg.Text = "Only .pdf and .docx resume files are accepted.";
+                        }
+                    }
+                    if (CoverLetterUpload.HasFile)
+                    {
+
+                        string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
+
+                        if (fileExtension == ".pdf" || fileExtension == ".docx")
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
+
+                            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
+                            foreach (FileInfo file in directory.GetFiles())
+                            {
+                                file.Delete();
+                            }
+                            foreach (DirectoryInfo di in directory.GetDirectories())
+                            {
+                                di.Delete(true);
+                            }
+
+                            CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
+                        }
+                        else
+                        {
+                            Msg.Text = "Only .pdf and .docx cover letter files are accepted.";
+                        }
+                    }
+                    //Set color to green
+                    Results.ForeColor = System.Drawing.Color.Green;
+                    Results.Text = "Candidate was added";
+
+                    #region add professions
+                    int newUserID;
+                    newUserID = controller.GetUserIDByEmail(EmailTextBox.Text);
+
+                    List<int> professions = (List<int>)Session["professions"];
+                    foreach (int profession in professions)
+                    {
+                        controller.AddUserProfessions(newUserID, profession);
+                    }
+
+                    #endregion
+
+                    #region add skills
+                    List<int> skills = (List<int>)Session["skills"];
+                    foreach (int skill in skills)
+                    {
+                        controller.AddUserSkills(newUserID, skill);
+                    }
+
+                    #endregion
+                    #region add regions
+                    List<int> regions = (List<int>)Session["regions"];
+                    foreach (int region in regions)
+                    {
+                        controller.AddUserRegions(newUserID, region);
+                    }
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    Results.Text = ex.ToString();
+                }
             }
-            else
+            else //if(success)
             {
-                Msg.Text = "Only .pdf and .docx resume files are accepted.";
+                Results.Text = "Candidate was not added";
             }
+            #endregion
+
+            
         }
-        if (CoverLetterUpload.HasFile)
+        else //if(dropdownsChecked)
         {
-
-            string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
-
-            if (fileExtension == ".pdf" || fileExtension == ".docx")
-            {
-                Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
-
-                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
-                foreach (FileInfo file in directory.GetFiles())
-                {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo di in directory.GetDirectories())
-                {
-                    di.Delete(true);
-                }
-
-                CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
-            }
-            else
-            {
-                Msg.Text = "Only .pdf and .docx cover letter files are accepted.";
-            }
+            Results.Text = "Candidate must have at least one profession, skill, and region added.";
         }
+    
+
+
+        
     }
 
 
@@ -130,28 +215,124 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
     protected void AddProfession_Click(object sender, EventArgs e)
     {
-        Profession newProfession = new Profession();
+        List<int> professionList;
+        professionList = (List<int>)Session["professions"];
+        if (professionList == null)
+        {
+            Session["professions"] = professionList;
+            professionList = new List<int>();
+        }
 
-        newProfession.ProfessionID = int.Parse(Profession.SelectedValue);
-        newProfession.Description = Profession.SelectedItem.ToString();
+        if (!professionList.Contains(int.Parse(Profession.SelectedValue)) && int.Parse(Profession.SelectedValue) != 0)
+        {
+            professionList.Add(int.Parse(Profession.SelectedValue));
+            professionsLabel.Visible = true;
+            professionsLabel.ForeColor = System.Drawing.Color.Blue;
+            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
+        }
 
-        professions.Add(newProfession);
+        Session["professions"] = professionList;
 
-        professionsLabel.Visible = true;
-        professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
 
-        
+        foreach (int profession in professionList)
+        {
+            TableRow newRow = new TableRow();
+
+            TableCell descriptionCell = new TableCell();
+            descriptionCell.Text = profession.ToString();
+            newRow.Cells.Add(descriptionCell);
+            RegisterCandidateTable.Rows.Add(newRow);
+        }
+
+        CheckFiles();
     }
 
     protected void AddSkill_Click(object sender, EventArgs e)
     {
-        skillsetsLabel.Visible = true;
-        skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+        List<int> skillsList;
+        skillsList = (List<int>)Session["skills"];
+         if (skillsList == null)
+        {
+            Session["skills"] = skillsList;
+            skillsList = new List<int>();
+        }
+
+         if(!skillsList.Contains(int.Parse(Skillset.SelectedValue)) && int.Parse(Skillset.SelectedValue) != 0)
+        {
+            skillsList.Add(int.Parse(Skillset.SelectedValue));
+            skillsetsLabel.Visible = true;
+            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
+            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+        }
+        
+        Session["skills"] = skillsList;
+
+
+        foreach (int skill in skillsList)
+        {
+            TableRow newRow = new TableRow();           
+
+            TableCell descriptionCell = new TableCell();
+            descriptionCell.Text = skill.ToString();
+            newRow.Cells.Add(descriptionCell);
+            RegisterCandidateTable.Rows.Add(newRow);
+        }
     }
 
     protected void AddRegion_Click(object sender, EventArgs e)
     {
-        regionsLabel.Visible = true;
-        regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+        List<int> regionsList;
+        regionsList = (List<int>)Session["regions"];
+        if (regionsList == null)
+        {
+            Session["regions"] = regionsList;
+            regionsList = new List<int>();
+        }
+
+        if (!regionsList.Contains(int.Parse(Region.SelectedValue)) && int.Parse(Region.SelectedValue) != 0)
+        {
+            regionsList.Add(int.Parse(Region.SelectedValue));
+            regionsLabel.Visible = true;
+            regionsLabel.ForeColor = System.Drawing.Color.Blue;
+            regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+        }
+
+
+        Session["regions"] = regionsList;
+
+
+        foreach (int region in regionsList)
+        {
+            TableRow newRow = new TableRow();
+
+            TableCell descriptionCell = new TableCell();
+            descriptionCell.Text = region.ToString();
+            newRow.Cells.Add(descriptionCell);
+            RegisterCandidateTable.Rows.Add(newRow);
+        }
+    }
+
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(Request.RawUrl);
+    }
+
+    protected void CheckFiles()
+    {
+        if (Session["FileUpload1"] == null && ResumeUpload.HasFile)
+        {
+            Session["FileUpload1"] = ResumeUpload;
+            //Label1.Text = ResumeUpload.FileName; 
+        }
+        else if (Session["FileUpload1"] != null && (!ResumeUpload.HasFile))
+        {
+            ResumeUpload = (FileUpload)Session["FileUpload1"];
+            //Label1.Text = ResumeUpload.FileName;
+        }
+        else if (ResumeUpload.HasFile)
+        {
+            Session["FileUpload1"] = ResumeUpload;
+            //Label1.Text = ResumeUpload.FileName;
+        }
     }
 }

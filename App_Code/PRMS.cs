@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Web;
 
@@ -44,6 +45,36 @@ public class PRMS
 
         Manager userManager = new Manager();
         confirmation = userManager.AddCandidate(newCandidate);
+
+        return confirmation;
+    }
+
+    public bool AddUserProfessions(int userID, int professionID)
+    {
+        bool confirmation = false;
+
+        Professions professionManager = new Professions();
+        confirmation = professionManager.AddUserProfession(userID, professionID);
+
+        return confirmation;
+    }
+
+    public bool AddUserSkills(int userID, int skillID)
+    {
+        bool confirmation = false;
+
+        Skillsets skillsetsManager = new Skillsets();
+        confirmation = skillsetsManager.AddUserSkill(userID, skillID);
+
+        return confirmation;
+    }
+
+    public bool AddUserRegions(int userID, int regionID)
+    {
+        bool confirmation = false;
+
+        Regions regionsManager = new Regions();
+        confirmation = regionsManager.AddUserRegion(userID, regionID);
 
         return confirmation;
     }
@@ -118,4 +149,24 @@ public class PRMS
         return confirmation;
     }
 
+    public bool AddRegion(string description)
+    {
+        bool confirmation = false;
+
+        AdministratorManager administratorManager = new AdministratorManager();
+        confirmation = administratorManager.AddRegion(description);
+
+        return confirmation;
+    }
+
+    public bool AddProfession(string professiondescription)
+    {
+        bool confirmation = false;
+
+        AdministratorManager administratorManager = new AdministratorManager();
+        confirmation = administratorManager.AddProfession(professiondescription);
+
+        return confirmation;
+
+    }
 }
