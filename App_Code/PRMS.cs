@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Web;
 
@@ -108,4 +109,24 @@ public class PRMS
         return confirmation;
     }
 
+    public bool AddRegion(string description)
+    {
+        bool confirmation = false;
+
+        AdministratorManager administratorManager = new AdministratorManager();
+        confirmation = administratorManager.AddRegion(description);
+
+        return confirmation;
+    }
+
+    public bool AddProfession(string professiondescription)
+    {
+        bool confirmation = false;
+
+        AdministratorManager administratorManager = new AdministratorManager();
+        confirmation = administratorManager.AddProfession(professiondescription);
+
+        return confirmation;
+
+    }
 }
