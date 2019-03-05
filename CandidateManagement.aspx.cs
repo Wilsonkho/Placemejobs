@@ -9,7 +9,7 @@ public partial class CandidateManagement : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
     }
 
     //protected void ViewButton1_Click(object sender, EventArgs e)

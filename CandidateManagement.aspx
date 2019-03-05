@@ -7,12 +7,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
     <style>  
         .showHide {  
             cursor: pointer;  
         }  
     </style>  
-<!--    <script type="text/javascript">  
+  <!--   <script type="text/javascript">  
      $(document).ready(function () {  
          $.ajax({  
              type: "POST",  
@@ -49,13 +50,15 @@
          });  
   
      });  
- </script> -->
- <script type="text/javascript">  
+ </script>  -->
+<script type="text/javascript">  
+    
      $(document).ready(function () {  
          $.ajax({  
-             type: "GET",  
+             type: "POST",
+             data: { "JobPostingID": 4 },
              dataType: "json",  
-             url: "WebService.asmx/GetQualifiedCandidates?JobPostingID=4",  
+             url: "WebService.asmx/GetQualifiedCandidates",  
              success: function (data) {  
                  var datatableVariable = $('#MatchTable').DataTable({  
                      data: data,  
@@ -88,7 +91,7 @@
          });  
   
      });  
- </script>  
+ </script> 
     <!--
     <script type="text/javascript">
         $(document).ready(function () {
