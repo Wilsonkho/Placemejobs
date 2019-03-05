@@ -159,7 +159,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
                     List<int> regions = (List<int>)Session["regions"];
                     foreach (int region in regions)
                     {
-                        controller.AddUserProfessions(newUserID, region);
+                        controller.AddUserRegions(newUserID, region);
                     }
                     #endregion
                 }
