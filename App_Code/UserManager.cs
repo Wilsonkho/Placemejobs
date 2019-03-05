@@ -276,21 +276,28 @@ public class Manager
             LastName.Direction = ParameterDirection.Input;
             LastName.Value = newcandidate.LastName;
 
+            SqlParameter Phone = new SqlParameter();
+            Phone.ParameterName = "@Phone";
+            Phone.SqlDbType = SqlDbType.NVarChar;
+            Phone.Direction = ParameterDirection.Input;
+            Phone.Value = newcandidate.Phone;
+
             SqlParameter Resume = new SqlParameter();
             Resume.ParameterName = "@Resume";
-            Resume.SqlDbType = SqlDbType.NChar;
+            Resume.SqlDbType = SqlDbType.NVarChar;
             Resume.Direction = ParameterDirection.Input;
             Resume.Value = newcandidate.Resume;
 
             SqlParameter CoverLetter = new SqlParameter();
             CoverLetter.ParameterName = "@CoverLetter";
-            CoverLetter.SqlDbType = SqlDbType.NChar;
+            CoverLetter.SqlDbType = SqlDbType.NVarChar;
             CoverLetter.Direction = ParameterDirection.Input;
             CoverLetter.Value = newcandidate.CoverLetter;
 
             cmd.Parameters.Add(Email);
             cmd.Parameters.Add(FirstName);
             cmd.Parameters.Add(LastName);
+            cmd.Parameters.Add(Phone);
             cmd.Parameters.Add(Resume);
             cmd.Parameters.Add(CoverLetter);
 
@@ -300,8 +307,9 @@ public class Manager
 
             success = true;
             }
-        catch
+        catch (Exception e)
         {
+            
             return success;
         }
         return success;

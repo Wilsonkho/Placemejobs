@@ -49,6 +49,36 @@ public class PRMS
         return confirmation;
     }
 
+    public bool AddUserProfessions(int userID, int professionID)
+    {
+        bool confirmation = false;
+
+        Professions professionManager = new Professions();
+        confirmation = professionManager.AddUserProfession(userID, professionID);
+
+        return confirmation;
+    }
+
+    public bool AddUserSkills(int userID, int skillID)
+    {
+        bool confirmation = false;
+
+        Skillsets skillsetsManager = new Skillsets();
+        confirmation = skillsetsManager.AddUserSkill(userID, skillID);
+
+        return confirmation;
+    }
+
+    public bool AddUserRegions(int userID, int regionID)
+    {
+        bool confirmation = false;
+
+        Regions regionsManager = new Regions();
+        confirmation = regionsManager.AddUserRegion(userID, regionID);
+
+        return confirmation;
+    }
+
     public int GetUserIDByEmail (string email)
     {
         int userID;
