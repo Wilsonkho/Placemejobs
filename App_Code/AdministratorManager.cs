@@ -129,6 +129,104 @@ public class AdministratorManager
 
     }
 
+   /* public bool AddSkillSet(string skillsetDescription,int professionId)
+    {
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddRegionCommand;
+        AddRegionCommand = new SqlCommand("");
+        AddRegionCommand.CommandType = CommandType.StoredProcedure;
+        AddRegionCommand.Connection = con;
+        AddRegionCommand.CommandText = "PopulateSkillSet";
+
+        SqlParameter descriptionparameter;
+        SqlParameter ProfessionIdParameter;
+
+        descriptionparameter = new SqlParameter();
+        ProfessionIdParameter = new SqlParameter();
+
+        descriptionparameter.ParameterName = "@Description";
+        ProfessionIdParameter.ParameterName = "@ProfessionID";
+
+        descriptionparameter.SqlDbType = SqlDbType.NChar;
+        descriptionparameter.Direction = ParameterDirection.Input;
+
+        ProfessionIdParameter.SqlDbType = SqlDbType.Int;
+        ProfessionIdParameter.Direction = ParameterDirection.Input;
+
+        descriptionparameter.Value = skillsetDescription;
+        ProfessionIdParameter.Value = professionId;
+
+        con.Open();
+
+        AddRegionCommand.Parameters.Add(descriptionparameter);
+        AddRegionCommand.Parameters.Add(professionId);
+
+        int rowsAffected = AddRegionCommand.ExecuteNonQuery();
+
+        Boolean success;
+        if (rowsAffected == 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }*/
+
+    public bool AddSkillSet(string skillsetDescription, string professionId)
+    {
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddRegionCommand;
+        AddRegionCommand = new SqlCommand("");
+        AddRegionCommand.CommandType = CommandType.StoredProcedure;
+        AddRegionCommand.Connection = con;
+        AddRegionCommand.CommandText = "PopulateSkillSet";
+
+        SqlParameter descriptionparameter;
+        SqlParameter ProfessionIdParameter;
+
+        descriptionparameter = new SqlParameter();
+        ProfessionIdParameter = new SqlParameter();
+
+        descriptionparameter.ParameterName = "@Description";
+        ProfessionIdParameter.ParameterName = "@ProfessionID";
+
+        descriptionparameter.SqlDbType = SqlDbType.NChar;
+        descriptionparameter.Direction = ParameterDirection.Input;
+
+        ProfessionIdParameter.SqlDbType = SqlDbType.NChar;
+        ProfessionIdParameter.Direction = ParameterDirection.Input;
+
+        descriptionparameter.Value = skillsetDescription;
+        ProfessionIdParameter.Value = professionId;
+
+        con.Open();
+
+        AddRegionCommand.Parameters.Add(descriptionparameter);
+        AddRegionCommand.Parameters.Add(professionId);
+
+        int rowsAffected = AddRegionCommand.ExecuteNonQuery();
+
+        Boolean success;
+        if (rowsAffected == 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
+
     public bool AddProfession(string professiondescription)
     {
         SqlConnection con;
