@@ -17,7 +17,7 @@
         <br />
         <asp:Button ID="AddRegionButton" runat="server" Height="33px" Text="Add" Width="71px" OnClick="AddRegionButton_Click" />
         <br />
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Confirmation" runat="server"></asp:Label>
     </form>
 </body>
 </html>

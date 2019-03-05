@@ -28,9 +28,18 @@ public partial class AddSkillSet : System.Web.UI.Page
 
     protected void AddSkillSetButton_Click(object sender, EventArgs e)
     {
-        AdministratorManager administrator = new AdministratorManager();
-        administrator.AddSkillSet(SkillSet.Text, Profession.Text);
+        //bool confirmation = false;
+        //PRMS controller = new PRMS();
 
-        Label1.Text = "Skill Set Added Successfully";
+        //confirmation = AddSkillSet(SkillSet.Text, Profession.Text);
+
+        //if (confirmation)
+        //{
+        //    Confirmation.Text = "Profession added successfully";
+        //}
+        //else
+        //{
+        //    Confirmation.Text = "Error has occurred.";
+        //}
     }
 }

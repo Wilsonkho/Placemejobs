@@ -9,15 +9,24 @@ public partial class AddProfession : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        AdministratorManager administrator = new AdministratorManager();
-        //administrator.AddRegion(Profession.Text);
-        administrator.AddProfession(Profession.Text);
 
-        PRMS Control = new PRMS();
+
     }
 
     protected void AddProfessionButton_Click(object sender, EventArgs e)
     {
-        Label1.Text = "Profession added successfully";
+        bool confirmation = false;
+        PRMS controller = new PRMS();
+
+        confirmation = controller.AddProfession(Profession.Text);
+
+        if (confirmation)
+        {
+            Confirmation.Text = "Profession added successfully.";
+        }
+        else
+        {
+            Confirmation.Text = "Error has occurred.";
+        }
     }
 }
