@@ -33,35 +33,31 @@ public class AdministratorManager
         GetQualifiedCandidatesCommand.CommandText = "JobMatch";
 
         SqlParameter JobPostingIdParameter;
-
         JobPostingIdParameter = new SqlParameter();
-
         JobPostingIdParameter.ParameterName = "@JobID";
-
         JobPostingIdParameter.SqlDbType = SqlDbType.Int;
         JobPostingIdParameter.Direction = ParameterDirection.Input;
-
         JobPostingIdParameter.Value = JobPostingID;
         GetQualifiedCandidatesCommand.Parameters.Add(JobPostingIdParameter);
 
         con.Open();
 
-        SqlDataReader QualifiedCandidatesReader;
-        QualifiedCandidatesReader = GetQualifiedCandidatesCommand.ExecuteReader();
+        SqlDataReader reader;
+        reader = GetQualifiedCandidatesCommand.ExecuteReader();
         //double textvalue = Convert.ToDouble(unitprice.Text.ToString());
-        while (QualifiedCandidatesReader.Read())
+        while (reader.Read())
         {
             User aCandidate = new User();
 
-            aCandidate.UserID = Convert.ToInt32(QualifiedCandidatesReader["UserID"]);
-            aCandidate.FirstName = QualifiedCandidatesReader["FirstName"].ToString();
-            aCandidate.LastName = QualifiedCandidatesReader["LastName"].ToString();
-            aCandidate.Phone = QualifiedCandidatesReader["Phone"].ToString();
-            aCandidate.UserEmail = QualifiedCandidatesReader["Email"].ToString();
-            aCandidate.Profession = QualifiedCandidatesReader["Profession"].ToString();
-            aCandidate.Region = QualifiedCandidatesReader["Region"].ToString();
-            aCandidate.CoverLetter = QualifiedCandidatesReader["CoverLetter"].ToString();
-            aCandidate.Resume = QualifiedCandidatesReader["Resume"].ToString();
+            aCandidate.UserID = Convert.ToInt32(reader["UserID"]);
+            aCandidate.FirstName = reader["FirstName"].ToString();
+            aCandidate.LastName = reader["LastName"].ToString();
+            aCandidate.Phone = reader["Phone"].ToString();
+            aCandidate.UserEmail = reader["Email"].ToString();
+            aCandidate.Profession = reader["Profession"].ToString();
+            aCandidate.Region = reader["Region"].ToString();
+            aCandidate.CoverLetter = reader["CoverLetter"].ToString();
+            aCandidate.Resume = reader["Resume"].ToString();
 
             qualifiedCandidates.Add(aCandidate);
         }
@@ -77,11 +73,11 @@ public class AdministratorManager
         con = new SqlConnection();
         con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
 
-        SqlCommand AssignCandidateCommand;
-        AssignCandidateCommand = new SqlCommand("");
-        AssignCandidateCommand.CommandType = CommandType.StoredProcedure;
-        AssignCandidateCommand.Connection = con;
-        AssignCandidateCommand.CommandText = " ";
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = " ";
 
         SqlParameter UseridParameter;
         SqlParameter JobpostingParameter;
@@ -110,13 +106,13 @@ public class AdministratorManager
 
         con.Open();
 
-        AssignCandidateCommand.Parameters.Add(UseridParameter);
-        AssignCandidateCommand.Parameters.Add(JobpostingParameter);
-        AssignCandidateCommand.Parameters.Add(statusParameter);
+        cmd.Parameters.Add(UseridParameter);
+        cmd.Parameters.Add(JobpostingParameter);
+        cmd.Parameters.Add(statusParameter);
 
-        int rowsAffected = AssignCandidateCommand.ExecuteNonQuery();
+        int rowsAffected = cmd.ExecuteNonQuery();
 
-        Boolean success;
+        Boolean success = false;
         if (rowsAffected == 0)
         {
             success = true;
@@ -128,4 +124,6 @@ public class AdministratorManager
         return success;
 
     }
+
+    
 }

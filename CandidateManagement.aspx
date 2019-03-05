@@ -108,9 +108,8 @@
                 <th>Resume</th>
             </tr>
         </thead>
-
-
     </table>
-    <asp:Table ID="BasicTable" runat="server" border="1" />
+    <asp:Table ID="QualifiedCandidate" runat="server" border="1" />
+    <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" />
 </asp:Content>
 

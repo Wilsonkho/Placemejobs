@@ -69,7 +69,6 @@ CREATE TABLE JobPostingSKillSet(
 	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
 	PRIMARY KEY (JobPostingID, SKillsetID))
 
-
 /*** User Procedures***/
 CREATE PROCEDURE AddUser @Email VARCHAR(100), @Password VARCHAR(100) ,@FirstName VARCHAR(15), @LastName VARCHAR(15)
 	AS
@@ -92,8 +91,11 @@ CREATE PROCEDURE GetRoles @Email VARCHAR(100)
 /*** Job Search Procedures***/
 CREATE PROCEDURE GetAllJobPostings 
 	AS 
-		SELECT JobPostingID,CompanyName,[Description]
+		SELECT JobPosting.JobPostingID,CompanyName,JobPosting.[Description]
 		FROM JobPosting
+
+
+SELECT * FROM JobPosting
 
 CREATE PROCEDURE GetAllSkillsets
 	AS
@@ -102,11 +104,7 @@ CREATE PROCEDURE GetAllSkillsets
 
 ALTER PROCEDURE JobMatch @JobID INT
 	AS 
-<<<<<<< HEAD
-		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS NAME, Phone, Email, CoverLetter ,[Resume] 
-=======
-		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
->>>>>>> 8c8705653407c8c8ff88207217b183e4c5284bd4
+		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume]
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
 					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
 					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
@@ -118,9 +116,9 @@ ALTER PROCEDURE JobMatch @JobID INT
 					AND JobPosting.JobPostingID=JobPostingSKillSet.JobPostingID
 					AND JobPosting.RegionID=UserRegion.RegionID
 		WHERE JobPosting.JobPostingID=@JobID
---EXEC JobMatch 4
+--EXEC JobMatch 2
+-- EXEC GetAllJobPostings
 -- SELECT * FROM JobPosting
--- SELECT * FROM Users
 
 
 CREATE PROCEDURE MatchProfession @JobID INT, @ProfessionID INT
@@ -147,8 +145,10 @@ CREATE PROCEDURE MatchSkillset @JobID INT, @SkillsetID INT
 					INNER JOIN JobPostingSKillSet ON Skillset.SkillsetID=JobPostingSKillSet.SkillsetID
 					INNER JOIN JobPosting ON JobPostingSKillSet.JobPostingID=JobPosting.JobPostingID
 		WHERE JobPosting.JobPostingID=@JobID AND Skillset.SkillsetID=@SkillsetID
-
-
+SELECT * FROM JobPosting
+UPDATE JobPosting
+SET CompanyName = ''
+WHERE JobPostingID = 1
 -- Upload Resume and Cover Letter
 CREATE PROCEDURE AddResume(
     @Resume VARCHAR(100) = NULL

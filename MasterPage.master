@@ -32,7 +32,7 @@
                 <a class="nav-link" href="AddJobPosting.aspx" id="AddJobPostingLink" runat="server">Add Job Posting</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="CandidateManagement.aspx" id="CandidateManagementLink" runat="server">Manage Candidates</a>
+                <a class="nav-link" href="CandidateManagement2.aspx" id="CandidateManagementLink" runat="server">Manage Candidates</a>
               </li>
             </ul>
           </div>

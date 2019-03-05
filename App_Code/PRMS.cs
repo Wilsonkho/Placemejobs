@@ -88,6 +88,16 @@ public class PRMS
         return regions;
     }
 
+    public List<JobPosting> GetAllJobPostings()
+    {
+        List<JobPosting> jobPostingsList = new List<JobPosting>();
+
+        JobPostings jobPostingManager = new JobPostings();
+        jobPostingsList = jobPostingManager.GetAllJobPostings();
+
+        return jobPostingsList;
+    }
+
     public List<User> GetQualifiedCandidates(int jobPostingID)
     {
         List<User> candidateList = new List<User>();
