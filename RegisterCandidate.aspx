@@ -13,6 +13,8 @@
                 <asp:TableCell HorizontalAlign="Right" >First Name:</asp:TableCell>
                 <asp:TableCell  ColumnSpan="2">
                     <asp:TextBox runat="server" ID="FirstName" Class="form-control"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="FirstNameRequiredFieldValidator" runat="server" ErrorMessage="First Name is required"
+                         ControlToValidate="FirstName" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -20,15 +22,24 @@
                 <asp:TableCell HorizontalAlign="Right">Last Name:</asp:TableCell>
                 <asp:TableCell  ColumnSpan="2">
                     <asp:TextBox runat="server" ID="LastName" Class="form-control"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="LastNameRequiredFieldValidator" runat="server" ErrorMessage="Last Name is required"
+                         ControlToValidate="LastName" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
+                <asp:TableCell HorizontalAlign="Right">Phone:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:TextBox runat="server" ID="Phone" Class="form-control"></asp:TextBox>                  
+                    <asp:RequiredFieldValidator ID="PhoneRequiredFieldValidator" runat="server" ErrorMessage="Phone is required"
+                         ControlToValidate="Phone" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
+                </asp:TableCell>
+            </asp:TableRow>
+            
+            <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right">Email:</asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:TextBox runat="server" ID="EmailTextBox" Class="form-control"></asp:TextBox>                  
-                    <asp:RequiredFieldValidator ID="EmailRequiredFieldValidator" runat="server" ErrorMessage="Email is required"
-                         ControlToValidate="EmailTextBox" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:TextBox runat="server" ID="EmailTextBox" Class="form-control"></asp:TextBox>                                      
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -101,7 +112,7 @@
                 <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Submit Candidate" OnClick="Submit_Click" Class="btn btn-secondary"/></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" Class="btn btn-secondary"/></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear"  Class="btn btn-secondary" OnClick="Cancel_Click" CausesValidation="false"/></asp:TableCell>
             </asp:TableRow>
         </asp:Table>
         <asp:Label runat="server" ID="Msg" />

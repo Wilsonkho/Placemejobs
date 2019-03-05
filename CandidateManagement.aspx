@@ -97,6 +97,22 @@
                      }
                  });
              
+
+                 /*$('#MatchTable tfoot th').each(function () {  
+                     var placeHolderTitle = $('#MatchTable thead th').eq($(this).index()).text();
+                     $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');  
+                 });*/  
+                 datatableVariable.columns().every(function () {  
+                     var column = this;  
+                     $(this.footer()).find('input').on('keyup change', function () {  
+                         column.search(this.value).draw();  
+                     });  
+                 });  
+                 $('.showHide').on('click', function () {  
+                     var tableColumn = datatableVariable.column($(this).attr('data-columnindex'));  
+                     tableColumn.visible(!tableColumn.visible());  
+                 });  
+
              }  
          });  
   
@@ -117,8 +133,6 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Profession</th>
-                <th>Region</th>
                 <th>Cover</th>
                 <th>Resume</th>
             </tr>
@@ -126,6 +140,6 @@
 
 
     </table>
-
+    <asp:Table ID="BasicTable" runat="server" border="1" />
 </asp:Content>
 

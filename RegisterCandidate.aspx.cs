@@ -25,20 +25,25 @@ public partial class RegisterCandidate : System.Web.UI.Page
             professions = new List<Profession>();
             skillsets = new List<Skillset>();
             regions = new List<Region>();
+
+            Session["professions"] = null;
+            Session["skills"] = null;
+            Session["regions"] = null;
         }
 
-        
+
     }
 
     protected void Submit_Click(object sender, EventArgs e)
     {
         bool success = false;
         User newCandidate = new User();
-        newCandidate.UserEmail = EmailTextBox.Text;
+        newCandidate.UserEmail = (EmailTextBox.Text == "") ? null : EmailTextBox.Text;
         newCandidate.FirstName = FirstName.Text;
         newCandidate.LastName = LastName.Text;
-        newCandidate.Resume = ResumeUpload.PostedFile.FileName;
-        newCandidate.CoverLetter = CoverLetterUpload.PostedFile.FileName;
+        newCandidate.Phone = Phone.Text;
+        newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
+        newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
 
         PRMS controller = new PRMS();
         success = controller.AddCandidate(newCandidate);
@@ -130,28 +135,100 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
     protected void AddProfession_Click(object sender, EventArgs e)
     {
-        Profession newProfession = new Profession();
+        List<int> professionList;
+        professionList = (List<int>)Session["professions"];
+        if (professionList == null)
+        {
+            Session["professions"] = professionList;
+            professionList = new List<int>();
+        }
 
-        newProfession.ProfessionID = int.Parse(Profession.SelectedValue);
-        newProfession.Description = Profession.SelectedItem.ToString();
+        if (!professionList.Contains(int.Parse(Profession.SelectedValue)) && int.Parse(Profession.SelectedValue) != 0)
+        {
+            professionList.Add(int.Parse(Profession.SelectedValue));
+            professionsLabel.Visible = true;
+            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
+        }
 
-        professions.Add(newProfession);
+        Session["professions"] = professionList;
 
-        professionsLabel.Visible = true;
-        professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
 
-        
+        foreach (int profession in professionList)
+        {
+            TableRow newRow = new TableRow();
+
+            TableCell descriptionCell = new TableCell();
+            descriptionCell.Text = profession.ToString();
+            newRow.Cells.Add(descriptionCell);
+            RegisterCandidateTable.Rows.Add(newRow);
+        }
     }
 
     protected void AddSkill_Click(object sender, EventArgs e)
     {
-        skillsetsLabel.Visible = true;
-        skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+        List<int> skillsList;
+        skillsList = (List<int>)Session["skills"];
+         if (skillsList == null)
+        {
+            Session["skills"] = skillsList;
+            skillsList = new List<int>();
+        }
+
+         if(!skillsList.Contains(int.Parse(Skillset.SelectedValue)) && int.Parse(Skillset.SelectedValue) != 0)
+        {
+            skillsList.Add(int.Parse(Skillset.SelectedValue));
+            skillsetsLabel.Visible = true;
+            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+        }
+        
+        Session["skills"] = skillsList;
+
+
+        foreach (int skill in skillsList)
+        {
+            TableRow newRow = new TableRow();           
+
+            TableCell descriptionCell = new TableCell();
+            descriptionCell.Text = skill.ToString();
+            newRow.Cells.Add(descriptionCell);
+            RegisterCandidateTable.Rows.Add(newRow);
+        }
     }
 
     protected void AddRegion_Click(object sender, EventArgs e)
     {
-        regionsLabel.Visible = true;
-        regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+        List<int> regionsList;
+        regionsList = (List<int>)Session["regions"];
+        if (regionsList == null)
+        {
+            Session["regions"] = regionsList;
+            regionsList = new List<int>();
+        }
+
+        if (!regionsList.Contains(int.Parse(Region.SelectedValue)) && int.Parse(Region.SelectedValue) != 0)
+        {
+            regionsList.Add(int.Parse(Region.SelectedValue));
+            regionsLabel.Visible = true;
+            regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+        }
+
+
+        Session["regions"] = regionsList;
+
+
+        foreach (int region in regionsList)
+        {
+            TableRow newRow = new TableRow();
+
+            TableCell descriptionCell = new TableCell();
+            descriptionCell.Text = region.ToString();
+            newRow.Cells.Add(descriptionCell);
+            RegisterCandidateTable.Rows.Add(newRow);
+        }
+    }
+
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(Request.RawUrl);
     }
 }
