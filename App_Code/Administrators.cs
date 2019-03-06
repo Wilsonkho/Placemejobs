@@ -8,15 +8,8 @@ using System.Configuration;
 /// <summary>
 /// Summary description for AdministratorManager
 /// </summary>
-public class AdministratorManager
+public class Administrators
 {
-    public AdministratorManager()
-    {
-        //
-        // TODO: Add constructor logic here
-        //
-       
-    }
 
     public List<User> GetQualifiedCandidates(int JobPostingID)
     {
@@ -67,7 +60,7 @@ public class AdministratorManager
 
     }
 
-    public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
+    public bool AddCandidateToJobPosting(int userid, int jobpostingid)
     {
         SqlConnection con;
         con = new SqlConnection();
@@ -77,7 +70,7 @@ public class AdministratorManager
         cmd = new SqlCommand("");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Connection = con;
-        cmd.CommandText = " ";
+        cmd.CommandText = "AddCandidateToJobPosting";
 
         SqlParameter UseridParameter;
         SqlParameter JobpostingParameter;
@@ -85,11 +78,9 @@ public class AdministratorManager
 
         UseridParameter = new SqlParameter();
         JobpostingParameter = new SqlParameter();
-        statusParameter = new SqlParameter();
 
         UseridParameter.ParameterName = "@userid";
         JobpostingParameter.ParameterName = "@Jobid";
-        statusParameter.ParameterName = "@status";
 
         UseridParameter.SqlDbType = SqlDbType.Int;
         UseridParameter.Direction = ParameterDirection.Input;
@@ -97,23 +88,18 @@ public class AdministratorManager
         JobpostingParameter.SqlDbType = SqlDbType.Int;
         JobpostingParameter.Direction = ParameterDirection.Input;
 
-        statusParameter.SqlDbType = SqlDbType.Char;
-        statusParameter.Direction = ParameterDirection.Input;
-
         UseridParameter.Value = userid;  
         JobpostingParameter.Value = jobpostingid;
-        statusParameter.Value = status;
-
-        con.Open();
 
         cmd.Parameters.Add(UseridParameter);
         cmd.Parameters.Add(JobpostingParameter);
-        cmd.Parameters.Add(statusParameter);
+
+        con.Open();
 
         int rowsAffected = cmd.ExecuteNonQuery();
 
         Boolean success = false;
-        if (rowsAffected == 0)
+        if (rowsAffected != 0)
         {
             success = true;
         }

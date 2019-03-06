@@ -133,18 +133,18 @@ public class PRMS
     {
         List<User> candidateList = new List<User>();
 
-        AdministratorManager administrationManager = new AdministratorManager();
+        Administrators administrationManager = new Administrators();
         candidateList = administrationManager.GetQualifiedCandidates(jobPostingID);
 
         return candidateList;
     }
 
-    public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
+    public bool AssignCandidateJobPosting(int userid, int jobpostingid)
     {
         bool confirmation = false;
 
-        AdministratorManager administrationManager = new AdministratorManager();
-        confirmation = administrationManager.AssignCandidateJobPosting(userid, jobpostingid, status);
+        Administrators administrationManager = new Administrators();
+        confirmation = administrationManager.AddCandidateToJobPosting(userid, jobpostingid);
 
         return confirmation;
     }

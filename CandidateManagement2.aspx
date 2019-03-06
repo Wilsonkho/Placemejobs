@@ -3,6 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-    <asp:Table ID="JobPostingsTable" runat="server" border="1" />
+    <asp:Table ID="JobPostingsTable" runat="server" class="table table-bordered" />
 </asp:Content>
 
