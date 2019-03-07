@@ -26,7 +26,7 @@ public class User
     public string Roles { get; set; }
     public string Profession { get; set; }
     public string Region { get; set; }
-
+    public string Skillset { get; set; }
 
     //public User()
     //{
