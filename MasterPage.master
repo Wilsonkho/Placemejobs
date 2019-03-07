@@ -47,8 +47,9 @@
     </form>
 
 </body>
+
+</html>
 <div class="footer">
     <hr />
     <p>&copy; <%: DateTime.Now.Year %> - Placemejobs Recruitment Management System </p>
 </div>
-</html>

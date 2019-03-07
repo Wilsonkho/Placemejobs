@@ -60,6 +60,7 @@ public partial class CandidateManagement : System.Web.UI.Page
             Button viewCoverLetterButton = new Button();
             viewCoverLetterButton.ID = "ViewCoverLetterButton" + index;
             viewCoverLetterButton.Text = "View";
+            viewCoverLetterButton.CssClass = "btn btn-outline-primary";
             viewCoverLetterButton.Click += new EventHandler((obj, eArgs) => ViewCoverLetterButton_Click(obj, eArgs, item.UserID, item.CoverLetter));
             aNewCell.Controls.Add(viewCoverLetterButton);
             aNewRow.Cells.Add(aNewCell);
@@ -68,6 +69,7 @@ public partial class CandidateManagement : System.Web.UI.Page
             Button viewResumeButton = new Button();
             viewResumeButton.ID = "ViewResumeButton" + index;
             viewResumeButton.Text = "View";
+            viewResumeButton.CssClass = "btn btn-outline-primary";
             viewResumeButton.Click += new EventHandler((obj, eArgs) => ViewResumeButton_Click(obj, eArgs, item.UserID, item.Resume));
             aNewCell.Controls.Add(viewResumeButton);
             aNewRow.Cells.Add(aNewCell);
@@ -76,6 +78,7 @@ public partial class CandidateManagement : System.Web.UI.Page
             Button assignButton = new Button();
             assignButton.ID = "AssignButton" + index;
             assignButton.Text = "Assign";
+            assignButton.CssClass = "btn btn-outline-primary";
             assignButton.Click += new EventHandler((obj, eArgs) => AssignButton_Click(obj, eArgs, item.UserID));
             aNewCell.Controls.Add(assignButton);
             aNewRow.Cells.Add(aNewCell);
