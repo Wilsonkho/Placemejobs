@@ -1,13 +1,13 @@
-CREATE DATABASE Placemejobs
-
+--CREATE DATABASE Placemejobs
+USE Placemejobs
 CREATE TABLE Users (
 	UserID INT IDENTITY (1,1) PRIMARY KEY,
 	Email VARCHAR(100) UNIQUE,
 	Phone VARCHAR(10) NULL,
 	FirstName VARCHAR(15),
 	LastName VARCHAR(15),
-	[Resume] VARBINARY(MAX) NULL,
-	CoverLetter VARBINARY(MAX) NULL,
+	[Resume] VARCHAR(100) NULL,
+	CoverLetter VARCHAR(100) NULL,
 	[Password] VARCHAR(100) NULL,
 	ActiveInactive BIT NULL,
 	Roles VARCHAR (10) NOT NULL
@@ -62,6 +62,7 @@ CREATE TABLE UserRegion(
 CREATE TABLE UserJobPosting(
 	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
+	Status VARCHAR(20)
 	PRIMARY KEY (UserID, JobPostingID))
 
 CREATE TABLE JobPostingSKillSet(
@@ -69,7 +70,7 @@ CREATE TABLE JobPostingSKillSet(
 	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
 	PRIMARY KEY (JobPostingID, SKillsetID))
 
-
+GO
 /*** User Procedures***/
 CREATE PROCEDURE AddUser @Email VARCHAR(100), @Password VARCHAR(100) ,@FirstName VARCHAR(15), @LastName VARCHAR(15)
 	AS
@@ -77,36 +78,35 @@ CREATE PROCEDURE AddUser @Email VARCHAR(100), @Password VARCHAR(100) ,@FirstName
 		VALUES (@Email, @Password, @FirstName, @LastName, 'Candidate')
 
 
-
+GO
 CREATE PROCEDURE GetUser @Email VARCHAR(100) 
 	AS
 		SELECT [Password] FROM Users
 		WHERE Email=@Email
 
-
+GO
 CREATE PROCEDURE GetRoles @Email VARCHAR(100)
 	AS 
 		SELECT Roles FROM Users
 		WHERE Email=@Email
 
 /*** Job Search Procedures***/
+GO
 CREATE PROCEDURE GetAllJobPostings 
 	AS 
-		SELECT JobPostingID,CompanyName,[Description]
+		SELECT JobPosting.JobPostingID,CompanyName,JobPosting.[Description]
 		FROM JobPosting
 
+GO
 CREATE PROCEDURE GetAllSkillsets
 	AS
 		SELECT [Description]
 		FROM Skillset
 
-ALTER PROCEDURE JobMatch @JobID INT
+GO
+CREATE PROCEDURE JobMatch @JobID INT
 	AS 
-<<<<<<< HEAD
-		SELECT DISTINCT Users.UserID, (FirstName + ' ' +  LastName) AS NAME, Phone, Email, CoverLetter ,[Resume] 
-=======
-		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume] 
->>>>>>> 8c8705653407c8c8ff88207217b183e4c5284bd4
+		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume]
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
 					INNER JOIN UserSkillset ON UserSkillset.UserID=Users.UserID
 					INNER JOIN UserRegion ON UserRegion.UserID=Users.UserID
@@ -118,11 +118,8 @@ ALTER PROCEDURE JobMatch @JobID INT
 					AND JobPosting.JobPostingID=JobPostingSKillSet.JobPostingID
 					AND JobPosting.RegionID=UserRegion.RegionID
 		WHERE JobPosting.JobPostingID=@JobID
---EXEC JobMatch 4
--- SELECT * FROM JobPosting
--- SELECT * FROM Users
 
-
+GO
 CREATE PROCEDURE MatchProfession @JobID INT, @ProfessionID INT
 	AS
 		SELECT DISTINCT Users.UserID, (FirstName + LastName) AS Name, Phone, [Resume]
@@ -131,6 +128,7 @@ CREATE PROCEDURE MatchProfession @JobID INT, @ProfessionID INT
 					INNER JOIN JobPosting ON JobPosting.ProfessionID=Profession.ProfessionID
 		WHERE JobPosting.JobPostingID=@JobID AND JobPosting.ProfessionID=@ProfessionID
 
+GO
 CREATE PROCEDURE MatchRegion @JobID INT, @RegionID INT
 	AS
 		SELECT DISTINCT Users.UserID, (FirstName + LastName) AS Name, Phone, [Resume]
@@ -139,6 +137,7 @@ CREATE PROCEDURE MatchRegion @JobID INT, @RegionID INT
 					INNER JOIN JobPosting ON JobPosting.RegionID= Region.RegionID
 		WHERE JobPosting.JobPostingID=@JobID AND JobPosting.RegionID=@RegionID
 
+GO
 CREATE PROCEDURE MatchSkillset @JobID INT, @SkillsetID INT 
 	AS 
 		SELECT DISTINCT Users.UserID, (FirstName + ' ' + LastName) AS Name, Phone, Email,[Resume]
@@ -148,7 +147,7 @@ CREATE PROCEDURE MatchSkillset @JobID INT, @SkillsetID INT
 					INNER JOIN JobPosting ON JobPostingSKillSet.JobPostingID=JobPosting.JobPostingID
 		WHERE JobPosting.JobPostingID=@JobID AND Skillset.SkillsetID=@SkillsetID
 
-
+GO
 -- Upload Resume and Cover Letter
 CREATE PROCEDURE AddResume(
     @Resume VARCHAR(100) = NULL
@@ -172,7 +171,7 @@ AS
     ELSE
         RAISERROR('AddResume Error: Insert error.',16,1)
     RETURN @ReturnCode
-
+GO
 CREATE PROCEDURE AddCoverLetter(
     @CoverLetter VARCHAR(100) = NULL
 )
@@ -195,7 +194,7 @@ AS
     ELSE
         RAISERROR('AddCoverLetter Error: Insert error.',16,1)
     RETURN @ReturnCode
-
+GO
 -- Get Resume and Cover Letter
 CREATE PROCEDURE GetCV(
     @UserID INT = NULL
@@ -218,9 +217,49 @@ AS
         RAISERROR('GetCV Error: Select error.',16,1)
     RETURN @ReturnCode
 
+-- Assign Candidate to a job posting
+CREATE TABLE UserJobPosting(
+	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
+	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
+	PRIMARY KEY (UserID, JobPostingID))
 
+GO
+CREATE PROCEDURE AddCandidateToJobPosting(
+	@UserID INT = NULL,
+	@JobPostingID INT = NULL
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
 
+    IF @UserID IS NULL
+        RAISERROR('AddCandidateToJobPosting Error: All parameters required @UserID.',16,1)
+    ELSE IF @JobPostingID IS NULL
+        RAISERROR('AddCandidateToJobPosting Error: All parameters required @JobPostingID.',16,1)
+    ELSE
+    BEGIN
+        INSERT INTO UserJobPosting
+		(
+			UserID,
+			JobPostingID,
+			Status
+		)
+		VALUES
+		(
+			@UserID,
+			@JobPostingID,
+			'Interviewing'
+		)
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('AddCandidateToJobPosting Error: Insert error.',16,1)
+    RETURN @ReturnCode
 
+-- SELECT * FROM UserJobPosting
+
+/*
 /*** View All Tables and Table Entries***/
 DECLARE @sqlText VARCHAR(MAX)
 SET @sqlText = ''
@@ -230,12 +269,13 @@ EXEC(@sqlText)
 INSERT INTO UserRegion (UserID, RegionID) VALUES ('1', '4')
 SELECT * FROM UserRegion
 
-UPDATE Userskillset SET SkillsetID='5' WHERE UserID='2' AND SkillsetID='3'
-UPDATE UserRegion SET RegionID='4' WHERE UserID='2' AND RegionID='1'
-UPDATE UserProfession SET ProfessionID='5' WHERE UserID='2'
+UPDATE Userskillset SET SkillsetID='5' WHERE UserID='1' AND SkillsetID='3'
+UPDATE UserRegion SET RegionID='4' WHERE UserID='1' AND RegionID='1'
+UPDATE UserProfession SET ProfessionID='5' WHERE UserID='1'
 EXEC JobMatch '4'
 
 Alter PROCEDURE GetAllCandidates
 	AS
 		SELECT FirstName, LastName, Email, Phone, Resume, CoverLetter
 		FROM Users
+*/

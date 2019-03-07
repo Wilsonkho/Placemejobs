@@ -9,12 +9,9 @@ public partial class CandidateManagement : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
         PRMS controller = new PRMS();
-        JobPosting jobPosting = new JobPosting();
-        //jobPosting = controller.
-
-        int jobPostingID = 4;
-
         List<User> candidateList = new List<User>();
         candidateList = controller.GetQualifiedCandidates(jobPostingID);
 
@@ -22,7 +19,7 @@ public partial class CandidateManagement : System.Web.UI.Page
         TableHeaderRow tableHRow = new TableHeaderRow();
         List<String> headerList = new List<String>()
         {
-            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume", "Action" 
+            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume", "Action"
         };
 
         foreach (string header in headerList)
@@ -33,7 +30,7 @@ public partial class CandidateManagement : System.Web.UI.Page
             tableHRow.Cells.Add(tableHCell);
         }
 
-        BasicTable.Rows.Add(tableHRow);
+        QualifiedCandidate.Rows.Add(tableHRow);
 
         // Table Rows
         TableRow aNewRow;
@@ -63,6 +60,7 @@ public partial class CandidateManagement : System.Web.UI.Page
             Button viewCoverLetterButton = new Button();
             viewCoverLetterButton.ID = "ViewCoverLetterButton" + index;
             viewCoverLetterButton.Text = "View";
+            viewCoverLetterButton.CssClass = "btn btn-outline-primary";
             viewCoverLetterButton.Click += new EventHandler((obj, eArgs) => ViewCoverLetterButton_Click(obj, eArgs, item.UserID, item.CoverLetter));
             aNewCell.Controls.Add(viewCoverLetterButton);
             aNewRow.Cells.Add(aNewCell);
@@ -71,6 +69,7 @@ public partial class CandidateManagement : System.Web.UI.Page
             Button viewResumeButton = new Button();
             viewResumeButton.ID = "ViewResumeButton" + index;
             viewResumeButton.Text = "View";
+            viewResumeButton.CssClass = "btn btn-outline-primary";
             viewResumeButton.Click += new EventHandler((obj, eArgs) => ViewResumeButton_Click(obj, eArgs, item.UserID, item.Resume));
             aNewCell.Controls.Add(viewResumeButton);
             aNewRow.Cells.Add(aNewCell);
@@ -79,13 +78,15 @@ public partial class CandidateManagement : System.Web.UI.Page
             Button assignButton = new Button();
             assignButton.ID = "AssignButton" + index;
             assignButton.Text = "Assign";
-            assignButton.Click += new EventHandler((obj, eArgs) => ViewResumeButton_Click(obj, eArgs, item.UserID, item.Resume));
+            assignButton.CssClass = "btn btn-outline-primary";
+            assignButton.Click += new EventHandler((obj, eArgs) => AssignButton_Click(obj, eArgs, item.UserID));
             aNewCell.Controls.Add(assignButton);
             aNewRow.Cells.Add(aNewCell);
 
-            BasicTable.Rows.Add(aNewRow);
+            QualifiedCandidate.Rows.Add(aNewRow);
             index++;
         }
+
     }
 
     protected void ViewCoverLetterButton_Click(object sender, EventArgs e, int userID, string coverLetter)
@@ -102,15 +103,13 @@ public partial class CandidateManagement : System.Web.UI.Page
         System.Diagnostics.Process.Start("Firefox.exe", path);
     }
 
-    //protected void ViewButton1_Click(object sender, EventArgs e)
-    //{
-    //    User currentUser = new User();
-    //    PRMS controller = new PRMS();
+    protected void AssignButton_Click(object sender, EventArgs e, int userID)
+    {
+        
+    }
 
-    //    currentUser = controller.GetUserCVByEmail("newguy@email.com");
-    //    string path = Server.MapPath("~/Files/" + currentUser.UserID + "/" + "Resume/" + currentUser.Resume);
-
-    //    System.Diagnostics.Process.Start("Firefox.exe", path);
-    //}
-
+    protected void BackButton_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("CandidateManagement2.aspx");
+    }
 }
