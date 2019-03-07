@@ -18,8 +18,6 @@ public class Regions
         cmd.Connection = con;
         cmd.CommandText = "GetRegions";
 
-
-
         //3. Create Adapter
         SqlDataAdapter PlaceMeJobDataAdapter = new SqlDataAdapter();
         PlaceMeJobDataAdapter.SelectCommand = cmd;
@@ -42,8 +40,6 @@ public class Regions
 
         con.Close();
         return regions;
-
-
 
     }
 

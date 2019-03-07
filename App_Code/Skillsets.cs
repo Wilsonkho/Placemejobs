@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -102,7 +103,7 @@ public class Skillsets
         return Success;
     }
 
-    public bool AddSkillSet(string skillsetDescription, string professionId)
+    public bool AddSkillSet(string skillSetDescription, int professionID)
     {
         SqlConnection con;
         con = new SqlConnection();
@@ -126,21 +127,21 @@ public class Skillsets
         descriptionparameter.SqlDbType = SqlDbType.NChar;
         descriptionparameter.Direction = ParameterDirection.Input;
 
-        ProfessionIdParameter.SqlDbType = SqlDbType.NChar;
+        ProfessionIdParameter.SqlDbType = SqlDbType.Int;
         ProfessionIdParameter.Direction = ParameterDirection.Input;
 
-        descriptionparameter.Value = skillsetDescription;
-        ProfessionIdParameter.Value = professionId;
+        descriptionparameter.Value = skillSetDescription;
+        ProfessionIdParameter.Value = professionID;
 
         con.Open();
 
         AddRegionCommand.Parameters.Add(descriptionparameter);
-        AddRegionCommand.Parameters.Add(professionId);
+        AddRegionCommand.Parameters.Add(ProfessionIdParameter);
 
         int rowsAffected = AddRegionCommand.ExecuteNonQuery();
 
-        bool success;
-        if (rowsAffected == 0)
+        bool success = false;
+        if (rowsAffected != 0)
         {
             success = true;
         }
@@ -148,6 +149,7 @@ public class Skillsets
         {
             success = false;
         }
-        return success;
+        return success; ;
     }
+    
 }
