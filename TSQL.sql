@@ -110,7 +110,7 @@ CREATE PROCEDURE GetAllSkillsets
 		FROM Skillset
 
 GO
-CREATE PROCEDURE JobMatch @JobID INT
+ALTER PROCEDURE JobMatch @JobID INT
 	AS 
 		SELECT DISTINCT Users.UserID,FirstName,LastName,Phone, Email, Profession.Description AS Profession, Region.Description AS Region, CoverLetter ,[Resume]
 		FROM Users	INNER JOIN UserProfession ON UserProfession.UserID=Users.UserID
@@ -123,8 +123,9 @@ CREATE PROCEDURE JobMatch @JobID INT
 					INNER JOIN JobPosting ON JobPosting.ProfessionID=Profession.ProfessionID
 					AND JobPosting.JobPostingID=JobPostingSKillSet.JobPostingID
 					AND JobPosting.RegionID=UserRegion.RegionID
-					INNER JOIN UserJobPosting ON JobPosting.JobPostingID = UserJobPosting.JobPostingID
-		WHERE JobPosting.JobPostingID=@JobID AND UserJobPosting.Status = 'On-Hold'
+					LEFT JOIN UserJobPosting ON Users.UserID = UserJobPosting.UserID
+		WHERE JobPosting.JobPostingID=@JobID AND UserJobPosting.UserID IS NULL
+-- SELECT * FROM UserJobPosting 
 
 GO
 CREATE PROCEDURE MatchProfession @JobID INT, @ProfessionID INT
@@ -245,17 +246,30 @@ AS
         RAISERROR('AddCandidateToJobPosting Error: All parameters required @JobPostingID.',16,1)
     ELSE
     BEGIN
-        UPDATE UserJobPosting
-		SET Status = 'Interviewing'
-		WHERE UserID = @UserID AND JobPostingID = @JobPostingID
+		INSERT INTO UserJobPosting
+		(
+			UserID,
+			JobPostingID,
+			Status
+		)
+		VALUES
+		(
+			@UserID,
+			@JobPostingID,
+			'Interviewing'
+		)
+  --      UPDATE UserJobPosting
+		--SET Status = 'Interviewing'
+		--WHERE UserID = @UserID AND JobPostingID = @JobPostingID
     END
     IF @@ERROR = 0
         SET @ReturnCode = 0
     ELSE
-        RAISERROR('AddCandidateToJobPosting Error: Update error.',16,1)
+        RAISERROR('AddCandidateToJobPosting Error: Insert error.',16,1)
     RETURN @ReturnCode
-
+-- SELECT * FROM Users
 -- SELECT * FROM UserJobPosting
+-- DELETE FROM UserJobPosting
 -- UPDATE UserJobPosting SET Status = 'On-Hold'
 
 /*
