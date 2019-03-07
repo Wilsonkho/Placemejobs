@@ -139,6 +139,7 @@
         </thead>
     </table>
     <asp:Table ID="QualifiedCandidate" runat="server" class="table table-striped table-bordered"/>
-    <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" />
+    <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" /><br />
+    
 </asp:Content>
 

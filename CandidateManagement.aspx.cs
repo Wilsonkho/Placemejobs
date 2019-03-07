@@ -105,7 +105,20 @@ public partial class CandidateManagement : System.Web.UI.Page
 
     protected void AssignButton_Click(object sender, EventArgs e, int userID)
     {
-        
+        bool confirmation = false;
+
+        int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
+        PRMS controller = new PRMS();
+        confirmation = controller.AssignCandidateToJobPosting(userID, jobPostingID);
+
+        if (confirmation)
+        {
+            Response.Redirect(Request.RawUrl);
+        }
+        else
+        {
+
+        }
     }
 
     protected void BackButton_Click(object sender, EventArgs e)

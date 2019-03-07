@@ -74,13 +74,12 @@ public class Administrators
 
         SqlParameter UseridParameter;
         SqlParameter JobpostingParameter;
-        SqlParameter statusParameter;
 
         UseridParameter = new SqlParameter();
         JobpostingParameter = new SqlParameter();
 
-        UseridParameter.ParameterName = "@userid";
-        JobpostingParameter.ParameterName = "@Jobid";
+        UseridParameter.ParameterName = "@UserID";
+        JobpostingParameter.ParameterName = "@JobPostingID";
 
         UseridParameter.SqlDbType = SqlDbType.Int;
         UseridParameter.Direction = ParameterDirection.Input;

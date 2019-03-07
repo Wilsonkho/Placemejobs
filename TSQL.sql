@@ -65,6 +65,12 @@ CREATE TABLE UserJobPosting(
 	Status VARCHAR(20)
 	PRIMARY KEY (UserID, JobPostingID))
 
+/*
+ALTER TABLE UserJobPosting
+ADD Status VARCHAR(20) NULL
+
+*/
+
 CREATE TABLE JobPostingSKillSet(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
 	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
@@ -117,7 +123,8 @@ CREATE PROCEDURE JobMatch @JobID INT
 					INNER JOIN JobPosting ON JobPosting.ProfessionID=Profession.ProfessionID
 					AND JobPosting.JobPostingID=JobPostingSKillSet.JobPostingID
 					AND JobPosting.RegionID=UserRegion.RegionID
-		WHERE JobPosting.JobPostingID=@JobID
+					INNER JOIN UserJobPosting ON JobPosting.JobPostingID = UserJobPosting.JobPostingID
+		WHERE JobPosting.JobPostingID=@JobID AND UserJobPosting.Status = 'On-Hold'
 
 GO
 CREATE PROCEDURE MatchProfession @JobID INT, @ProfessionID INT
@@ -238,26 +245,18 @@ AS
         RAISERROR('AddCandidateToJobPosting Error: All parameters required @JobPostingID.',16,1)
     ELSE
     BEGIN
-        INSERT INTO UserJobPosting
-		(
-			UserID,
-			JobPostingID,
-			Status
-		)
-		VALUES
-		(
-			@UserID,
-			@JobPostingID,
-			'Interviewing'
-		)
+        UPDATE UserJobPosting
+		SET Status = 'Interviewing'
+		WHERE UserID = @UserID AND JobPostingID = @JobPostingID
     END
     IF @@ERROR = 0
         SET @ReturnCode = 0
     ELSE
-        RAISERROR('AddCandidateToJobPosting Error: Insert error.',16,1)
+        RAISERROR('AddCandidateToJobPosting Error: Update error.',16,1)
     RETURN @ReturnCode
 
 -- SELECT * FROM UserJobPosting
+-- UPDATE UserJobPosting SET Status = 'On-Hold'
 
 /*
 /*** View All Tables and Table Entries***/

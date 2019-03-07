@@ -139,7 +139,7 @@ public class PRMS
         return candidateList;
     }
 
-    public bool AssignCandidateJobPosting(int userid, int jobpostingid)
+    public bool AssignCandidateToJobPosting(int userid, int jobpostingid)
     {
         bool confirmation = false;
 
