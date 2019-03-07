@@ -119,22 +119,32 @@ public class PRMS
         return regions;
     }
 
+    public List<JobPosting> GetAllJobPostings()
+    {
+        List<JobPosting> jobPostingsList = new List<JobPosting>();
+
+        JobPostings jobPostingManager = new JobPostings();
+        jobPostingsList = jobPostingManager.GetAllJobPostings();
+
+        return jobPostingsList;
+    }
+
     public List<User> GetQualifiedCandidates(int jobPostingID)
     {
         List<User> candidateList = new List<User>();
 
-        AdministratorManager administrationManager = new AdministratorManager();
+        Administrators administrationManager = new Administrators();
         candidateList = administrationManager.GetQualifiedCandidates(jobPostingID);
 
         return candidateList;
     }
 
-    public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
+    public bool AssignCandidateJobPosting(int userid, int jobpostingid)
     {
         bool confirmation = false;
 
-        AdministratorManager administrationManager = new AdministratorManager();
-        confirmation = administrationManager.AssignCandidateJobPosting(userid, jobpostingid, status);
+        Administrators administrationManager = new Administrators();
+        confirmation = administrationManager.AddCandidateToJobPosting(userid, jobpostingid);
 
         return confirmation;
     }
@@ -143,8 +153,8 @@ public class PRMS
     {
         bool confirmation = false;
 
-        AdministratorManager administratorManager = new AdministratorManager();
-        confirmation = administratorManager.AddRegion(description);
+        Regions regionManager = new Regions();
+        confirmation = regionManager.AddRegion(description);
 
         return confirmation;
     }
@@ -153,10 +163,30 @@ public class PRMS
     {
         bool confirmation = false;
 
-        AdministratorManager administratorManager = new AdministratorManager();
-        confirmation = administratorManager.AddProfession(professiondescription);
+        Professions professionManager = new Professions();
+        confirmation = professionManager.AddProfession(professiondescription);
 
         return confirmation;
 
+    }
+
+    /* public bool AddSkillSet(string SkillsetDescription, int ProfessionId)
+     {
+         bool confirmation = false;
+
+         AdministratorManager administratorManager = new AdministratorManager();
+         confirmation = administratorManager.AddSkillSet(SkillsetDescription,ProfessionId);
+
+         return confirmation;
+     }*/
+
+    public bool AddSkillSet(string SkillsetDescription, string ProfessionId)
+    {
+        bool confirmation = false;
+
+        Skillsets skillsetsManager = new Skillsets();
+        confirmation = skillsetsManager.AddSkillSet(SkillsetDescription, ProfessionId);
+
+        return confirmation;
     }
 }

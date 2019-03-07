@@ -14,7 +14,7 @@
             cursor: pointer;  
         }  
     </style>  
-
+<!--
 <script type="text/javascript">  
     
      $(document).ready(function () {  
@@ -74,13 +74,13 @@
                 <th>Resume</th>
             </tr>
         </thead>
-
-
     </table>
     <br />
     <br />
+    -->
 
+    <asp:Table ID="QualifiedCandidate" runat="server" class="table table-striped table-bordered"/>
+    <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" />
 
-    <asp:Table ID="BasicTable" runat="server" border="1" />
 </asp:Content>
 
