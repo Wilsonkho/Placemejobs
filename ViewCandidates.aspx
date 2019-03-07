@@ -1,9 +1,11 @@
 ﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewCandidates.aspx.cs" Inherits="ViewCandidates" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewCandidates.aspx.cs" Inherits="ViewCandidates" MasterPageFile="~/MasterPage.master" %>
 
-<asp:placeholder runat="server"></asp:placeholder>
+<asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
 
-<asp:placeholder runat="server">
+</asp:Content>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     
@@ -26,7 +28,6 @@
                          { 'data': 'LastName' },
                          { 'data': 'UserEmail' },  
                          { 'data': 'Phone' },   
-                       
                          { 'data': 'CoverLetter' },
                          { 'data': 'Resume' }
                          ]  
@@ -69,4 +70,4 @@
     </table>
 
 
-    </asp:placeholder>
+</asp:Content>
