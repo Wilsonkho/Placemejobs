@@ -265,16 +265,6 @@ public partial class RegisterCandidate : System.Web.UI.Page
         
         Session["skills"] = skillsList;
 
-
-        foreach (int skill in skillsList)
-        {
-            TableRow newRow = new TableRow();           
-
-            TableCell descriptionCell = new TableCell();
-            descriptionCell.Text = skill.ToString();
-            newRow.Cells.Add(descriptionCell);
-            RegisterCandidateTable.Rows.Add(newRow);
-        }
     }
 
     protected void AddRegion_Click(object sender, EventArgs e)
