@@ -10,7 +10,10 @@ public partial class AddSkillSet : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //int newvalue = Convert.ToInt32(Profession.Text);
-       
+       if(!IsPostBack)
+        {
+            BindDropDowns();
+        }
     }
 
     protected void BindDropDowns()
