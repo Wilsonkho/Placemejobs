@@ -170,22 +170,12 @@ public class PRMS
 
     }
 
-    /* public bool AddSkillSet(string SkillsetDescription, int ProfessionId)
-     {
-         bool confirmation = false;
-
-         AdministratorManager administratorManager = new AdministratorManager();
-         confirmation = administratorManager.AddSkillSet(SkillsetDescription,ProfessionId);
-
-         return confirmation;
-     }*/
-
-    public bool AddSkillSet(string SkillsetDescription, string ProfessionId)
+    public bool AddSkillSet(string SkillSetDescription, int ProfessionID)
     {
         bool confirmation = false;
 
         Skillsets skillsetsManager = new Skillsets();
-        confirmation = skillsetsManager.AddSkillSet(SkillsetDescription, ProfessionId);
+        confirmation = skillsetsManager.AddSkillSet(SkillSetDescription, ProfessionID);
 
         return confirmation;
     }

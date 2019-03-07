@@ -8,14 +8,17 @@ using System.Configuration;
 using System.Data;
 using System.Web.Script.Serialization;
 
-//https://www.c-sharpcorner.com/article/display-data-in-Asp-Net-using-jquery-datatables-plugin/ or user Ploty JSON 
-
 [WebService(Namespace = "PlacemejobsWebService")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 [System.Web.Script.Services.ScriptService]
 public class WebService : System.Web.Services.WebService
 {
+    [WebMethod]
+    public void ViewDocuments(string Parse)
+    {
+        
+    }
     [WebMethod]
     public void GetQualifiedCandidates(int JobPostingID)
     {
@@ -53,6 +56,7 @@ public class WebService : System.Web.Services.WebService
         while (QualifiedCandidatesReader.Read())
         {
             User QualifiedCandidates = new User();
+            QualifiedCandidates.UserID = Convert.ToInt32(QualifiedCandidatesReader["UserID"]);
             QualifiedCandidates.FirstName = QualifiedCandidatesReader["FirstName"].ToString();
             QualifiedCandidates.LastName = QualifiedCandidatesReader["LastName"].ToString();
             QualifiedCandidates.Phone = QualifiedCandidatesReader["Phone"].ToString();

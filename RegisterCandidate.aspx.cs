@@ -233,7 +233,6 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
         Session["professions"] = professionList;
 
-
         foreach (int profession in professionList)
         {
             TableRow newRow = new TableRow();
@@ -244,7 +243,6 @@ public partial class RegisterCandidate : System.Web.UI.Page
             RegisterCandidateTable.Rows.Add(newRow);
         }
 
-        CheckFiles();
     }
 
     protected void AddSkill_Click(object sender, EventArgs e)
@@ -317,22 +315,4 @@ public partial class RegisterCandidate : System.Web.UI.Page
         Response.Redirect(Request.RawUrl);
     }
 
-    protected void CheckFiles()
-    {
-        if (Session["FileUpload1"] == null && ResumeUpload.HasFile)
-        {
-            Session["FileUpload1"] = ResumeUpload;
-            //Label1.Text = ResumeUpload.FileName; 
-        }
-        else if (Session["FileUpload1"] != null && (!ResumeUpload.HasFile))
-        {
-            ResumeUpload = (FileUpload)Session["FileUpload1"];
-            //Label1.Text = ResumeUpload.FileName;
-        }
-        else if (ResumeUpload.HasFile)
-        {
-            Session["FileUpload1"] = ResumeUpload;
-            //Label1.Text = ResumeUpload.FileName;
-        }
-    }
 }
