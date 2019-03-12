@@ -233,16 +233,6 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
         Session["professions"] = professionList;
 
-        foreach (int profession in professionList)
-        {
-            TableRow newRow = new TableRow();
-
-            TableCell descriptionCell = new TableCell();
-            descriptionCell.Text = profession.ToString();
-            newRow.Cells.Add(descriptionCell);
-            RegisterCandidateTable.Rows.Add(newRow);
-        }
-
     }
 
     protected void AddSkill_Click(object sender, EventArgs e)
@@ -288,16 +278,6 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
         Session["regions"] = regionsList;
 
-
-        foreach (int region in regionsList)
-        {
-            TableRow newRow = new TableRow();
-
-            TableCell descriptionCell = new TableCell();
-            descriptionCell.Text = region.ToString();
-            newRow.Cells.Add(descriptionCell);
-            RegisterCandidateTable.Rows.Add(newRow);
-        }
     }
 
     protected void Cancel_Click(object sender, EventArgs e)
