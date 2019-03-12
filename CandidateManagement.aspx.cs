@@ -93,16 +93,16 @@ public partial class CandidateManagement : System.Web.UI.Page
 
     protected void ViewCoverLetterButton_Click(object sender, EventArgs e, int userID, string coverLetter)
     {
-        string path = Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + coverLetter);
+        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/CoverLetter/" + coverLetter;
 
-        System.Diagnostics.Process.Start("Firefox.exe", path);
+        Response.Redirect(path);
     }
 
     protected void ViewResumeButton_Click(object sender, EventArgs e, int userID, string resume)
     {
-        string path = Server.MapPath("~/Files/" + userID + "/" + "Resume/" + resume);
+        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/Resume/" + resume;
 
-        System.Diagnostics.Process.Start("Firefox.exe", path);
+        Response.Redirect(path);
     }
 
     protected void AssignButton_Click(object sender, EventArgs e, int userID)
