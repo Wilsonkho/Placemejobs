@@ -137,6 +137,7 @@ public class WebService : System.Web.Services.WebService
                 
            
         }
+        AllQualifiedCandidates.Add(QualifiedCandidate2);
 
         QualifiedCandidatesReader.Close();
         con.Close();

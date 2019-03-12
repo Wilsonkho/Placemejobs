@@ -78,7 +78,13 @@
     <br />
     <br />
     -->
-
+    <div class="page-header">
+        <br />
+        <h1><asp:Label runat="server" ID="HeaderLabel" /></h1>
+        <small><asp:Label runat="server" ID="SmallLabel" /></small>
+        <hr />
+    </div>
+    
     <asp:Table ID="QualifiedCandidate" runat="server" class="table table-striped table-bordered"/>
     <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" /><br />
     

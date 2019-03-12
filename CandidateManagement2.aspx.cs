@@ -56,7 +56,7 @@ public partial class CandidateManagement2 : System.Web.UI.Page
             viewButton.ID = "ViewButton" + index;
             viewButton.Text = "View";
             viewButton.CssClass = "btn btn-outline-primary";
-            viewButton.Click += new EventHandler((obj, eArgs) => ViewButton_Click(obj, eArgs, item.JobPostingID));
+            viewButton.Click += new EventHandler((obj, eArgs) => ViewButton_Click(obj, eArgs, item.JobPostingID,item.CompanyName,item.Description));
             aNewCell.Controls.Add(viewButton);
             aNewRow.Cells.Add(aNewCell);
 
@@ -65,8 +65,8 @@ public partial class CandidateManagement2 : System.Web.UI.Page
         }
     }
 
-    protected void ViewButton_Click(object sender, EventArgs e, int jobPostingID)
+    protected void ViewButton_Click(object sender, EventArgs e, int jobPostingID, string Name, string Description)
     {
-        Response.Redirect("CandidateManagement.aspx?JobPostingID=" + jobPostingID.ToString());
+        Response.Redirect("CandidateManagement.aspx?JobPostingID=" + jobPostingID.ToString() + "&Name=" + Name + "&Description=" + Description );
     }
 }

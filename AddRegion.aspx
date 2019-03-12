@@ -16,7 +16,7 @@
 
         <asp:TableRow>
             <asp:TableCell ColumnSpan="2">
-                <asp:Button ID="AddRegionButton" runat="server" Height="33px" Text="Add" Width="71px" OnClick="AddRegionButton_Click" />
+                <asp:Button ID="AddRegionButton" runat="server" class="btn btn-secondary" Text="Add" OnClick="AddRegionButton_Click" />
             </asp:TableCell>
         </asp:TableRow>
 

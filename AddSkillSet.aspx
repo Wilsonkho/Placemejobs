@@ -26,7 +26,7 @@
 
         <asp:TableRow>
             <asp:TableCell ColumnSpan="2">
-                <asp:Button ID="AddSkillSetButton" runat="server" Height="33px" Text="Add" Width="71px" OnClick="AddSkillSetButton_Click"  />
+                <asp:Button ID="AddSkillSetButton" runat="server" class="btn btn-secondary" Text="Add"  OnClick="AddSkillSetButton_Click"  />
             </asp:TableCell>
         </asp:TableRow>
 

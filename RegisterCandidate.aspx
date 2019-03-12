@@ -120,7 +120,7 @@
 
             <asp:TableRow>
                 <asp:TableCell ColumnSpan="3">
-                    <asp:Panel runat="server">
+                    <asp:Panel runat="server">           
                         <asp:Label ID="Results" runat="server" ForeColor="Red"></asp:Label>
                     </asp:Panel>                    
                 </asp:TableCell>
