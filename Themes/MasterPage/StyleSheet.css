@@ -59,6 +59,17 @@
      padding-top:30px;
  }
 
+ .carousel-caption{
+     background-color: rgb(128, 128, 128, 0.6);
+     padding: 3rem;
+     border-radius: 2rem;
+ }
 
-    
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  outline: black;
+
+}
 

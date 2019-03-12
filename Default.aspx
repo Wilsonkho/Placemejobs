@@ -26,7 +26,7 @@
       <div class="carousel-item">
           <img src="Images/banner2.jpg" height="65%" width="100%" />
          <div class="container">
-          <div class="carousel-caption">
+          <div class="carousel-caption text-left">
             <h1>Another example headline.</h1>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
@@ -36,7 +36,7 @@
       <div class="carousel-item">
           <img src="Images/banner3.jpg" height="65%" width="100%" />
           <div class="container">
-          <div class="carousel-caption text-right">
+          <div class="carousel-caption text-left">
             <h1>One more for good measure.</h1>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
@@ -46,7 +46,7 @@
       <div class="carousel-item">
           <img src="Images/banner4.jpg" height="65%" width="100%" />
           <div class="container">
-          <div class="carousel-caption text-right">
+          <div class="carousel-caption text-left">
             <h1>One more for good measure.</h1>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
