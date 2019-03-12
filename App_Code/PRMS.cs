@@ -11,7 +11,7 @@ public class PRMS
     {
         bool Confirmation;
         User ReturnUser = new User();
-        Manager Get = new Manager();
+        Users Get = new Users();
         Confirmation = Get.GetUser(LoginUser);
         return Confirmation;
 
@@ -19,13 +19,13 @@ public class PRMS
     public Boolean AddUser(User NewUser)
     {
         bool confirmation;
-        Manager Add = new Manager();
+        Users Add = new Users();
         confirmation = Add.AddUser(NewUser);
         return confirmation;
     }
     public String GetRoles(User LoginUser)
     {
-        Manager Roles = new Manager();
+        Users Roles = new Users();
         return Roles.GetRoles(LoginUser);
     }
 
@@ -33,7 +33,7 @@ public class PRMS
     {
         bool confirmation = false;
 
-        Manager userManager = new Manager();
+        Users userManager = new Users();
         confirmation = userManager.UploadResume(resume);
 
         return confirmation;
@@ -43,7 +43,7 @@ public class PRMS
     {
         bool confirmation = false;
 
-        Manager userManager = new Manager();
+        Users userManager = new Users();
         confirmation = userManager.AddCandidate(newCandidate);
 
         return confirmation;
@@ -83,7 +83,7 @@ public class PRMS
     {
         int userID;
 
-        Manager userManager = new Manager();
+        Users userManager = new Users();
         userID = userManager.GetUserIDByEmail(email);
 
         return userID;

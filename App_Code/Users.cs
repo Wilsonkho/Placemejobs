@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Configuration;
 
-public class Manager
+public class Users
 {
 
     //algorithm for sha256 hash
