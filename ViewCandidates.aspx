@@ -38,6 +38,11 @@
   
      });  
  </script>  
+ <div class="page-header">
+        <br />
+        <h1>View All Candidates</h1>
+        <hr />
+  </div>
 
  <table id="MatchTable">
         <thead>

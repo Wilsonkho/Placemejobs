@@ -15,6 +15,8 @@ public partial class CandidateManagement : System.Web.UI.Page
         List<User> candidateList = new List<User>();
         candidateList = controller.GetQualifiedCandidates(jobPostingID);
 
+        HeaderLabel.Text = "Candidates Matching - " + Request["Name"];
+        SmallLabel.Text = Request["Description"];
         // Table Headings
         TableHeaderRow tableHRow = new TableHeaderRow();
         List<String> headerList = new List<String>()
