@@ -64,7 +64,8 @@ CREATE TABLE UserJobPosting(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
 	Status VARCHAR(20)
 	PRIMARY KEY (UserID, JobPostingID))
-
+SELECT * FROM UserJobPosting
+DROP TABLE UserJobPosting
 /*
 ALTER TABLE UserJobPosting
 ADD Status VARCHAR(20) NULL
