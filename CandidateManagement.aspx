@@ -14,132 +14,15 @@
             cursor: pointer;  
         }  
     </style>  
-  <!--   <script type="text/javascript">  
-     $(document).ready(function () {  
-         $.ajax({  
-             type: "POST",  
-             dataType: "json",  
-             url: "WebService.asmx/AllCandidates",  
-             success: function (data) {  
-                 var datatableVariable = $('#MatchTable').DataTable({  
-                     data: data,  
-                     columns: [  
-                         { 'data': 'FirstName' },
-                         { 'data': 'LastName' },
-                         { 'data': 'UserEmail' },  
-                         { 'data': 'Phone' },   
-                       
-                         { 'data': 'CoverLetter' },
-                         { 'data': 'Resume' }
-                         ]  
-                 });  
-                 /*$('#MatchTable tfoot th').each(function () {  
-                     var placeHolderTitle = $('#MatchTable thead th').eq($(this).index()).text();
-                     $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');  
-                 });*/  
-                 datatableVariable.columns().every(function () {  
-                     var column = this;  
-                     $(this.footer()).find('input').on('keyup change', function () {  
-                         column.search(this.value).draw();  
-                     });  
-                 });  
-                 $('.showHide').on('click', function () {  
-                     var tableColumn = datatableVariable.column($(this).attr('data-columnindex'));  
-                     tableColumn.visible(!tableColumn.visible());  
-                 });  
-             }  
-         });  
-  
-     });  
- </script>  -->
-<script type="text/javascript">  
+    <div class="page-header">
+        <br />
+        <h1><asp:Label runat="server" ID="HeaderLabel" /></h1>
+        <small><asp:Label runat="server" ID="SmallLabel" /></small>
+        <hr />
+    </div>
     
-     $(document).ready(function () {  
-         $.ajax({  
-             type: "POST",
-             data: { "JobPostingID": 4 },
-             dataType: "json",  
-             url: "WebService.asmx/GetQualifiedCandidates",  
-             success: function (data) {  
-                 var datatableVariable = $('#MatchTable').DataTable({  
-                     data: data,  
-                     columns: [
-                         {
-                            "className": 'details-control', 
-                            "orderable": false,
-                            "data": null,
-                            "defaultContent": ''
-                         },
-                         { 'data': 'FirstName' },
-                         { 'data': 'LastName' },
-                         { 'data': 'UserEmail' },  
-                         { 'data': 'Phone' },   
-                         { 'data': 'Profession' },
-                         { 'data':'Region'},
-                         { 'data': 'CoverLetter','orderable': false},
-                         { 'data': 'Resume', 'orderable':false}
-                     ],
-                     order: [[1,'asc']]
-                 });
-                 $('#MatchTable tbody').on('click', 'td.details-control', function () {
-                     var tr = $(this).closest('tr');
-                     var row = table.row(tr);
-                     window.alert("I am an alert box!");
-                     if (row.child.isShown()) {
-                         // This row is already open - close it
-                         row.child.hide();
-                         tr.removeClass('shown');
-                     }
-                     else {
-                         // Open this row
-                         row.child(format(row.data())).show();
-                         tr.addClass('shown');
-                     }
-                 });
-             
-
-                 /*$('#MatchTable tfoot th').each(function () {  
-                     var placeHolderTitle = $('#MatchTable thead th').eq($(this).index()).text();
-                     $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');  
-                 });*/  
-                 datatableVariable.columns().every(function () {  
-                     var column = this;  
-                     $(this.footer()).find('input').on('keyup change', function () {  
-                         column.search(this.value).draw();  
-                     });  
-                 });  
-                 $('.showHide').on('click', function () {  
-                     var tableColumn = datatableVariable.column($(this).attr('data-columnindex'));  
-                     tableColumn.visible(!tableColumn.visible());  
-                 });  
-
-             }  
-         });  
-  
-     });  
- </script> 
-    <!--
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#MatchTable').DataTable();
-        });
-    </script>
-        -->
-    <table id="MatchTable">
-        <thead>
-            <tr>
-                <th></th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Cover</th>
-                <th>Resume</th>
-            </tr>
-        </thead>
-
-
-    </table>
-    <asp:Table ID="BasicTable" runat="server" border="1" />
+    <asp:Table ID="QualifiedCandidate" runat="server" class="table table-striped table-bordered"/>
+    <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" /><br />
+    
 </asp:Content>
 

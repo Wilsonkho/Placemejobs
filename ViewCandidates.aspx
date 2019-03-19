@@ -1,9 +1,11 @@
 ﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewCandidates.aspx.cs" Inherits="ViewCandidates" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewCandidates.aspx.cs" Inherits="ViewCandidates" MasterPageFile="~/MasterPage.master" %>
 
-<asp:placeholder runat="server"></asp:placeholder>
+<asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
 
-<asp:placeholder runat="server">
+</asp:Content>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     
@@ -26,30 +28,21 @@
                          { 'data': 'LastName' },
                          { 'data': 'UserEmail' },  
                          { 'data': 'Phone' },   
-                       
-                         { 'data': 'CoverLetter' },
-                         { 'data': 'Resume' }
+                         { 'data': 'Profession' },
+                         { 'data': 'Region' },
+                         { 'data': 'Skillset'}
                          ]  
-                 });  
-                 /*$('#MatchTable tfoot th').each(function () {  
-                     var placeHolderTitle = $('#MatchTable thead th').eq($(this).index()).text();
-                     $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');  
-                 });*/  
-                 datatableVariable.columns().every(function () {  
-                     var column = this;  
-                     $(this.footer()).find('input').on('keyup change', function () {  
-                         column.search(this.value).draw();  
-                     });  
-                 });  
-                 $('.showHide').on('click', function () {  
-                     var tableColumn = datatableVariable.column($(this).attr('data-columnindex'));  
-                     tableColumn.visible(!tableColumn.visible());  
                  });  
              }  
          });  
   
      });  
  </script>  
+ <div class="page-header">
+        <br />
+        <h1>View All Candidates</h1>
+        <hr />
+  </div>
 
  <table id="MatchTable">
         <thead>
@@ -60,8 +53,7 @@
                 <th>Phone</th>
                 <th>Profession</th>
                 <th>Region</th>
-                <th>Cover</th>
-                <th>Resume</th>
+                <th>Skill Sets</th>
             </tr>
         </thead>
 
@@ -69,4 +61,4 @@
     </table>
 
 
-    </asp:placeholder>
+</asp:Content>

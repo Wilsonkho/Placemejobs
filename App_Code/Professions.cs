@@ -100,4 +100,45 @@ public class Professions
         }
         return Success;
     }
+
+    public bool AddProfession(string professiondescription)
+    {
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddRegionCommand;
+        AddRegionCommand = new SqlCommand("");
+        AddRegionCommand.CommandType = CommandType.StoredProcedure;
+        AddRegionCommand.Connection = con;
+        AddRegionCommand.CommandText = "PopulateProfession";
+
+        SqlParameter descriptionparameter;
+
+        descriptionparameter = new SqlParameter();
+
+        descriptionparameter.ParameterName = "@Description";
+
+        descriptionparameter.SqlDbType = SqlDbType.NChar;
+        descriptionparameter.Direction = ParameterDirection.Input;
+
+        descriptionparameter.Value = professiondescription;
+
+        con.Open();
+
+        AddRegionCommand.Parameters.Add(descriptionparameter);
+
+        int rowsAffected = AddRegionCommand.ExecuteNonQuery();
+
+        Boolean success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
 }

@@ -9,15 +9,23 @@ public partial class AddRegion : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        AdministratorManager administrator = new AdministratorManager();
-        administrator.AddRegion(Region.Text);
 
-        PRMS Control = new PRMS();
     }
 
     protected void AddRegionButton_Click(object sender, EventArgs e)
     {
+        bool confirmation = false;
+        PRMS controller = new PRMS();
 
-        Label1.Text = "Region added successfully";
+        confirmation = controller.AddRegion(Region.Text);
+
+        if (confirmation)
+        {
+            Confirmation.Text = "Region added successfully.";
+        }
+        else
+        {
+            Confirmation.Text = "Error has occurred.";
+        }
     }
 }

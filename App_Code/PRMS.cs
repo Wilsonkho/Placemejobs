@@ -11,7 +11,7 @@ public class PRMS
     {
         bool Confirmation;
         User ReturnUser = new User();
-        Manager Get = new Manager();
+        Users Get = new Users();
         Confirmation = Get.GetUser(LoginUser);
         return Confirmation;
 
@@ -19,13 +19,13 @@ public class PRMS
     public Boolean AddUser(User NewUser)
     {
         bool confirmation;
-        Manager Add = new Manager();
+        Users Add = new Users();
         confirmation = Add.AddUser(NewUser);
         return confirmation;
     }
     public String GetRoles(User LoginUser)
     {
-        Manager Roles = new Manager();
+        Users Roles = new Users();
         return Roles.GetRoles(LoginUser);
     }
 
@@ -33,7 +33,7 @@ public class PRMS
     {
         bool confirmation = false;
 
-        Manager userManager = new Manager();
+        Users userManager = new Users();
         confirmation = userManager.UploadResume(resume);
 
         return confirmation;
@@ -43,7 +43,7 @@ public class PRMS
     {
         bool confirmation = false;
 
-        Manager userManager = new Manager();
+        Users userManager = new Users();
         confirmation = userManager.AddCandidate(newCandidate);
 
         return confirmation;
@@ -83,7 +83,7 @@ public class PRMS
     {
         int userID;
 
-        Manager userManager = new Manager();
+        Users userManager = new Users();
         userID = userManager.GetUserIDByEmail(email);
 
         return userID;
@@ -119,22 +119,32 @@ public class PRMS
         return regions;
     }
 
+    public List<JobPosting> GetAllJobPostings()
+    {
+        List<JobPosting> jobPostingsList = new List<JobPosting>();
+
+        JobPostings jobPostingManager = new JobPostings();
+        jobPostingsList = jobPostingManager.GetAllJobPostings();
+
+        return jobPostingsList;
+    }
+
     public List<User> GetQualifiedCandidates(int jobPostingID)
     {
         List<User> candidateList = new List<User>();
 
-        AdministratorManager administrationManager = new AdministratorManager();
+        Administrators administrationManager = new Administrators();
         candidateList = administrationManager.GetQualifiedCandidates(jobPostingID);
 
         return candidateList;
     }
 
-    public bool AssignCandidateJobPosting(int userid, int jobpostingid, bool status)
+    public bool AssignCandidateToJobPosting(int userid, int jobpostingid)
     {
         bool confirmation = false;
 
-        AdministratorManager administrationManager = new AdministratorManager();
-        confirmation = administrationManager.AssignCandidateJobPosting(userid, jobpostingid, status);
+        Administrators administrationManager = new Administrators();
+        confirmation = administrationManager.AddCandidateToJobPosting(userid, jobpostingid);
 
         return confirmation;
     }
@@ -143,8 +153,8 @@ public class PRMS
     {
         bool confirmation = false;
 
-        AdministratorManager administratorManager = new AdministratorManager();
-        confirmation = administratorManager.AddRegion(description);
+        Regions regionManager = new Regions();
+        confirmation = regionManager.AddRegion(description);
 
         return confirmation;
     }
@@ -153,10 +163,20 @@ public class PRMS
     {
         bool confirmation = false;
 
-        AdministratorManager administratorManager = new AdministratorManager();
-        confirmation = administratorManager.AddProfession(professiondescription);
+        Professions professionManager = new Professions();
+        confirmation = professionManager.AddProfession(professiondescription);
 
         return confirmation;
 
+    }
+
+    public bool AddSkillSet(string SkillSetDescription, int ProfessionID)
+    {
+        bool confirmation = false;
+
+        Skillsets skillsetsManager = new Skillsets();
+        confirmation = skillsetsManager.AddSkillSet(SkillSetDescription, ProfessionID);
+
+        return confirmation;
     }
 }

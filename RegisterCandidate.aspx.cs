@@ -29,8 +29,8 @@ public partial class RegisterCandidate : System.Web.UI.Page
             Session["professions"] = null;
             Session["skills"] = null;
             Session["regions"] = null;
+            Session["FileUpload1"] = null;
         }
-
 
     }
 
@@ -133,6 +133,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
                         }
                     }
                     //Set color to green
+                    Results.ForeColor = System.Drawing.Color.Green;
                     Results.Text = "Candidate was added";
 
                     #region add professions
@@ -226,21 +227,12 @@ public partial class RegisterCandidate : System.Web.UI.Page
         {
             professionList.Add(int.Parse(Profession.SelectedValue));
             professionsLabel.Visible = true;
+            professionsLabel.ForeColor = System.Drawing.Color.Blue;
             professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
         }
 
         Session["professions"] = professionList;
 
-
-        foreach (int profession in professionList)
-        {
-            TableRow newRow = new TableRow();
-
-            TableCell descriptionCell = new TableCell();
-            descriptionCell.Text = profession.ToString();
-            newRow.Cells.Add(descriptionCell);
-            RegisterCandidateTable.Rows.Add(newRow);
-        }
     }
 
     protected void AddSkill_Click(object sender, EventArgs e)
@@ -257,21 +249,12 @@ public partial class RegisterCandidate : System.Web.UI.Page
         {
             skillsList.Add(int.Parse(Skillset.SelectedValue));
             skillsetsLabel.Visible = true;
+            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
             skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
         }
         
         Session["skills"] = skillsList;
 
-
-        foreach (int skill in skillsList)
-        {
-            TableRow newRow = new TableRow();           
-
-            TableCell descriptionCell = new TableCell();
-            descriptionCell.Text = skill.ToString();
-            newRow.Cells.Add(descriptionCell);
-            RegisterCandidateTable.Rows.Add(newRow);
-        }
     }
 
     protected void AddRegion_Click(object sender, EventArgs e)
@@ -288,26 +271,18 @@ public partial class RegisterCandidate : System.Web.UI.Page
         {
             regionsList.Add(int.Parse(Region.SelectedValue));
             regionsLabel.Visible = true;
+            regionsLabel.ForeColor = System.Drawing.Color.Blue;
             regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
         }
 
 
         Session["regions"] = regionsList;
 
-
-        foreach (int region in regionsList)
-        {
-            TableRow newRow = new TableRow();
-
-            TableCell descriptionCell = new TableCell();
-            descriptionCell.Text = region.ToString();
-            newRow.Cells.Add(descriptionCell);
-            RegisterCandidateTable.Rows.Add(newRow);
-        }
     }
 
     protected void Cancel_Click(object sender, EventArgs e)
     {
         Response.Redirect(Request.RawUrl);
     }
+
 }
