@@ -180,6 +180,7 @@ public class PRMS
         return confirmation;
     }
 
+
     public bool AddJobSkillSets(int jobID, int skill)
     {
         bool confirmation = false;
@@ -194,5 +195,15 @@ public class PRMS
     {        
         JobPostings jobPostingManager = new JobPostings();         
         return jobPostingManager.AddJobPosting(job);
+    }
+    public List<User> GetAssignedCandidates(int jobPostingID)
+    {
+        List<User> candidateList = new List<User>();
+
+        Administrators administrationManager = new Administrators();
+        candidateList = administrationManager.GetAssignedCandidates(jobPostingID);
+
+        return candidateList;
+
     }
 }
