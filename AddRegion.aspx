@@ -6,7 +6,7 @@
 
     <asp:Table ID="SkillsetTable" runat="server" CssClass="table-active" HorizontalAlign="Center">
         <asp:TableRow>
-            <asp:TableCell>
+            <asp:TableCell CssClass="label-text">
                 Region:
             </asp:TableCell>
             <asp:TableCell>                
@@ -21,7 +21,7 @@
         </asp:TableRow>
 
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="2">
+            <asp:TableCell ColumnSpan="2" CssClass="label-text">
                 <asp:Label ID="Confirmation" runat="server"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
