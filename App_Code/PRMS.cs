@@ -179,4 +179,20 @@ public class PRMS
 
         return confirmation;
     }
+
+    public bool AddJobSkillSets(int jobID, int skill)
+    {
+        bool confirmation = false;
+
+        Skillsets skillsetsManager = new Skillsets();
+        confirmation = skillsetsManager.AddJobSkill(jobID, skill);
+
+        return confirmation;
+    }
+
+    public int AddJobPosting(JobPosting job)
+    {        
+        JobPostings jobPostingManager = new JobPostings();         
+        return jobPostingManager.AddJobPosting(job);
+    }
 }

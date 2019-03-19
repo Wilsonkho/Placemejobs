@@ -18,6 +18,7 @@ public partial class AddJobPosting : System.Web.UI.Page
             skillsets = new List<Skillset>();
             
             Session["skills"] = null;
+            
         }
     }
 
@@ -66,16 +67,58 @@ public partial class AddJobPosting : System.Web.UI.Page
 
         Session["skills"] = skillsList;
 
-
-        foreach (int skill in skillsList)
-        {
-            TableRow newRow = new TableRow();
-
-            TableCell descriptionCell = new TableCell();
-            descriptionCell.Text = skill.ToString();
-            newRow.Cells.Add(descriptionCell);
-            AddPostingTable.Rows.Add(newRow);
-        }
     }
 
+
+    protected void Submit_Click(object sender, EventArgs e)
+    {
+        PRMS controller = new PRMS();
+
+
+        List<int> skillsList;
+        skillsList = (List<int>)Session["skills"];
+
+        JobPosting newPosting = new JobPosting();
+
+        newPosting.Description = JobPostingDescription.Text;
+        newPosting.CompanyName = CompanyName.Text;
+        newPosting.RegionID = int.Parse(Region.Text);
+        newPosting.ProfessionID = int.Parse(Profession.Text);
+        newPosting.Date = DateTime.Parse(Date.Text);
+        newPosting.EmployerPhone = CompanyPhone.Text;
+
+        try
+        {
+            int newJobID;
+            newJobID = controller.AddJobPosting(newPosting);
+
+            foreach (int skill in skillsList)
+            {
+                controller.AddJobSkillSets(newJobID, skill);
+            }
+            ClearForm();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Inserted Successfully')", true);
+        }
+        catch(Exception ex)
+        {
+            Confirmation.Text = "the following error has occurred: " + ex;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Insert Failed')", true);
+        }
+       
+    }
+
+    protected void ClearForm()
+    {
+        JobPostingDescription.Text = "";
+        CompanyName.Text = "";
+        Region.SelectedValue = "0";
+        Profession.SelectedValue = "0";
+        Skillset.SelectedValue = "0";
+        CompanyPhone.Text = "";
+        Date.Text = "";
+        skillsetsLabel.Visible = false;
+        skillsetsLabel.Text = "Skills:";
+        Session.Clear();
+
+    }
 }

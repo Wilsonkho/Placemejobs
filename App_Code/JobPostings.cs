@@ -46,4 +46,83 @@ public class JobPostings
 
         return jobPostingsList;
     }
+
+    public int AddJobPosting(JobPosting job)
+    {
+
+        SqlConnection PlacemeJobsConnection;
+        PlacemeJobsConnection = new SqlConnection();
+        PlacemeJobsConnection.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddJobPostingCommand;
+        AddJobPostingCommand = new SqlCommand();
+        AddJobPostingCommand.CommandType = CommandType.StoredProcedure;
+        AddJobPostingCommand.Connection = PlacemeJobsConnection;
+        AddJobPostingCommand.CommandText = "AddJobPosting";
+
+        SqlParameter Description;
+        Description = new SqlParameter();
+        Description.ParameterName = "@Description";
+        Description.SqlDbType = SqlDbType.VarChar;
+        Description.Direction = ParameterDirection.Input;
+        Description.Value = job.Description;
+
+        SqlParameter CompanyName;
+        CompanyName = new SqlParameter();
+        CompanyName.ParameterName = "@CompanyName";
+        CompanyName.SqlDbType = SqlDbType.VarChar;
+        CompanyName.Direction = ParameterDirection.Input;
+        CompanyName.Value = job.CompanyName;
+
+        SqlParameter ProfessionID;
+        ProfessionID = new SqlParameter();
+        ProfessionID.ParameterName = "@ProfessionID";
+        ProfessionID.SqlDbType = SqlDbType.Int;
+        ProfessionID.Direction = ParameterDirection.Input;
+        ProfessionID.Value = job.ProfessionID;
+
+        SqlParameter RegionID;
+        RegionID = new SqlParameter();
+        RegionID.ParameterName = "@RegionID";
+        RegionID.SqlDbType = SqlDbType.Int;
+        RegionID.Direction = ParameterDirection.Input;
+        RegionID.Value = job.RegionID;
+
+        SqlParameter Date;
+        Date = new SqlParameter();
+        Date.ParameterName = "@Date";
+        Date.SqlDbType = SqlDbType.Date;
+        Date.Direction = ParameterDirection.Input;
+        Date.Value = job.Date;
+
+        SqlParameter EmployerPhone;
+        EmployerPhone = new SqlParameter();
+        EmployerPhone.ParameterName = "@EmployerPhone";
+        EmployerPhone.SqlDbType = SqlDbType.VarChar;
+        EmployerPhone.Direction = ParameterDirection.Input;
+        EmployerPhone.Value = job.EmployerPhone;
+
+        SqlParameter ReturnParameter;
+        ReturnParameter = new SqlParameter();
+        ReturnParameter.ParameterName = "ReturnValue";
+        ReturnParameter.SqlDbType = SqlDbType.Int;
+        ReturnParameter.Direction = ParameterDirection.ReturnValue;
+
+
+        AddJobPostingCommand.Parameters.Add(Description);
+        AddJobPostingCommand.Parameters.Add(CompanyName);
+        AddJobPostingCommand.Parameters.Add(EmployerPhone);
+        AddJobPostingCommand.Parameters.Add(ProfessionID);
+        AddJobPostingCommand.Parameters.Add(RegionID);
+        AddJobPostingCommand.Parameters.Add(Date);
+        AddJobPostingCommand.Parameters.Add(ReturnParameter);
+
+        PlacemeJobsConnection.Open();
+
+
+        AddJobPostingCommand.ExecuteNonQuery();
+        return (int)AddJobPostingCommand.Parameters["ReturnValue"].Value;
+        
+        
+    }
 }
