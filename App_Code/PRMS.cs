@@ -179,4 +179,13 @@ public class PRMS
 
         return confirmation;
     }
+    public List<User> GetAssignedCandidates(int jobPostingID)
+    {
+        List<User> candidateList = new List<User>();
+
+        Administrators administrationManager = new Administrators();
+        candidateList = administrationManager.GetAssignedCandidates(jobPostingID);
+
+        return candidateList;
+    }
 }

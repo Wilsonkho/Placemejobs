@@ -27,6 +27,8 @@ public class User
     public string Profession { get; set; }
     public string Region { get; set; }
     public string Skillset { get; set; }
+    //Temperary place holder for the job status if Candidate is assigned 
+    public string JobStatus { get; set; }
 
     //public User()
     //{

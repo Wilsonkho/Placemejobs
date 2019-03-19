@@ -109,6 +109,52 @@ public class Administrators
         return success;
 
     }
+    public List<User> GetAssignedCandidates(int JobPostingID)
+    {
+        List<User> qualifiedCandidates = new List<User>();
 
-    
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand GetAssignedCandidatesCommand;
+        GetAssignedCandidatesCommand = new SqlCommand("");
+        GetAssignedCandidatesCommand.CommandType = CommandType.StoredProcedure;
+        GetAssignedCandidatesCommand.Connection = con;
+        GetAssignedCandidatesCommand.CommandText = "GetJobCandidates";
+
+        SqlParameter JobPostingIdParameter;
+        JobPostingIdParameter = new SqlParameter();
+        JobPostingIdParameter.ParameterName = "@JobPostingID";
+        JobPostingIdParameter.SqlDbType = SqlDbType.Int;
+        JobPostingIdParameter.Direction = ParameterDirection.Input;
+        JobPostingIdParameter.Value = JobPostingID;
+        GetAssignedCandidatesCommand.Parameters.Add(JobPostingIdParameter);
+
+        con.Open();
+
+        SqlDataReader reader;
+        reader = GetAssignedCandidatesCommand.ExecuteReader();
+
+        while (reader.Read())
+        {
+            User aCandidate = new User();
+
+            aCandidate.UserID = Convert.ToInt32(reader["UserID"]);
+            aCandidate.FirstName = reader["FirstName"].ToString();
+            aCandidate.LastName = reader["LastName"].ToString();
+            aCandidate.Phone = reader["Phone"].ToString();
+            aCandidate.UserEmail = reader["Email"].ToString();
+            aCandidate.CoverLetter = reader["CoverLetter"].ToString();
+            aCandidate.Resume = reader["Resume"].ToString();
+            aCandidate.JobStatus = reader["Status"].ToString();
+
+            qualifiedCandidates.Add(aCandidate);
+        }
+
+        con.Close();
+        return qualifiedCandidates;
+
+    }
+
 }
