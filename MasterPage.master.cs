@@ -42,6 +42,10 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             CandidateManagementLink.Attributes.Add("class", "nav-link active");
         }
+        else if (activepage.Contains("Contact.aspx"))
+        {
+            ContactLink.Attributes.Add("class", "nav-link active");
+        }
         else
         {
             DefaultLink.Attributes.Add("class", "nav-link active");
