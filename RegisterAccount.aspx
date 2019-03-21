@@ -28,6 +28,7 @@
             <asp:TableCell HorizontalAlign="Right">Password:</asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:TextBox runat="server" ID="Password" Class="form-control" TextMode="Password"></asp:TextBox>
+                <asp:HiddenField ID="HidePassword" runat="server" />
                 <asp:RequiredFieldValidator ID="PasswordRequiredFieldValidator" runat="server" ErrorMessage="Password is required."
                         ControlToValidate="Password" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
             </asp:TableCell>
@@ -37,6 +38,7 @@
             <asp:TableCell HorizontalAlign="Right">Confirm Password:</asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:TextBox runat="server" ID="ConfirmPassword" Class="form-control" TextMode="Password"></asp:TextBox>
+                <asp:HiddenField ID="HideConfirmPassword" runat="server" />
                 <asp:RequiredFieldValidator ID="ConfirmPasswordRequiredFieldValidator2" runat="server" ErrorMessage="Password confirmation is required."
                         ControlToValidate="Password" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="ComparePasswords" runat="server" ControlToCompare="Password" ControlToValidate="ConfirmPassword" ErrorMessage="Passwords do not match. Please ensure passwords are the same." Display="Dynamic" ForeColor="Red" />
@@ -78,26 +80,6 @@
 
         <asp:TableRow>
             <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
-                <h4>Upload Documents</h4>
-            </asp:TableCell>
-        </asp:TableRow>
-        
-         <asp:TableRow >
-                <asp:TableCell HorizontalAlign="Right">Resume:</asp:TableCell>
-                <asp:TableCell ColumnSpan="2">
-                    <asp:FileUpload runat="server" ID="ResumeUpload" />
-                </asp:TableCell>
-        </asp:TableRow>
-
-        <asp:TableRow >
-            <asp:TableCell HorizontalAlign="Right">Cover Letter:</asp:TableCell>
-            <asp:TableCell ColumnSpan="2">
-                <asp:FileUpload runat="server" ID="CoverLetterUpload" />
-            </asp:TableCell>
-        </asp:TableRow>
-
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
                 <h4>Skills & Preferences</h4>
             </asp:TableCell>
         </asp:TableRow>
@@ -115,7 +97,7 @@
 
         <asp:TableRow>
             <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="skillsetsLabel" runat="server"></asp:Label>
+                <asp:Label ID="professionsLabel" runat="server"> </asp:Label>
             </asp:TableCell>
         </asp:TableRow>
 
@@ -131,7 +113,7 @@
 
         <asp:TableRow>
             <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="professionsLabel" runat="server"> </asp:Label>
+                <asp:Label ID="skillsetsLabel" runat="server"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
 
@@ -152,6 +134,26 @@
         </asp:TableRow>
 
         <asp:TableRow>
+            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
+                <h4>Upload Documents</h4>
+            </asp:TableCell>
+        </asp:TableRow>
+        
+         <asp:TableRow >
+                <asp:TableCell HorizontalAlign="Right">Resume:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:FileUpload runat="server" ID="ResumeUpload" />
+                </asp:TableCell>
+        </asp:TableRow>
+
+        <asp:TableRow >
+            <asp:TableCell HorizontalAlign="Right">Cover Letter:</asp:TableCell>
+            <asp:TableCell ColumnSpan="2">
+                <asp:FileUpload runat="server" ID="CoverLetterUpload" />
+            </asp:TableCell>
+        </asp:TableRow>
+        
+        <asp:TableRow>
             <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Submit" Text="Submit Candidate" OnClick="Submit_Click" Class="btn btn-secondary"/></asp:TableCell>
             <asp:TableCell ColumnSpan="1"><asp:Button runat="server" ID="Clear" Text="Clear"  Class="btn btn-secondary" OnClick="Clear_Click" CausesValidation="false"/></asp:TableCell>
         </asp:TableRow>
@@ -160,9 +162,23 @@
             <asp:TableCell ColumnSpan="3">
                 <asp:Panel runat="server">           
                     <asp:Label ID="Results" runat="server" ForeColor="Red"></asp:Label>
+                    <asp:Label runat="server" ID="Msg" ForeColor="Red"/>
                 </asp:Panel>                    
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
+
+    <script type="text/javascript">
+      function CapturePassword() { 
+          var hiddenPasswordField = document.getElementById('<%=HidePassword.ClientID %>');
+          var txtPassword = document.getElementById("<%= Password.ClientID %>"); 
+          hiddenPasswordField.value = txtPassword.value;
+      }
+    function CaptureConfirmPassword() {
+        var hiddenConfirmPasswordField = document.getElementById('<%=HideConfirmPassword.ClientID %>');
+        var txtConfirmPassword = document.getElementById("<%= ConfirmPassword.ClientID %>"); 
+        hiddenConfirmPasswordField.value = txtConfirmPassword.value;
+    }
+</script>
 </asp:Content>
 
