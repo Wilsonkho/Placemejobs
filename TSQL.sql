@@ -64,13 +64,10 @@ CREATE TABLE UserJobPosting(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
 	Status VARCHAR(20)
 	PRIMARY KEY (UserID, JobPostingID))
-SELECT * FROM UserJobPosting
-DROP TABLE UserJobPosting
-/*
 ALTER TABLE UserJobPosting
-ADD Status VARCHAR(20) NULL
+	ADD StatusDate Date NULL
 
-*/
+
 
 CREATE TABLE JobPostingSKillSet(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
@@ -233,9 +230,10 @@ CREATE TABLE UserJobPosting(
 	PRIMARY KEY (UserID, JobPostingID))
 
 GO
-CREATE PROCEDURE AddCandidateToJobPosting(
+ALTER PROCEDURE AddCandidateToJobPosting(
 	@UserID INT = NULL,
-	@JobPostingID INT = NULL
+	@JobPostingID INT = NULL,
+	@Date DATE = NULL
 )
 AS
     DECLARE @ReturnCode INT
@@ -251,13 +249,15 @@ AS
 		(
 			UserID,
 			JobPostingID,
-			Status
+			Status,
+			StatusDate
 		)
 		VALUES
 		(
 			@UserID,
 			@JobPostingID,
-			'Interviewing'
+			'Interviewing',
+			@Date
 		)
   --      UPDATE UserJobPosting
 		--SET Status = 'Interviewing'
@@ -290,10 +290,11 @@ AS
         RAISERROR('Error: Unable to retrieve data.',16,1)
     RETURN @ReturnCode
 
-CREATE PROCEDURE UpdateJobStatus(
+ALTER PROCEDURE UpdateJobStatus(
 	@JobPostingID INT,
 	@UserID INT,
-	@Status VARCHAR(20)
+	@Status VARCHAR(20),
+	@StatusDate DATE
 )
 AS
     DECLARE @ReturnCode INT
@@ -307,7 +308,7 @@ AS
         RAISERROR('Error: Please provide a status descprition.',16,1)
     BEGIN
 		UPDATE UserJobPosting
-		SET [Status] = @Status
+		SET [Status] = @Status, StatusDate=@StatusDate
 		WHERE UserID=@UserID AND JobPostingID=@JobPostingID
     END
     IF @@ERROR = 0

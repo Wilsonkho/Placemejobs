@@ -21,7 +21,7 @@ public partial class CandidateManagement : System.Web.UI.Page
         TableHeaderRow tableHRow = new TableHeaderRow();
         List<String> headerList = new List<String>()
         {
-            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume", "Action"
+            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume", "Interview Date", "Action"
         };
 
         foreach (string header in headerList)
@@ -77,11 +77,18 @@ public partial class CandidateManagement : System.Web.UI.Page
             aNewRow.Cells.Add(aNewCell);
 
             aNewCell = new TableCell();
+            TextBox DateBox = new TextBox();
+            DateBox.TextMode = TextBoxMode.Date;
+            DateBox.CssClass = "form-control";
+            aNewCell.Controls.Add(DateBox);
+            aNewRow.Cells.Add(aNewCell);
+
+            aNewCell = new TableCell();
             Button assignButton = new Button();
             assignButton.ID = "AssignButton" + index;
-            assignButton.Text = "Assign";
+            assignButton.Text = "Confirm Interview";
             assignButton.CssClass = "btn btn-outline-primary";
-            assignButton.Click += new EventHandler((obj, eArgs) => AssignButton_Click(obj, eArgs, item.UserID));
+            assignButton.Click += new EventHandler((obj, eArgs) => AssignButton_Click(obj, eArgs, item.UserID, DateBox.Text));
             aNewCell.Controls.Add(assignButton);
             aNewRow.Cells.Add(aNewCell);
 
@@ -105,13 +112,13 @@ public partial class CandidateManagement : System.Web.UI.Page
         Response.Redirect(path);
     }
 
-    protected void AssignButton_Click(object sender, EventArgs e, int userID)
+    protected void AssignButton_Click(object sender, EventArgs e, int userID, string date)
     {
         bool confirmation = false;
 
         int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
         PRMS controller = new PRMS();
-        confirmation = controller.AssignCandidateToJobPosting(userID, jobPostingID);
+        confirmation = controller.AssignCandidateToJobPosting(userID, jobPostingID, date);
 
         if (confirmation)
         {
