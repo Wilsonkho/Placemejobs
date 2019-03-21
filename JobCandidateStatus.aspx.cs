@@ -22,7 +22,7 @@ public partial class JobCandidateStatus : System.Web.UI.Page
         TableHeaderRow tableHRow = new TableHeaderRow();
         List<String> headerList = new List<String>()
         {
-            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume", "Status"
+            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume","Status Date", "Status"
         };
 
         foreach (string header in headerList)
@@ -80,17 +80,22 @@ public partial class JobCandidateStatus : System.Web.UI.Page
             aNewCell.Controls.Add(viewResumeButton);
             aNewRow.Cells.Add(aNewCell);
 
+            aNewCell = new TableCell();
+            TextBox DateBox = new TextBox();        
+            DateBox.TextMode = TextBoxMode.Date;
+            DateBox.CssClass = "form-control";
+            DateBox.Text = item.StatusDate;
+            aNewCell.Controls.Add(DateBox);
+            aNewRow.Cells.Add(aNewCell);
 
             aNewCell = new TableCell();
-            
-                DropDownList StatusList = new DropDownList();
-                StatusList.ID = "StatusList" + index;
-                StatusList.EnableViewState = true;
-                StatusList.AutoPostBack = true;
+            DropDownList StatusList = new DropDownList();
+            StatusList.ID = "StatusList" + index;
+            StatusList.EnableViewState = true;
+            StatusList.AutoPostBack = true;
+            StatusList.CssClass = "form-control";
 
             List<String> JobStatus = new List<String>() { "Interviewing", "Joined", "On-Hold", "Rejected", "Selected" };
-            //Skillset.Items.Insert(0, new ListItem("Select Skillset...", "0"));
-            //StatusList.Items.Insert(0, new ListItem(item.JobStatus, "0"));
             StatusList.Items.Insert(0, new ListItem("Interviewing", "Interviewing"));
             StatusList.Items.Insert(1, new ListItem("Joined", "Joined"));
             StatusList.Items.Insert(2, new ListItem("On-Hold", "On-Hold"));
@@ -98,7 +103,7 @@ public partial class JobCandidateStatus : System.Web.UI.Page
             StatusList.Items.Insert(4, new ListItem("Selected", "Selected"));
             StatusList.SelectedValue = item.JobStatus;
 
-            StatusList.SelectedIndexChanged += new EventHandler((obj,eArgs) => StatusListSelectedIndexChanged (obj,eArgs,StatusList.SelectedItem.Text, item.UserID, jobPostingID));
+            StatusList.SelectedIndexChanged += new EventHandler((obj,eArgs) => StatusListSelectedIndexChanged (obj,eArgs,StatusList.SelectedItem.Text, item.UserID, jobPostingID, DateBox.Text));
             
                 aNewCell.Controls.Add(StatusList);
             
@@ -109,13 +114,11 @@ public partial class JobCandidateStatus : System.Web.UI.Page
         }
 
     }
-    protected void StatusListSelectedIndexChanged(Object sender, EventArgs e, string StatusChange, int UserID, int JobPostingID)
+    protected void StatusListSelectedIndexChanged(Object sender, EventArgs e, string StatusChange, int UserID, int JobPostingID, string DateChange)
     {
-        //DropDownList ComboBox = (DropDownList)sender;
-        //ViewState["ddl_index"] = ComboBox.SelectedValue;
-        var status = UserID;
-        var status2 = JobPostingID;
-        var status3 = StatusChange;
+
+        PRMS Controller = new PRMS();
+        Controller.ChangeStatus(UserID, JobPostingID, StatusChange, DateChange);
         
     }
 
@@ -133,23 +136,6 @@ public partial class JobCandidateStatus : System.Web.UI.Page
         Response.Redirect(path);
     }
 
-    protected void AssignButton_Click(object sender, EventArgs e, int userID)
-    {
-        bool confirmation = false;
-
-        int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
-        PRMS controller = new PRMS();
-        confirmation = controller.AssignCandidateToJobPosting(userID, jobPostingID);
-
-        if (confirmation)
-        {
-            Response.Redirect(Request.RawUrl);
-        }
-        else
-        {
-
-        }
-    }
 
     protected void BackButton_Click(object sender, EventArgs e)
     {

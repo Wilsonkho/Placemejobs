@@ -139,12 +139,12 @@ public class PRMS
         return candidateList;
     }
 
-    public bool AssignCandidateToJobPosting(int userid, int jobpostingid)
+    public bool AssignCandidateToJobPosting(int userid, int jobpostingid, string date)
     {
         bool confirmation = false;
 
         Administrators administrationManager = new Administrators();
-        confirmation = administrationManager.AddCandidateToJobPosting(userid, jobpostingid);
+        confirmation = administrationManager.AddCandidateToJobPosting(userid, jobpostingid, date);
 
         return confirmation;
     }
@@ -206,4 +206,9 @@ public class PRMS
         return candidateList;
 
     }
+    public bool ChangeStatus (int UserID, int JobpostingID, string Status, string Date)
+    {
+        Administrators administrationManager = new Administrators();
+        return administrationManager.UpdateCandidateJobStatus(UserID, JobpostingID, Status, Date);
+    } 
 }
