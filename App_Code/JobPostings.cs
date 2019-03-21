@@ -6,9 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for JobPostings
-/// </summary>
+
 public class JobPostings
 {
     public List<JobPosting> GetAllJobPostings()
