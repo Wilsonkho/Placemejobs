@@ -23,6 +23,8 @@ public class PRMS
         confirmation = Add.AddUser(NewUser);
         return confirmation;
     }
+
+
     public String GetRoles(User LoginUser)
     {
         Users Roles = new Users();
@@ -45,6 +47,16 @@ public class PRMS
 
         Users userManager = new Users();
         confirmation = userManager.AddCandidate(newCandidate);
+
+        return confirmation;
+    }
+
+    public bool AddAccount(User newCandidate)
+    {
+        bool confirmation = false;
+
+        Users userManager = new Users();
+        confirmation = userManager.AddAccount(newCandidate);
 
         return confirmation;
     }
