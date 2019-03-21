@@ -38,6 +38,14 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             AddJobPostingLink.Attributes.Add("class", "nav-link active");
         }
+        else if (activepage.Contains("ModifyJobPosting.aspx"))
+        {
+            ModifyJobPostingLink.Attributes.Add("class", "nav-link active");
+        }
+        else if (activepage.Contains("ViewJobPosting.aspx"))
+        {
+            ViewJobpostingLink.Attributes.Add("class", "nav-link active");
+        }
         else if (activepage.Contains("CandidateManagement.aspx"))
         {
             CandidateManagementLink.Attributes.Add("class", "nav-link active");

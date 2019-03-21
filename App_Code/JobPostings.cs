@@ -125,4 +125,53 @@ public class JobPostings
         
         
     }
+
+    internal JobPosting GetJobPosting(int jobPostingID)
+    {
+        JobPosting aJobPosting = new JobPosting();
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetJobPosting";
+
+        SqlParameter JobPostingID;
+        JobPostingID = new SqlParameter();
+        JobPostingID.ParameterName = "@JobPostingID";
+        JobPostingID.SqlDbType = SqlDbType.Int;
+        JobPostingID.Direction = ParameterDirection.Input;
+        JobPostingID.Value = jobPostingID;
+
+        cmd.Parameters.Add(JobPostingID);
+
+        con.Open();
+
+        SqlDataReader reader;
+        reader = cmd.ExecuteReader();
+
+
+
+        while (reader.Read())
+        {
+            
+
+            aJobPosting.JobPostingID = Convert.ToInt32(reader["JobPostingID"]);
+            aJobPosting.EmployerPhone = reader["EmployerPhone"].ToString();
+            aJobPosting.CompanyName = reader["CompanyName"].ToString();
+            aJobPosting.Description = reader["Description"].ToString();
+            aJobPosting.Date = DateTime.Parse(reader["Date"].ToString());
+            aJobPosting.ProfessionID = int.Parse(reader["ProfessionID"].ToString());
+            aJobPosting.RegionID = int.Parse(reader["RegionID"].ToString());
+
+        }
+
+
+        con.Close();
+
+        return aJobPosting;
+    }
 }

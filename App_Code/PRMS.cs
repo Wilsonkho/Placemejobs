@@ -182,6 +182,12 @@ public class PRMS
 
     }
 
+    public JobPosting GetJobPosting(int JobPostingID)
+    {        
+        JobPostings JobPostingManager = new JobPostings();
+        return JobPostingManager.GetJobPosting(JobPostingID);
+    }
+
     public bool AddSkillSet(string SkillSetDescription, int ProfessionID)
     {
         bool confirmation = false;
