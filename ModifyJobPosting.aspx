@@ -1,13 +1,23 @@
-﻿<%@ Page Title="Add Job Posting" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AddJobPosting.aspx.cs" Inherits="AddJobPosting" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ModifyJobPosting.aspx.cs" Inherits="ModifyJobPosting" MasterPageFile="~/MasterPage.master" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-                  <br /><br />
-        <div class="header-blue">
-            <h1 class="text-center">Add Job Posting</h1>
-        </div>
-         <br />
 
-     <asp:Table runat="server" ID="AddPostingTable" HorizontalAlign="Center" CssClass="table-active">
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
+    <div class="header-blue">
+        <h1 class="text-center">Modify Job Posting</h1>
+    </div>
+    <br /><br />
+    <asp:Table runat="server" ID="SelectJobTable" HorizontalAlign="Center" CssClass="table-active">
+        <asp:TableRow>
+            <asp:TableCell CssClass="label-text">Select Job Posting:</asp:TableCell>
+            <asp:TableCell>
+                <asp:DropDownList ID="PostingDropDown" runat="server" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="PostingDropDown_SelectedIndexChanged"></asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+    </asp:Table><br /><br />
+    
+
+
+    <asp:Table runat="server" ID="ModifyPostingTable" HorizontalAlign="Center" CssClass="table-active">
 
 
             <asp:TableRow>
@@ -83,5 +93,4 @@
                 </asp:TableCell>
             </asp:TableRow>
         </asp:Table>
-        <br /><br />
 </asp:Content>

@@ -67,7 +67,7 @@ public partial class JobPostingStatus : System.Web.UI.Page
 
     protected void ViewButton_Click(object sender, EventArgs e, int jobPostingID, string Name, string Description)
     {
-        Response.Redirect("CandidateManagement.aspx?JobPostingID=" + jobPostingID.ToString() + "&Name=" + Name + "&Description=" + Description);
+        Response.Redirect("JobCandidateStatus.aspx?JobPostingID=" + jobPostingID.ToString() + "&Name=" + Name + "&Description=" + Description);
     }
 
 }

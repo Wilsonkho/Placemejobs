@@ -26,8 +26,6 @@ public partial class Register : System.Web.UI.Page
         {
             Confirmation.Text = "User account created. ";
             Login.Visible = true;
-
-
         }
         else
         {

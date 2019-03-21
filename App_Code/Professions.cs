@@ -141,4 +141,54 @@ public class Professions
         }
         return success;
     }
+
+    public bool UpdateProfession( string UpdatedProfessionDescription, int ProfessionID)
+    {
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddRegionCommand;
+        AddRegionCommand = new SqlCommand("");
+        AddRegionCommand.CommandType = CommandType.StoredProcedure;
+        AddRegionCommand.Connection = con;
+        AddRegionCommand.CommandText = "UpdateProfession";
+
+        SqlParameter professionIDParameter;
+        SqlParameter UpdatedDescriptionParameter;
+
+        professionIDParameter = new SqlParameter();
+        UpdatedDescriptionParameter = new SqlParameter();
+
+        professionIDParameter.ParameterName = "@ProfessionID";
+        UpdatedDescriptionParameter.ParameterName = "@UpdatedDescription";
+
+        professionIDParameter.SqlDbType = SqlDbType.Int;
+        professionIDParameter.Direction = ParameterDirection.Input;
+
+        UpdatedDescriptionParameter.SqlDbType = SqlDbType.NChar;
+        UpdatedDescriptionParameter.Direction = ParameterDirection.Input;
+
+        professionIDParameter.Value = ProfessionID;
+        UpdatedDescriptionParameter.Value = UpdatedProfessionDescription;
+
+        con.Open();
+
+        AddRegionCommand.Parameters.Add(UpdatedDescriptionParameter);
+        AddRegionCommand.Parameters.Add(professionIDParameter);
+ 
+
+        int rowsAffected = AddRegionCommand.ExecuteNonQuery();
+
+        Boolean success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
 }

@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class CandidateManagement : System.Web.UI.Page
+
+public partial class JobCandidateStatus : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -13,15 +14,15 @@ public partial class CandidateManagement : System.Web.UI.Page
         int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
         PRMS controller = new PRMS();
         List<User> candidateList = new List<User>();
-        candidateList = controller.GetQualifiedCandidates(jobPostingID);
+        candidateList = controller.GetAssignedCandidates(jobPostingID);
 
-        HeaderLabel.Text = "Candidates Matching - " + Request["Name"];
+        HeaderLabel.Text = "Assigned Candidates for - " + Request["Name"];
         SmallLabel.Text = Request["Description"];
         // Table Headings
         TableHeaderRow tableHRow = new TableHeaderRow();
         List<String> headerList = new List<String>()
         {
-            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume", "Interview Date", "Action"
+            "First Name", "Last Name", "Email", "Phone", "Cover Letter", "Resume","Status Date", "Status"
         };
 
         foreach (string header in headerList)
@@ -37,6 +38,8 @@ public partial class CandidateManagement : System.Web.UI.Page
         // Table Rows
         TableRow aNewRow;
         int index = 0;
+        
+        
 
         foreach (var item in candidateList)
         {
@@ -58,6 +61,7 @@ public partial class CandidateManagement : System.Web.UI.Page
             aNewCell.Text = item.Phone;
             aNewRow.Cells.Add(aNewCell);
 
+
             aNewCell = new TableCell();
             Button viewCoverLetterButton = new Button();
             viewCoverLetterButton.ID = "ViewCoverLetterButton" + index;
@@ -77,25 +81,45 @@ public partial class CandidateManagement : System.Web.UI.Page
             aNewRow.Cells.Add(aNewCell);
 
             aNewCell = new TableCell();
-            TextBox DateBox = new TextBox();
+            TextBox DateBox = new TextBox();        
             DateBox.TextMode = TextBoxMode.Date;
             DateBox.CssClass = "form-control";
+            DateBox.Text = item.StatusDate;
             aNewCell.Controls.Add(DateBox);
             aNewRow.Cells.Add(aNewCell);
 
             aNewCell = new TableCell();
-            Button assignButton = new Button();
-            assignButton.ID = "AssignButton" + index;
-            assignButton.Text = "Confirm Interview";
-            assignButton.CssClass = "btn btn-outline-primary";
-            assignButton.Click += new EventHandler((obj, eArgs) => AssignButton_Click(obj, eArgs, item.UserID, DateBox.Text));
-            aNewCell.Controls.Add(assignButton);
+            DropDownList StatusList = new DropDownList();
+            StatusList.ID = "StatusList" + index;
+            StatusList.EnableViewState = true;
+            StatusList.AutoPostBack = true;
+            StatusList.CssClass = "form-control";
+
+            List<String> JobStatus = new List<String>() { "Interviewing", "Joined", "On-Hold", "Rejected", "Selected" };
+            StatusList.Items.Insert(0, new ListItem("Interviewing", "Interviewing"));
+            StatusList.Items.Insert(1, new ListItem("Joined", "Joined"));
+            StatusList.Items.Insert(2, new ListItem("On-Hold", "On-Hold"));
+            StatusList.Items.Insert(3, new ListItem("Rejected", "Rejected"));
+            StatusList.Items.Insert(4, new ListItem("Selected", "Selected"));
+            StatusList.SelectedValue = item.JobStatus;
+
+            StatusList.SelectedIndexChanged += new EventHandler((obj,eArgs) => StatusListSelectedIndexChanged (obj,eArgs,StatusList.SelectedItem.Text, item.UserID, jobPostingID, DateBox.Text));
+            
+                aNewCell.Controls.Add(StatusList);
+            
             aNewRow.Cells.Add(aNewCell);
 
             QualifiedCandidate.Rows.Add(aNewRow);
             index++;
         }
 
+    }
+    protected void StatusListSelectedIndexChanged(Object sender, EventArgs e, string StatusChange, int UserID, int JobPostingID, string DateChange)
+    {
+
+        PRMS Controller = new PRMS();
+        Controller.ChangeStatus(UserID, JobPostingID, StatusChange, DateChange);
+        
     }
 
     protected void ViewCoverLetterButton_Click(object sender, EventArgs e, int userID, string coverLetter)
@@ -112,26 +136,9 @@ public partial class CandidateManagement : System.Web.UI.Page
         Response.Redirect(path);
     }
 
-    protected void AssignButton_Click(object sender, EventArgs e, int userID, string date)
-    {
-        bool confirmation = false;
-
-        int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
-        PRMS controller = new PRMS();
-        confirmation = controller.AssignCandidateToJobPosting(userID, jobPostingID, date);
-
-        if (confirmation)
-        {
-            Response.Redirect(Request.RawUrl);
-        }
-        else
-        {
-
-        }
-    }
 
     protected void BackButton_Click(object sender, EventArgs e)
     {
-        Response.Redirect("CandidateManagement2.aspx");
+        Response.Redirect("ViewJobPosting.aspx");
     }
 }

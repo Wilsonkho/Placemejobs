@@ -64,13 +64,10 @@ CREATE TABLE UserJobPosting(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
 	Status VARCHAR(20)
 	PRIMARY KEY (UserID, JobPostingID))
-SELECT * FROM UserJobPosting
-DROP TABLE UserJobPosting
-/*
 ALTER TABLE UserJobPosting
-ADD Status VARCHAR(20) NULL
+	ADD StatusDate Date NULL
 
-*/
+
 
 CREATE TABLE JobPostingSKillSet(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
@@ -233,9 +230,10 @@ CREATE TABLE UserJobPosting(
 	PRIMARY KEY (UserID, JobPostingID))
 
 GO
-CREATE PROCEDURE AddCandidateToJobPosting(
+ALTER PROCEDURE AddCandidateToJobPosting(
 	@UserID INT = NULL,
-	@JobPostingID INT = NULL
+	@JobPostingID INT = NULL,
+	@Date DATE = NULL
 )
 AS
     DECLARE @ReturnCode INT
@@ -251,13 +249,15 @@ AS
 		(
 			UserID,
 			JobPostingID,
-			Status
+			Status,
+			StatusDate
 		)
 		VALUES
 		(
 			@UserID,
 			@JobPostingID,
-			'Interviewing'
+			'Interviewing',
+			@Date
 		)
   --      UPDATE UserJobPosting
 		--SET Status = 'Interviewing'
@@ -268,10 +268,60 @@ AS
     ELSE
         RAISERROR('AddCandidateToJobPosting Error: Insert error.',16,1)
     RETURN @ReturnCode
+
+ALTER PROCEDURE GetJobCandidates(
+	@JobPostingID INT
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    IF @JobPostingID IS NULL
+        RAISERROR('Error: Please provide a job ID.',16,1)
+    ELSE
+    BEGIN
+		SELECT * 
+		FROM UserJobPosting INNER JOIN Users ON Users.UserID=UserJobPosting.UserID
+		WHERE JobPostingID=@JobPostingID
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('Error: Unable to retrieve data.',16,1)
+    RETURN @ReturnCode
+
+ALTER PROCEDURE UpdateJobStatus(
+	@JobPostingID INT,
+	@UserID INT,
+	@Status VARCHAR(20),
+	@StatusDate DATE
+)
+AS
+    DECLARE @ReturnCode INT
+    SET @ReturnCode = 1
+
+    IF @JobPostingID IS NULL
+        RAISERROR('Error: Please provide a job ID.',16,1)
+	ELSE IF @UserID IS NULL
+        RAISERROR('Error: Please provide a User ID.',16,1)
+	ELSE IF @Status IS NULL
+        RAISERROR('Error: Please provide a status descprition.',16,1)
+    BEGIN
+		UPDATE UserJobPosting
+		SET [Status] = @Status, StatusDate=@StatusDate
+		WHERE UserID=@UserID AND JobPostingID=@JobPostingID
+    END
+    IF @@ERROR = 0
+        SET @ReturnCode = 0
+    ELSE
+        RAISERROR('Error: Unable to retrieve data.',16,1)
+    RETURN @ReturnCode
+
+
 -- SELECT * FROM Users
 -- SELECT * FROM UserJobPosting
 -- DELETE FROM UserJobPosting
--- UPDATE UserJobPosting SET Status = 'On-Hold'
+-- UPDATE UserJobPosting SET Status = 'On-Hold' WHERE UserID=41
 
 /*
 /*** View All Tables and Table Entries***/

@@ -6,15 +6,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class RegisterCandidate : System.Web.UI.Page
+public partial class RegisterAccount : System.Web.UI.Page
 {
     List<Profession> professions;
     List<Skillset> skillsets;
     List<Region> regions;
-
     protected void Page_Load(object sender, EventArgs e)
     {
-
         if (!IsPostBack)
         {
             BindDropDowns();
@@ -31,6 +29,35 @@ public partial class RegisterCandidate : System.Web.UI.Page
             Session["regions"] = null;
             Session["FileUpload1"] = null;
         }
+
+        Password.Attributes.Add("value", HidePassword.Value);
+        Password.Attributes.Add("onblur", "CapturePassword()");
+        ConfirmPassword.Attributes.Add("value", HideConfirmPassword.Value);
+        ConfirmPassword.Attributes.Add("onblur", "CaptureConfirmPassword()");
+    }
+
+    protected void BindDropDowns()
+    {
+        PRMS controller = new PRMS();
+
+        Profession.DataSource = controller.GetProfessions();
+        Profession.DataTextField = "Description";
+        Profession.DataValueField = "ProfessionID";
+        Profession.Items.Insert(0, new ListItem("Select Profession...", "0"));
+        Profession.DataBind();
+
+        Skillset.DataSource = controller.GetSkillsets();
+        Skillset.DataTextField = "Description";
+        Skillset.DataValueField = "SkillsetID";
+        Skillset.Items.Insert(0, new ListItem("Select Skillset...", "0"));
+        Skillset.DataBind();
+
+        Region.DataSource = controller.GetRegions();
+        Region.DataTextField = "Description";
+        Region.DataValueField = "RegionID";
+        Region.Items.Insert(0, new ListItem("Select Region...", "0"));
+        Region.DataBind();
+
 
     }
 
@@ -65,11 +92,14 @@ public partial class RegisterCandidate : System.Web.UI.Page
             newCandidate.Phone = Phone.Text;
             newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
             newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : CoverLetterUpload.PostedFile.FileName;
+            newCandidate.UserPassword = Password.Text;
 
             PRMS controller = new PRMS();
 
+
+
             #region add user
-            success = controller.AddCandidate(newCandidate);
+            success = controller.AddAccount(newCandidate);
 
             if (success)
             {
@@ -132,7 +162,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
                     }
                     //Set color to green
                     Results.ForeColor = System.Drawing.Color.Green;
-                    Results.Text = "Candidate was added";
+                    Results.Text = "Your account for Placemejob has been successfully created.";
 
                     #region add professions
                     int newUserID;
@@ -169,89 +199,24 @@ public partial class RegisterCandidate : System.Web.UI.Page
             }
             else //if(success)
             {
-                Results.Text = "Candidate was not added";
+                Results.Text = "An error has occurred with your account registration. Please try again. If this issue persists, please contact customer support for assistance.";
             }
             #endregion
-        
+
+
         }
         else //if(dropdownsChecked)
         {
-            Results.Text = "Candidate must have at least one profession, skill, and region added.";
+            Results.Text = "You must select at least one profession, skill, and region preference.";
         }
-    
 
-
-        
-    }
-
-
-    protected void BindDropDowns()
-    {
-        PRMS controller = new PRMS();
-
-        Profession.DataSource = controller.GetProfessions();
-        Profession.DataTextField = "Description";
-        Profession.DataValueField = "ProfessionID";
-        Profession.Items.Insert(0, new ListItem("Select Profession...", "0"));
-        Profession.DataBind();
-
-        Skillset.DataSource = controller.GetSkillsets();
-        Skillset.DataTextField = "Description";
-        Skillset.DataValueField = "SkillsetID";
-        Skillset.Items.Insert(0, new ListItem("Select Skillset...", "0"));
-        Skillset.DataBind();
-
-        Region.DataSource = controller.GetRegions();
-        Region.DataTextField = "Description";
-        Region.DataValueField = "RegionID";
-        Region.Items.Insert(0, new ListItem("Select Region...", "0"));
-        Region.DataBind();
 
 
     }
 
-    protected void AddProfession_Click(object sender, EventArgs e)
+    protected void Clear_Click(object sender, EventArgs e)
     {
-        List<int> professionList;
-        professionList = (List<int>)Session["professions"];
-        if (professionList == null)
-        {
-            Session["professions"] = professionList;
-            professionList = new List<int>();
-        }
-
-        if (!professionList.Contains(int.Parse(Profession.SelectedValue)) && int.Parse(Profession.SelectedValue) != 0)
-        {
-            professionList.Add(int.Parse(Profession.SelectedValue));
-            professionsLabel.Visible = true;
-            professionsLabel.ForeColor = System.Drawing.Color.Blue;
-            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
-        }
-
-        Session["professions"] = professionList;
-
-    }
-
-    protected void AddSkill_Click(object sender, EventArgs e)
-    {
-        List<int> skillsList;
-        skillsList = (List<int>)Session["skills"];
-         if (skillsList == null)
-        {
-            Session["skills"] = skillsList;
-            skillsList = new List<int>();
-        }
-
-         if(!skillsList.Contains(int.Parse(Skillset.SelectedValue)) && int.Parse(Skillset.SelectedValue) != 0)
-        {
-            skillsList.Add(int.Parse(Skillset.SelectedValue));
-            skillsetsLabel.Visible = true;
-            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
-            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
-        }
-        
-        Session["skills"] = skillsList;
-
+        Response.Redirect(Request.RawUrl);
     }
 
     protected void AddRegion_Click(object sender, EventArgs e)
@@ -274,12 +239,47 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
 
         Session["regions"] = regionsList;
-
     }
 
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void AddSkill_Click(object sender, EventArgs e)
     {
-        Response.Redirect(Request.RawUrl);
+        List<int> skillsList;
+        skillsList = (List<int>)Session["skills"];
+        if (skillsList == null)
+        {
+            Session["skills"] = skillsList;
+            skillsList = new List<int>();
+        }
+
+        if (!skillsList.Contains(int.Parse(Skillset.SelectedValue)) && int.Parse(Skillset.SelectedValue) != 0)
+        {
+            skillsList.Add(int.Parse(Skillset.SelectedValue));
+            skillsetsLabel.Visible = true;
+            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
+            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+        }
+
+        Session["skills"] = skillsList;
     }
 
+    protected void AddProfession_Click(object sender, EventArgs e)
+    {
+        List<int> professionList;
+        professionList = (List<int>)Session["professions"];
+        if (professionList == null)
+        {
+            Session["professions"] = professionList;
+            professionList = new List<int>();
+        }
+
+        if (!professionList.Contains(int.Parse(Profession.SelectedValue)) && int.Parse(Profession.SelectedValue) != 0)
+        {
+            professionList.Add(int.Parse(Profession.SelectedValue));
+            professionsLabel.Visible = true;
+            professionsLabel.ForeColor = System.Drawing.Color.Blue;
+            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
+        }
+
+        Session["professions"] = professionList;
+    }
 }

@@ -5,26 +5,27 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class AddJobPosting : System.Web.UI.Page
+public partial class ModifyJobPosting : System.Web.UI.Page
 {
-    List<Skillset> skillsets;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if(!IsPostBack)
         {
             BindDropDowns();
-
-            skillsetsLabel.Visible = false;
-            skillsets = new List<Skillset>();
-            
-            Session["skills"] = null;
             
         }
+        ModifyPostingTable.Visible = false;
     }
 
     protected void BindDropDowns()
     {
         PRMS controller = new PRMS();
+
+        PostingDropDown.DataSource = controller.GetAllJobPostings();
+        PostingDropDown.DataTextField = "Description";
+        PostingDropDown.DataValueField = "JobPostingID";
+        PostingDropDown.Items.Insert(0, new ListItem("Select Job Posting...", "0"));
+        PostingDropDown.DataBind();
 
         Profession.DataSource = controller.GetProfessions();
         Profession.DataTextField = "Description";
@@ -43,7 +44,6 @@ public partial class AddJobPosting : System.Web.UI.Page
         Region.DataValueField = "RegionID";
         Region.Items.Insert(0, new ListItem("Select Region...", "0"));
         Region.DataBind();
-
 
     }
 
@@ -68,7 +68,6 @@ public partial class AddJobPosting : System.Web.UI.Page
         Session["skills"] = skillsList;
 
     }
-
 
     protected void Submit_Click(object sender, EventArgs e)
     {
@@ -99,12 +98,12 @@ public partial class AddJobPosting : System.Web.UI.Page
             ClearForm();
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Inserted Successfully')", true);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Confirmation.Text = "the following error has occurred: " + ex;
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Insert Failed')", true);
         }
-       
+
     }
 
     protected void ClearForm()
@@ -119,6 +118,33 @@ public partial class AddJobPosting : System.Web.UI.Page
         skillsetsLabel.Visible = false;
         skillsetsLabel.Text = "Skills:";
         Session.Clear();
+
+    }
+
+    protected void PostingDropDown_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (PostingDropDown.SelectedIndex != 0)
+        {
+            ModifyPostingTable.Visible = true;
+            PopulateJobPostingTable();
+        }
+    }
+
+    private void PopulateJobPostingTable()
+    {
+        PRMS RequestDirector;
+        RequestDirector = new PRMS();
+
+        JobPosting jobPosting;
+        jobPosting = RequestDirector.GetJobPosting(int.Parse(PostingDropDown.SelectedValue));
+        JobPostingDescription.Text = jobPosting.Description;
+        CompanyName.Text = jobPosting.CompanyName;
+        CompanyPhone.Text = jobPosting.EmployerPhone;
+        Date.Text = jobPosting.Date.ToString("yyyy-MM-dd");
+        //Someting for skillsets
+        Profession.SelectedValue = jobPosting.ProfessionID.ToString();
+        Region.SelectedValue = jobPosting.RegionID.ToString();
+
 
     }
 }
