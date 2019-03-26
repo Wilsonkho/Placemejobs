@@ -410,6 +410,7 @@ AS
 	RETURN @ReturnCode
 
 -- SELECT UserID, JobPostingID, StatusDate FROM UserJobPosting WHERE Status = 'Interviewing'
+-- EXEC GetUserIDByJobPostingStatus 4, 'Interviewing'
 -- SELECT * FROM Users
 -- SELECT * FROM UserJobPosting
 -- DELETE FROM UserJobPosting

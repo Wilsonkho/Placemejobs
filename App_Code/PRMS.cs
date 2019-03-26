@@ -279,4 +279,14 @@ public class PRMS
 
         return userJobPostingList;
     }
+
+    public List<UserJobPosting> GetUserIDByJobPostingStatus(int jobPostingID, string status)
+    {
+        List<UserJobPosting> userJobPostingList = new List<UserJobPosting>();
+
+        UserJobPostings userJobPostingManager = new UserJobPostings();
+        userJobPostingList = userJobPostingManager.GetUserIDByJobPostingStatus(jobPostingID, status);
+
+        return userJobPostingList;
+    }
 }
