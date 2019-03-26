@@ -16,6 +16,27 @@ public class PRMS
         return Confirmation;
 
     }
+
+    public List<User> GetUserDetails(int userID)
+    {
+        List<User> userList = new List<User>();
+
+        Users userManager = new Users();
+        userList = userManager.GetUserDetails(userID);
+
+        return userList;
+    }
+
+    public List<JobPosting> GetJobPostingDetails(int jobPostingID)
+    {
+        List<JobPosting> jobPostingList = new List<JobPosting>();
+
+        JobPostings jobPostingManager = new JobPostings();
+        jobPostingList = jobPostingManager.GetJobPostingDetails(jobPostingID);
+
+        return jobPostingList;
+    }
+
     public Boolean AddUser(User NewUser)
     {
         bool confirmation;
@@ -255,6 +276,16 @@ public class PRMS
 
         UserJobPostings userJobPostingManager = new UserJobPostings();
         userJobPostingList = userJobPostingManager.GetUserJobPostingByStatus(status);
+
+        return userJobPostingList;
+    }
+
+    public List<UserJobPosting> GetUserIDByJobPostingStatus(int jobPostingID, string status)
+    {
+        List<UserJobPosting> userJobPostingList = new List<UserJobPosting>();
+
+        UserJobPostings userJobPostingManager = new UserJobPostings();
+        userJobPostingList = userJobPostingManager.GetUserIDByJobPostingStatus(jobPostingID, status);
 
         return userJobPostingList;
     }

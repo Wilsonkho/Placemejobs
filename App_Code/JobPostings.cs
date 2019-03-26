@@ -45,6 +45,46 @@ public class JobPostings
         return jobPostingsList;
     }
 
+
+    public List<JobPosting> GetJobPostingDetails(int jobPostingID)
+    {
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetJobPostingDetails";
+
+        SqlParameter JobPostingID = new SqlParameter();
+        JobPostingID.ParameterName = "@JobPostingID";
+        JobPostingID.SqlDbType = SqlDbType.Int;
+        JobPostingID.Direction = ParameterDirection.Input;
+        JobPostingID.Value = jobPostingID;
+
+        cmd.Parameters.Add(JobPostingID);
+
+        con.Open();
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        List<JobPosting> jobPostingList = new List<JobPosting>();
+
+        while (reader.Read())
+        {
+            JobPosting aJobPosting = new JobPosting();
+
+            aJobPosting.JobPostingID = Convert.ToInt32(reader["JobPostingID"]);
+            aJobPosting.Description = reader["Description"].ToString();
+
+            jobPostingList.Add(aJobPosting);
+        }
+        con.Close();
+
+        return jobPostingList;
+    }
+
     public int AddJobPosting(JobPosting job)
     {
 

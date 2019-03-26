@@ -10,4 +10,5 @@ public class UserJobPosting
 {
     public int UserID { get; set; }
     public int JobPostingID { get; set; }
+    public DateTime StatusDate { get; set; }
 }
