@@ -94,6 +94,19 @@ CREATE PROCEDURE GetRoles @Email VARCHAR(100)
 		SELECT Roles FROM Users
 		WHERE Email=@Email
 
+CREATE PROCEDURE GetProfile @Email VARCHAR(100)
+	AS 
+		SELECT * 
+		FROM Users
+		WHERE Email=@Email
+
+ALTER PROCEDURE UpdateAccount @UserID INT, @FirstName VARCHAR(15), @LastName VARCHAR(15), @CoverLetter VARCHAR(100),@Resume VARCHAR(100), @Password VARCHAR(100), @Status BIT, @Phone VARCHAR(10), @Email VARCHAR(100)
+	AS	
+		UPDATE Users
+		SET @Email=Email, FirstName=@FirstName, LastName=@LastName, Resume=@Resume, CoverLetter=@CoverLetter, Password=@Password, ActiveInactive=@Status, @Phone=Phone, @Email=Email
+		WHERE @UserID=UserID
+		
+
 /*** Job Search Procedures***/
 GO
 CREATE PROCEDURE GetAllJobPostings 

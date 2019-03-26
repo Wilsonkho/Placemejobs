@@ -199,7 +199,6 @@ public class PRMS
     }
 
 
-    /*<<<<<<< HEAD*/
     public bool UpdateProfession(string UpdatedProfessionDescription, int ProfessionID)
     {
         bool confirmation = false;
@@ -209,8 +208,7 @@ public class PRMS
 
         return confirmation;
     }
-    /*=======
-    >>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
+
     public bool AddJobSkillSets(int jobID, int skill)
     {
         bool confirmation = false;
@@ -240,5 +238,15 @@ public class PRMS
     {
         Administrators administrationManager = new Administrators();
         return administrationManager.UpdateCandidateJobStatus(UserID, JobpostingID, Status, Date);
+    }
+    public User ViewProfile (string Email)
+    {
+        Users UserManager = new Users();
+        return UserManager.GetProfile(Email);
+    }
+    public bool UpdateProfile (User ModUser)
+    {
+        Users UserManager = new Users();
+        return UserManager.ModifyAccount(ModUser);
     }
 }

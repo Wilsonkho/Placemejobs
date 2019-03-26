@@ -252,6 +252,107 @@ public class Users
 
     }
 
+    public bool ModifyAccount(User newcandidate)
+    {
+        bool success = false;
+        newcandidate.UserPassword = CreatePasswordHash(newcandidate.UserPassword, CreateSalt(5));
+
+        //try
+        //{
+            SqlConnection con;
+            con = new SqlConnection();
+            //con.ConnectionString = "Data Source=DataBaist; Initial Catalog = Placemejobs; Integrated Security=True";
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+            SqlCommand cmd;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "UpdateAccount";
+
+        SqlParameter UserID = new SqlParameter();
+        UserID.ParameterName = "@UserID";
+        UserID.SqlDbType = SqlDbType.Int;
+        UserID.Direction = ParameterDirection.Input;
+        UserID.Value = newcandidate.UserID;
+        SqlParameter FirstName = new SqlParameter();
+        FirstName.ParameterName = "@FirstName";
+        FirstName.SqlDbType = SqlDbType.NVarChar;
+        FirstName.Direction = ParameterDirection.Input;
+        FirstName.Value = newcandidate.FirstName;
+
+        SqlParameter LastName = new SqlParameter();
+        LastName.ParameterName = "@LastName";
+        LastName.SqlDbType = SqlDbType.NVarChar;
+        LastName.Direction = ParameterDirection.Input;
+        LastName.Value = newcandidate.LastName;
+
+        SqlParameter Resume = new SqlParameter();
+        Resume.ParameterName = "@Resume";
+        Resume.SqlDbType = SqlDbType.NVarChar;
+        Resume.Direction = ParameterDirection.Input;
+        Resume.Value = newcandidate.Resume;
+        
+        SqlParameter CoverLetter = new SqlParameter();
+        CoverLetter.ParameterName = "@CoverLetter";
+        CoverLetter.SqlDbType = SqlDbType.NVarChar;
+        CoverLetter.Direction = ParameterDirection.Input;
+        CoverLetter.Value = newcandidate.CoverLetter;
+
+
+            SqlParameter Password = new SqlParameter();
+            Password.ParameterName = "@Password";
+            Password.SqlDbType = SqlDbType.NChar;
+            Password.Direction = ParameterDirection.Input;
+            Password.Value = newcandidate.UserPassword;
+
+            SqlParameter Status = new SqlParameter();
+        Status.ParameterName = "@Status";
+        Status.SqlDbType = SqlDbType.Bit;
+        Status.Direction = ParameterDirection.Input;
+        Status.Value = newcandidate.ActiveInactive;
+
+        SqlParameter Phone = new SqlParameter();
+        Phone.ParameterName = "@Phone";
+        Phone.SqlDbType = SqlDbType.NVarChar;
+        Phone.Direction = ParameterDirection.Input;
+        Phone.Value = newcandidate.Phone;
+        SqlParameter Email = new SqlParameter();
+        Email.ParameterName = "@Email";
+        Email.SqlDbType = SqlDbType.NVarChar;
+        Email.Direction = ParameterDirection.Input;
+        Email.Value = newcandidate.UserEmail;
+
+            cmd.Parameters.Add(UserID);
+
+            cmd.Parameters.Add(FirstName);
+            cmd.Parameters.Add(LastName);
+        cmd.Parameters.Add(CoverLetter);
+        cmd.Parameters.Add(Resume);
+        
+        cmd.Parameters.Add(Password);
+        cmd.Parameters.Add(Status);
+        cmd.Parameters.Add(Phone);
+            
+            
+            
+        cmd.Parameters.Add(Email);
+        
+
+        con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            success = true;
+        /*}
+        catch (Exception e)
+        {
+
+            return success;
+        }*/
+        return success;
+
+    }
+
     public string GetRoles(User LoginUser)
     {
         SqlConnection con;
@@ -431,5 +532,51 @@ public class Users
         return userID;
 
     }
+
+    public User GetProfile(string userEmail)
+    {
+        User Profile = new User();
+        try
+        {
+            SqlConnection con;
+            con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+            SqlCommand cmd;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "GetProfile";
+
+            SqlParameter Email = new SqlParameter();
+            Email.ParameterName = "@Email";
+            Email.SqlDbType = SqlDbType.VarChar;
+            Email.Direction = ParameterDirection.Input;
+            Email.Value = userEmail;
+
+            cmd.Parameters.Add(Email);
+
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+
+            Profile.UserID = Convert.ToInt32(reader["UserID"]);
+            Profile.UserEmail = reader["Email"].ToString();
+            Profile.FirstName = reader["FirstName"].ToString();
+            Profile.LastName = reader["LastName"].ToString();
+            Profile.Resume = reader["Resume"].ToString();
+            Profile.CoverLetter = reader["CoverLetter"].ToString();
+            Profile.Phone = reader["Phone"].ToString();
+            Profile.ActiveInactive = Convert.ToBoolean(reader["ActiveInactive"]);
+
+            con.Close();
+        }
+        catch { };
+
+        return Profile;
+
+    }
+
+
 
 }
