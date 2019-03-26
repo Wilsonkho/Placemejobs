@@ -151,6 +151,8 @@ public class PRMS
         return candidateList;
     }
 
+
+
     public bool AssignCandidateToJobPosting(int userid, int jobpostingid, string date)
     {
         bool confirmation = false;
@@ -160,6 +162,8 @@ public class PRMS
 
         return confirmation;
     }
+
+
 
     public bool AddRegion(string description)
     {
@@ -226,6 +230,12 @@ public class PRMS
         JobPostings jobPostingManager = new JobPostings();         
         return jobPostingManager.AddJobPosting(job);
     }
+
+    public bool UpdateJobPosting(JobPosting jobPosting)
+    {
+        JobPostings jobPostingManager = new JobPostings();
+        return jobPostingManager.UpdateJobPosting(jobPosting);
+    }
     public List<User> GetAssignedCandidates(int jobPostingID)
     {
         List<User> candidateList = new List<User>();
@@ -236,12 +246,9 @@ public class PRMS
         return candidateList;
 
     }
-    public bool ChangeStatus (int UserID, int JobpostingID, string Status, string Date)
+    public bool ChangeStatus(int UserID, int JobpostingID, string Status, string Date)
     {
         Administrators administrationManager = new Administrators();
         return administrationManager.UpdateCandidateJobStatus(UserID, JobpostingID, Status, Date);
-/*<<<<<<< HEAD
-
-=======
->>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
+    }
 }
