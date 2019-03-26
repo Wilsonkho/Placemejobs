@@ -76,6 +76,7 @@ public class JobPostings
             JobPosting aJobPosting = new JobPosting();
 
             aJobPosting.JobPostingID = Convert.ToInt32(reader["JobPostingID"]);
+            aJobPosting.CompanyName = reader["CompanyName"].ToString();
             aJobPosting.Description = reader["Description"].ToString();
 
             jobPostingList.Add(aJobPosting);

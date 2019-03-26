@@ -303,7 +303,7 @@ AS
 		RAISERROR('GetJobPostingDetails Error: All parameters are required @JobPostingID.',16,1)
 	ELSE
 	BEGIN
-		SELECT JobPostingID, Description
+		SELECT JobPostingID, CompanyName, Description
 		FROM JobPosting
 		WHERE JobPostingID = @JobPostingID
 	END
