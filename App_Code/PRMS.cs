@@ -41,7 +41,7 @@ public class PRMS
         return confirmation;
     }
 
-    public bool AddCandidate (User newCandidate)
+    public bool AddCandidate(User newCandidate)
     {
         bool confirmation = false;
 
@@ -91,7 +91,7 @@ public class PRMS
         return confirmation;
     }
 
-    public int GetUserIDByEmail (string email)
+    public int GetUserIDByEmail(string email)
     {
         int userID;
 
@@ -187,7 +187,7 @@ public class PRMS
     }
 
     public JobPosting GetJobPosting(int JobPostingID)
-    {        
+    {
         JobPostings JobPostingManager = new JobPostings();
         return JobPostingManager.GetJobPosting(JobPostingID);
     }
@@ -203,8 +203,7 @@ public class PRMS
     }
 
 
-/*<<<<<<< HEAD*/
-    public bool UpdateProfession( string UpdatedProfessionDescription, int ProfessionID)
+    public bool UpdateProfession(string UpdatedProfessionDescription, int ProfessionID)
     {
         bool confirmation = false;
 
@@ -213,8 +212,6 @@ public class PRMS
 
         return confirmation;
     }
-/*=======
->>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
     public bool AddJobSkillSets(int jobID, int skill)
     {
         bool confirmation = false;
@@ -226,8 +223,8 @@ public class PRMS
     }
 
     public int AddJobPosting(JobPosting job)
-    {        
-        JobPostings jobPostingManager = new JobPostings();         
+    {
+        JobPostings jobPostingManager = new JobPostings();
         return jobPostingManager.AddJobPosting(job);
     }
 
@@ -250,5 +247,15 @@ public class PRMS
     {
         Administrators administrationManager = new Administrators();
         return administrationManager.UpdateCandidateJobStatus(UserID, JobpostingID, Status, Date);
+    }
+
+    public List<UserJobPosting> GetUserJobPostingByStatus(string status)
+    {
+        List<UserJobPosting> userJobPostingList = new List<UserJobPosting>();
+
+        UserJobPostings userJobPostingManager = new UserJobPostings();
+        userJobPostingList = userJobPostingManager.GetUserJobPostingByStatus(status);
+
+        return userJobPostingList;
     }
 }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
+using System.Net.Mail;
 
 public partial class RegisterAccount : System.Web.UI.Page
 {
@@ -189,6 +191,40 @@ public partial class RegisterAccount : System.Web.UI.Page
                     foreach (int region in regions)
                     {
                         controller.AddUserRegions(newUserID, region);
+                    }
+                    #endregion
+                    #region send email
+                    using (SmtpClient smtpClient = new SmtpClient())
+                    {
+                        string email = EmailTextBox.Text;
+                        string firstName = FirstName.Text;
+
+                        MailAddress from = new MailAddress("b990cap@gmail.com");
+                        MailAddress to = new MailAddress(email);
+                        MailMessage message = new MailMessage(from, to);
+
+                        message.Subject = "Placemejob Account Registration";
+
+                        string note = "Hello " + firstName + "!<br /><br />";
+                        note += "Thank you for applying on Placemejob. We will review your profile and the information you have provided to us and we shall get back to you soon.";
+
+                        message.Body = note;
+                        message.BodyEncoding = System.Text.Encoding.UTF8;
+                        message.IsBodyHtml = true;
+
+                        SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                        client.UseDefaultCredentials = false;
+                        client.EnableSsl = true;
+                        client.Credentials = new NetworkCredential("b990cap@gmail.com", "Capstone2019");
+
+                        try
+                        {
+                            client.Send(message);
+                        }
+                        catch
+                        {
+                            Results.Text = "Error occurred with sending email.";
+                        }
                     }
                     #endregion
                 }

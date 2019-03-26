@@ -317,6 +317,27 @@ AS
         RAISERROR('Error: Unable to retrieve data.',16,1)
     RETURN @ReturnCode
 
+GO
+CREATE PROCEDURE GetUserJobPostingByStatus (
+	@Status VARCHAR(20) = NULL
+)
+AS
+	DECLARE @ReturnCode INT
+	SET @ReturnCode = 1
+
+	IF @Status IS NULL
+		RAISERROR('GetUserJobPostingByStatus Error: All parameters are required @Status.',16,1)
+	ELSE
+	BEGIN
+		SELECT UserID, JobPostingID
+		FROM UserJobPosting
+		WHERE Status = @Status
+	END
+	IF @@ERROR = 0
+		SET @ReturnCode = 0
+	ELSE
+		RAISERROR('GetUserJobPostingByStatus Error: Select error.',16,1)
+	RETURN @ReturnCode
 
 -- SELECT * FROM Users
 -- SELECT * FROM UserJobPosting
