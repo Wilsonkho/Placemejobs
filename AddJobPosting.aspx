@@ -51,7 +51,8 @@
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3">
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
                     <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text">Skills: </asp:Label>
                 </asp:TableCell>
             </asp:TableRow>

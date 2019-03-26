@@ -172,6 +172,8 @@ public class PRMS
         return candidateList;
     }
 
+
+
     public bool AssignCandidateToJobPosting(int userid, int jobpostingid, string date)
     {
         bool confirmation = false;
@@ -181,6 +183,8 @@ public class PRMS
 
         return confirmation;
     }
+
+
 
     public bool AddRegion(string description)
     {
@@ -220,7 +224,6 @@ public class PRMS
     }
 
 
-    /*<<<<<<< HEAD*/
     public bool UpdateProfession(string UpdatedProfessionDescription, int ProfessionID)
     {
         bool confirmation = false;
@@ -230,8 +233,6 @@ public class PRMS
 
         return confirmation;
     }
-    /*=======
-    >>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
     public bool AddJobSkillSets(int jobID, int skill)
     {
         bool confirmation = false;
@@ -246,6 +247,12 @@ public class PRMS
     {
         JobPostings jobPostingManager = new JobPostings();
         return jobPostingManager.AddJobPosting(job);
+    }
+
+    public bool UpdateJobPosting(JobPosting jobPosting)
+    {
+        JobPostings jobPostingManager = new JobPostings();
+        return jobPostingManager.UpdateJobPosting(jobPosting);
     }
     public List<User> GetAssignedCandidates(int jobPostingID)
     {

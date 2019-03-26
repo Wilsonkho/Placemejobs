@@ -56,12 +56,15 @@
                     <asp:DropDownList runat="server" ID="Skillset" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
                 <asp:TableCell >
-                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click"/>
+                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click" />&nbsp
+                    <asp:Button runat="server" ID="ClearSkillsButton" Text="Clear" Class="btn btn-dark" CausesValidation="false" OnClick="ClearSkillsButton_Click" 
+                        ToolTip="Click to clear the list of Skills"/>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3">
+                <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top">Skills:</asp:TableCell>
+                <asp:TableCell ColumnSpan="2" BorderStyle="Dashed" BorderWidth="4px" >
                     <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text">Skills: </asp:Label>
                 </asp:TableCell>
             </asp:TableRow>

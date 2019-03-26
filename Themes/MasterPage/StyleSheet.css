@@ -55,11 +55,13 @@
     color: white;
 }
 
+
 .table-active>tbody{
     /*background-color:#2c5685;*/
     background-image: linear-gradient(to bottom right, #298bf1 12%, #2c5685 75%);
     box-shadow: 5px 5px 15px grey;
     border-radius: 3px;
+    padding: 5px;
 }
 
 .table-active>tbody>tr>td{
