@@ -11,7 +11,7 @@
 
 
             <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Job Posting Description:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Job Posting Description:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:TextBox runat="server" ID="JobPostingDescription" Class="form-control"></asp:TextBox>                  
                     <asp:RequiredFieldValidator ID="JobPostingRequiredFieldValidator" runat="server" ErrorMessage="Job Posting Description is required"
@@ -20,28 +20,28 @@
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Company Name:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Company Name:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:TextBox runat="server" ID="CompanyName" Wrap="true" Class="form-control"></asp:TextBox>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Company Phone:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Company Phone:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:TextBox runat="server" ID="CompanyPhone" Wrap="true" Class="form-control"></asp:TextBox>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Posting Date:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Posting Date:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:TextBox runat="server" ID="Date" Wrap="true" Class="form-control" TextMode="Date"></asp:TextBox>                    
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Skillset:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Skillset:</h5></asp:TableCell>
                 <asp:TableCell>
                     <asp:DropDownList runat="server" ID="Skillset" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
@@ -51,20 +51,21 @@
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3">
-                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text">Skills: </asp:Label>
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"><h5>Skills:</h5></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Profession:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Profession:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:DropDownList runat="server" ID="Profession" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Region:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Region:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:DropDownList runat="server" ID="Region" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>

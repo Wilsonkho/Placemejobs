@@ -116,17 +116,24 @@ public partial class CandidateManagement : System.Web.UI.Page
     {
         bool confirmation = false;
 
-        int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
-        PRMS controller = new PRMS();
-        confirmation = controller.AssignCandidateToJobPosting(userID, jobPostingID, date);
-
-        if (confirmation)
+        if (date == "")
         {
-            Response.Redirect(Request.RawUrl);
+            Response.Write("<script language='javascript'>window.alert('You must select a date for the interview.');</script>");
         }
         else
         {
+            int jobPostingID = Convert.ToInt32(Request["JobPostingID"]);
+            PRMS controller = new PRMS();
+            confirmation = controller.AssignCandidateToJobPosting(userID, jobPostingID, date);
 
+            if (confirmation)
+            {
+                Response.Redirect(Request.RawUrl);
+            }
+            else
+            {
+
+            }
         }
     }
 

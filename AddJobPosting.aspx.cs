@@ -61,7 +61,7 @@ public partial class AddJobPosting : System.Web.UI.Page
         {
             skillsList.Add(int.Parse(Skillset.SelectedValue));
             skillsetsLabel.Visible = true;
-            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
+            skillsetsLabel.ForeColor = System.Drawing.Color.White;
             skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
         }
 

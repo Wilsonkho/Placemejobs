@@ -18,7 +18,7 @@
         <hr />
     </div>
     
-    <asp:Table ID="QualifiedCandidate" runat="server" class="table table-striped table-bordered"/>
+    <asp:Table ID="QualifiedCandidate" runat="server" class="table table-striped table-bordered"/><br />
     <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" /><br />
     
 </asp:Content>
