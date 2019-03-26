@@ -60,6 +60,15 @@ public partial class JobPostingStatus : System.Web.UI.Page
             aNewCell.Controls.Add(viewButton);
             aNewRow.Cells.Add(aNewCell);
 
+            aNewCell = new TableCell();
+            Button UpdateButton = new Button();
+            UpdateButton.ID = "Update" + index;
+            UpdateButton.Text = "Update";
+            UpdateButton.CssClass = "btn btn-outline-primary";
+            UpdateButton.Click += new EventHandler((obj, eArgs) => UpdateButton_Click(obj, eArgs, item.JobPostingID));
+            aNewCell.Controls.Add(UpdateButton);
+            aNewRow.Cells.Add(aNewCell);
+
             JobPostingsTable.Rows.Add(aNewRow);
             index++;
         }
@@ -70,4 +79,8 @@ public partial class JobPostingStatus : System.Web.UI.Page
         Response.Redirect("JobCandidateStatus.aspx?JobPostingID=" + jobPostingID.ToString() + "&Name=" + Name + "&Description=" + Description);
     }
 
+    protected void UpdateButton_Click(object sender, EventArgs e, int jobPostingID)
+    {
+        Response.Redirect("ModifyJobPosting.aspx?JobPostingID=" + jobPostingID.ToString());
+    }
 }

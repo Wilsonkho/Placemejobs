@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Diagnostics;
+using System.Threading;
 
 
 public partial class JobCandidateStatus : System.Web.UI.Page
@@ -103,7 +105,7 @@ public partial class JobCandidateStatus : System.Web.UI.Page
             StatusList.Items.Insert(4, new ListItem("Selected", "Selected"));
             StatusList.SelectedValue = item.JobStatus;
 
-            StatusList.SelectedIndexChanged += new EventHandler((obj,eArgs) => StatusListSelectedIndexChanged (obj,eArgs,StatusList.SelectedItem.Text, item.UserID, jobPostingID, DateBox.Text));
+            StatusList.SelectedIndexChanged += new EventHandler((obj, eArgs) => StatusListSelectedIndexChanged(obj, eArgs, StatusList.SelectedItem.Text, item.UserID, jobPostingID, DateBox.Text, item.StatusDate,  StatusList, item.JobStatus)); 
             
                 aNewCell.Controls.Add(StatusList);
             
@@ -114,11 +116,21 @@ public partial class JobCandidateStatus : System.Web.UI.Page
         }
 
     }
-    protected void StatusListSelectedIndexChanged(Object sender, EventArgs e, string StatusChange, int UserID, int JobPostingID, string DateChange)
+    protected void StatusListSelectedIndexChanged(Object sender, EventArgs e, string StatusChange, int UserID, int JobPostingID, string DateChange, string DateCheck, DropDownList RevertList, String RevertValue )
     {
-
-        PRMS Controller = new PRMS();
-        Controller.ChangeStatus(UserID, JobPostingID, StatusChange, DateChange);
+        if (DateChange == DateCheck)
+        {
+            
+            Response.Write("<script language='javascript'>window.alert('You must select a new date for the status change.');</script>");
+            RevertList.SelectedValue = RevertValue;
+            
+        }
+        else
+        {
+            PRMS Controller = new PRMS();
+            Controller.ChangeStatus(UserID, JobPostingID, StatusChange, DateChange);
+            
+        }
         
     }
 
