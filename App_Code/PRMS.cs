@@ -241,4 +241,14 @@ public class PRMS
         Administrators administrationManager = new Administrators();
         return administrationManager.UpdateCandidateJobStatus(UserID, JobpostingID, Status, Date);
     }
+
+    public List<UserJobPosting> GetUserJobPostingByStatus(string status)
+    {
+        List<UserJobPosting> userJobPostingList = new List<UserJobPosting>();
+
+        UserJobPostings userJobPostingManager = new UserJobPostings();
+        userJobPostingList = userJobPostingManager.GetUserJobPostingByStatus(status);
+
+        return userJobPostingList;
+    }
 }

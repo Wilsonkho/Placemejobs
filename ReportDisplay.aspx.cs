@@ -41,6 +41,8 @@ public partial class ReportDisplay : System.Web.UI.Page
 
     protected void PopulatePDF(ref iTextSharp.text.Document doc)
     {
+        PRMS controller = new PRMS();
+
         PdfPTable table = new PdfPTable(3);
         PdfPCell cell = new PdfPCell(new Phrase("Header spanning 3 columns"));
         cell.Colspan = 3;
