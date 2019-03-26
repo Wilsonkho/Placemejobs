@@ -204,5 +204,62 @@ public class Skillsets
         }
         return success; ;
     }
-    
+
+
+    public bool UpdateSkillSet(string updatedSkillSetDescription, int skillsetid, int professionID)
+    {
+
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand UpdateSkillSetCommand;
+        UpdateSkillSetCommand = new SqlCommand("");
+        UpdateSkillSetCommand.CommandType = CommandType.StoredProcedure;
+        UpdateSkillSetCommand.Connection = con;
+        UpdateSkillSetCommand.CommandText = "UpdateSkillSet";
+
+        SqlParameter SkillSetIDParameter;
+        SqlParameter UpdatedDescriptionParameter;
+        SqlParameter ProfessionIDParameter;
+
+        SkillSetIDParameter = new SqlParameter();
+        UpdatedDescriptionParameter = new SqlParameter();
+        ProfessionIDParameter = new SqlParameter();
+        UpdatedDescriptionParameter.ParameterName = "@UpdatedDescription";
+        ProfessionIDParameter.ParameterName = "@ProfessionId";
+        SkillSetIDParameter.ParameterName = "@SkillSetID";
+
+        SkillSetIDParameter.SqlDbType = SqlDbType.Int;
+        SkillSetIDParameter.Direction = ParameterDirection.Input;
+
+        UpdatedDescriptionParameter.SqlDbType = SqlDbType.NChar;
+        UpdatedDescriptionParameter.Direction = ParameterDirection.Input;
+
+        ProfessionIDParameter.SqlDbType = SqlDbType.Int;
+        ProfessionIDParameter.Direction = ParameterDirection.Input;
+   
+        UpdatedDescriptionParameter.Value = updatedSkillSetDescription;
+        ProfessionIDParameter.Value = professionID;
+        SkillSetIDParameter.Value = skillsetid;
+
+        con.Open();
+
+        UpdateSkillSetCommand.Parameters.Add(UpdatedDescriptionParameter);
+        UpdateSkillSetCommand.Parameters.Add(ProfessionIDParameter);
+        UpdateSkillSetCommand.Parameters.Add(SkillSetIDParameter);
+
+        int rowsAffected = UpdateSkillSetCommand.ExecuteNonQuery();
+
+        Boolean success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
 }

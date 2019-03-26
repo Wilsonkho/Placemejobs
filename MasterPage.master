@@ -1,11 +1,12 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<link href="packages/bootstrap.4.2.1/content/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="Themes/MasterPage/StyleSheet.css" rel="stylesheet" />
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Placemejobs - <%: Page.Title %></title>
-    <link href="packages/bootstrap.4.2.1/content/Content/bootstrap.min.css" rel="stylesheet" />
+
     <script src="packages/jQuery.3.3.1/Content/Scripts/jquery-3.3.1.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <asp:ContentPlaceHolder id="HeaderContent" runat="server"></asp:ContentPlaceHolder>

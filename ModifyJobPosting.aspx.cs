@@ -9,12 +9,13 @@ public partial class ModifyJobPosting : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+
+        if (!IsPostBack)
         {
             BindDropDowns();
-            
+             ModifyPostingTable.Visible = false;
         }
-        ModifyPostingTable.Visible = false;
+       
     }
 
     protected void BindDropDowns()
@@ -61,9 +62,31 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         {
             skillsList.Add(int.Parse(Skillset.SelectedValue));
             skillsetsLabel.Visible = true;
-            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
-            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+            skillLabel.Visible = true;
+            skillsetsLabel.ForeColor = System.Drawing.Color.White;
+            skillsetsLabel.Text = skillsetsLabel.Text  + Skillset.SelectedItem + "<br/>";
         }
+
+        Session["skills"] = skillsList;
+
+    }
+
+    protected void AddSkill_Click(int skillsetID, string skillText)
+    {
+        List<int> skillsList;
+        skillsList = (List<int>)Session["skills"];
+        if (skillsList == null)
+        {
+            Session["skills"] = skillsList;
+            skillsList = new List<int>();
+        }
+
+        skillsList.Add(skillsetID);
+        skillsetsLabel.Visible = true;
+        skillLabel.Visible = true;
+        skillsetsLabel.ForeColor = System.Drawing.Color.White;
+        skillsetsLabel.Text = skillsetsLabel.Text + skillText + "<br/> ";
+        
 
         Session["skills"] = skillsList;
 
@@ -77,31 +100,34 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         List<int> skillsList;
         skillsList = (List<int>)Session["skills"];
 
-        JobPosting newPosting = new JobPosting();
+        JobPosting jobPosting = new JobPosting();
 
-        newPosting.Description = JobPostingDescription.Text;
-        newPosting.CompanyName = CompanyName.Text;
-        newPosting.RegionID = int.Parse(Region.Text);
-        newPosting.ProfessionID = int.Parse(Profession.Text);
-        newPosting.Date = DateTime.Parse(Date.Text);
-        newPosting.EmployerPhone = CompanyPhone.Text;
+        jobPosting.JobPostingID = int.Parse(PostingDropDown.SelectedValue);
+        jobPosting.Description = JobPostingDescription.Text;
+        jobPosting.CompanyName = CompanyName.Text;
+        jobPosting.RegionID = int.Parse(Region.Text);
+        jobPosting.ProfessionID = int.Parse(Profession.Text);
+        jobPosting.Date = DateTime.Parse(Date.Text);
+        jobPosting.EmployerPhone = CompanyPhone.Text;
 
         try
         {
-            int newJobID;
-            newJobID = controller.AddJobPosting(newPosting);
-
-            foreach (int skill in skillsList)
+            bool success;
+            success = controller.UpdateJobPosting(jobPosting);
+            if (success)
             {
-                controller.AddJobSkillSets(newJobID, skill);
+                foreach (int skill in skillsList)
+                {
+                    controller.AddJobSkillSets(jobPosting.JobPostingID, skill);
+                }
+                ClearForm();
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Updated Successfully')", true);
             }
-            ClearForm();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Inserted Successfully')", true);
         }
         catch (Exception ex)
         {
             Confirmation.Text = "the following error has occurred: " + ex;
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Insert Failed')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Update Failed')", true);
         }
 
     }
@@ -116,7 +142,7 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         CompanyPhone.Text = "";
         Date.Text = "";
         skillsetsLabel.Visible = false;
-        skillsetsLabel.Text = "Skills:";
+        skillLabel.Visible = false;
         Session.Clear();
 
     }
@@ -125,6 +151,7 @@ public partial class ModifyJobPosting : System.Web.UI.Page
     {
         if (PostingDropDown.SelectedIndex != 0)
         {
+            Skillset.SelectedIndex = 0;
             ModifyPostingTable.Visible = true;
             PopulateJobPostingTable();
         }
@@ -142,9 +169,23 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         CompanyPhone.Text = jobPosting.EmployerPhone;
         Date.Text = jobPosting.Date.ToString("yyyy-MM-dd");
         //Someting for skillsets
+        Session.Clear();
+        skillsetsLabel.Text = "";
+        foreach(Skillset skill in jobPosting.Skillsets)
+        {
+            AddSkill_Click(skill.SkillsetID, skill.Description);
+        }
+
+
         Profession.SelectedValue = jobPosting.ProfessionID.ToString();
         Region.SelectedValue = jobPosting.RegionID.ToString();
 
 
+    }
+
+    protected void ClearSkillsButton_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        skillsetsLabel.Text = "";
     }
 }

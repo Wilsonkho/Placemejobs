@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -126,6 +127,56 @@ public class Regions
         int rowsAffected = AddRegionCommand.ExecuteNonQuery();
 
         bool success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
+
+    public bool UpdateRegion(string updatedRegionDescription, int regionID)
+    {
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand AddRegionCommand;
+        AddRegionCommand = new SqlCommand("");
+        AddRegionCommand.CommandType = CommandType.StoredProcedure;
+        AddRegionCommand.Connection = con;
+        AddRegionCommand.CommandText = "UpdateRegion";
+
+        SqlParameter regionIdParameter;
+        SqlParameter UpdatedDescriptionParameter;
+
+        regionIdParameter = new SqlParameter();
+        UpdatedDescriptionParameter = new SqlParameter();
+
+        regionIdParameter.ParameterName = "@RegionID";
+        UpdatedDescriptionParameter.ParameterName = "@updatedRegionDescription";
+
+        regionIdParameter.SqlDbType = SqlDbType.Int;
+        regionIdParameter.Direction = ParameterDirection.Input;
+
+        UpdatedDescriptionParameter.SqlDbType = SqlDbType.NChar;
+        UpdatedDescriptionParameter.Direction = ParameterDirection.Input;
+
+        regionIdParameter.Value = regionID;
+        UpdatedDescriptionParameter.Value = updatedRegionDescription;
+
+        con.Open();
+
+        AddRegionCommand.Parameters.Add(UpdatedDescriptionParameter);
+        AddRegionCommand.Parameters.Add(regionIdParameter);
+
+
+        int rowsAffected = AddRegionCommand.ExecuteNonQuery();
+
+        Boolean success = false;
         if (rowsAffected != 0)
         {
             success = true;

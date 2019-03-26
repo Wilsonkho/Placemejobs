@@ -178,10 +178,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
         {
             Results.Text = "Candidate must have at least one profession, skill, and region added.";
         }
-    
-
-
-        
+     
     }
 
 

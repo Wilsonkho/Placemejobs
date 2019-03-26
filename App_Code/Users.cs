@@ -107,6 +107,48 @@ public class Users
 
     }
 
+    public List<User> GetUserDetails(int userID)
+    {
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetUserDetails";
+
+        SqlParameter UserID = new SqlParameter();
+        UserID.ParameterName = "@UserID";
+        UserID.SqlDbType = SqlDbType.Int;
+        UserID.Direction = ParameterDirection.Input;
+        UserID.Value = userID;
+
+        cmd.Parameters.Add(UserID);
+
+        con.Open();
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        List<User> userList = new List<User>();
+
+        while (reader.Read())
+        {
+            User aUser = new User();
+
+            aUser.UserID = Convert.ToInt32(reader["UserID"]);
+            aUser.UserEmail = reader["Email"].ToString();
+            aUser.Phone = reader["Phone"].ToString();
+            aUser.FirstName = reader["FirstName"].ToString();
+            aUser.LastName = reader["LastName"].ToString();
+
+            userList.Add(aUser);
+        }
+        con.Close();
+
+        return userList;
+    }
+
     public Boolean AddUser(User NewUser)
     {
         bool Success = false;
