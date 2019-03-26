@@ -269,7 +269,52 @@ AS
         RAISERROR('AddCandidateToJobPosting Error: Insert error.',16,1)
     RETURN @ReturnCode
 
-ALTER PROCEDURE GetJobCandidates(
+GO
+CREATE PROCEDURE GetUserDetails (
+	@UserID INT = NULL
+)
+AS
+	DECLARE @ReturnCode INT
+	SET @ReturnCode = 1
+
+	IF @UserID IS NULL
+		RAISERROR('GetUserDetails Error: All parameters are required @UserID.',16,1)
+	ELSE
+	BEGIN
+		SELECT UserID, Email, Phone, FirstName, LastName
+		FROM Users
+		WHERE UserID = @UserID
+	END
+	IF @@ERROR = 0
+		SET @ReturnCode = 0
+	ELSE
+		RAISERROR('GetUserDetails Error: Select error.',16,1)
+	RETURN @ReturnCode
+
+GO
+CREATE PROCEDURE GetJobPostingDetails (
+	@JobPostingID INT = NULL
+)
+AS
+	DECLARE @ReturnCode INT
+	SET @ReturnCode = 1
+
+	IF @JobPostingID IS NULL
+		RAISERROR('GetJobPostingDetails Error: All parameters are required @JobPostingID.',16,1)
+	ELSE
+	BEGIN
+		SELECT JobPostingID, Description
+		FROM JobPosting
+		WHERE JobPostingID = @JobPostingID
+	END
+	IF @@ERROR = 0
+		SET @ReturnCode = 0
+	ELSE
+		RAISERROR('GetJobPostingDetails Error: Select error.',16,1)
+	RETURN @ReturnCode
+
+GO
+CREATE PROCEDURE GetJobCandidates(
 	@JobPostingID INT
 )
 AS
@@ -329,7 +374,7 @@ AS
 		RAISERROR('GetUserJobPostingByStatus Error: All parameters are required @Status.',16,1)
 	ELSE
 	BEGIN
-		SELECT UserID, JobPostingID
+		SELECT UserID, JobPostingID, StatusDate
 		FROM UserJobPosting
 		WHERE Status = @Status
 	END

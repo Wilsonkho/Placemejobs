@@ -42,6 +42,7 @@ public class UserJobPostings
 
             userJobPostingEntry.UserID = Convert.ToInt32(reader["UserID"]);
             userJobPostingEntry.JobPostingID = Convert.ToInt32(reader["JobPostingID"]);
+            userJobPostingEntry.StatusDate = Convert.ToDateTime(reader["StatusDate"]);
 
             userJobPostingList.Add(userJobPostingEntry);
         }

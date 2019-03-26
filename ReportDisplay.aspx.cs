@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -42,6 +42,15 @@ public partial class ReportDisplay : System.Web.UI.Page
     protected void PopulatePDF(ref iTextSharp.text.Document doc)
     {
         PRMS controller = new PRMS();
+
+        List<UserJobPosting> userJobPostingList = new List<UserJobPosting>();
+        userJobPostingList = controller.GetUserJobPostingByStatus(Request["status"]);
+
+
+
+        List<User> userList = new List<User>();
+        //userList = controller.GetUserDetails();
+
 
         PdfPTable table = new PdfPTable(3);
         PdfPCell cell = new PdfPCell(new Phrase("Header spanning 3 columns"));
