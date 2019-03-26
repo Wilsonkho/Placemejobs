@@ -9,7 +9,8 @@ public partial class ModifyJobPosting : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+
+        if (!IsPostBack)
         {
             BindDropDowns();
              ModifyPostingTable.Visible = false;
@@ -120,13 +121,13 @@ public partial class ModifyJobPosting : System.Web.UI.Page
                     controller.AddJobSkillSets(jobPosting.JobPostingID, skill);
                 }
                 ClearForm();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Inserted Successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Updated Successfully')", true);
             }
         }
         catch (Exception ex)
         {
             Confirmation.Text = "the following error has occurred: " + ex;
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Insert Failed')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Update Failed')", true);
         }
 
     }
