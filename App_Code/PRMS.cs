@@ -41,7 +41,7 @@ public class PRMS
         return confirmation;
     }
 
-    public bool AddCandidate (User newCandidate)
+    public bool AddCandidate(User newCandidate)
     {
         bool confirmation = false;
 
@@ -91,7 +91,7 @@ public class PRMS
         return confirmation;
     }
 
-    public int GetUserIDByEmail (string email)
+    public int GetUserIDByEmail(string email)
     {
         int userID;
 
@@ -183,7 +183,7 @@ public class PRMS
     }
 
     public JobPosting GetJobPosting(int JobPostingID)
-    {        
+    {
         JobPostings JobPostingManager = new JobPostings();
         return JobPostingManager.GetJobPosting(JobPostingID);
     }
@@ -199,8 +199,8 @@ public class PRMS
     }
 
 
-/*<<<<<<< HEAD*/
-    public bool UpdateProfession( string UpdatedProfessionDescription, int ProfessionID)
+    /*<<<<<<< HEAD*/
+    public bool UpdateProfession(string UpdatedProfessionDescription, int ProfessionID)
     {
         bool confirmation = false;
 
@@ -209,8 +209,28 @@ public class PRMS
 
         return confirmation;
     }
-/*=======
->>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
+
+    public bool UpdateRegion(string UpdatedRegionDescription, int RegionID)
+    {
+        bool confirmation = false;
+
+        Regions RegionManager = new Regions();
+        confirmation = RegionManager.UpdateRegion(UpdatedRegionDescription, RegionID);
+
+        return confirmation;
+    }
+
+    public bool UpdateSkillSet(string UpdatedSkillSetDescription, int skillsetid, int ProfessionID)
+    {
+        bool confirmation = false;
+
+        Skillsets skillsetManager = new Skillsets();
+        confirmation = skillsetManager.UpdateSkillSet(UpdatedSkillSetDescription, skillsetid, ProfessionID);
+
+        return confirmation;
+    }
+    /*=======
+    >>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
     public bool AddJobSkillSets(int jobID, int skill)
     {
         bool confirmation = false;
@@ -222,8 +242,8 @@ public class PRMS
     }
 
     public int AddJobPosting(JobPosting job)
-    {        
-        JobPostings jobPostingManager = new JobPostings();         
+    {
+        JobPostings jobPostingManager = new JobPostings();
         return jobPostingManager.AddJobPosting(job);
     }
     public List<User> GetAssignedCandidates(int jobPostingID)
@@ -236,12 +256,13 @@ public class PRMS
         return candidateList;
 
     }
-    public bool ChangeStatus (int UserID, int JobpostingID, string Status, string Date)
+    public bool ChangeStatus(int UserID, int JobpostingID, string Status, string Date)
     {
         Administrators administrationManager = new Administrators();
         return administrationManager.UpdateCandidateJobStatus(UserID, JobpostingID, Status, Date);
-/*<<<<<<< HEAD
+        /*<<<<<<< HEAD
 
-=======
->>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
+        =======
+        >>>>>>> 7157f084cd2c4ada7d90d505dd940b818ce2ed9e*/
+    }
 }
