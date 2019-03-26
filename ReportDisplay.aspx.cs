@@ -46,11 +46,25 @@ public partial class ReportDisplay : System.Web.UI.Page
         List<UserJobPosting> userJobPostingList = new List<UserJobPosting>();
         userJobPostingList = controller.GetUserJobPostingByStatus(Request["status"]);
 
-
-
+        List<JobPosting> jobPostingList = new List<JobPosting>();
         List<User> userList = new List<User>();
-        //userList = controller.GetUserDetails();
 
+        foreach (var userJobPostingItem in userJobPostingList)
+        {
+            int searchJobPostingID = userJobPostingItem.JobPostingID;
+            string statusDate = userJobPostingItem.StatusDate.ToString("MMM dd, yyyy");
+
+            jobPostingList = controller.GetJobPostingDetails(searchJobPostingID);
+            JobPosting aJobPosting = new JobPosting();
+
+            foreach (var jobPostingItem in jobPostingList)
+            {
+                if (jobPostingItem.JobPostingID == searchJobPostingID)
+                {
+                    //Get UserID by JobPostingID and Status
+                }
+            }
+        }
 
         PdfPTable table = new PdfPTable(3);
         PdfPCell cell = new PdfPCell(new Phrase("Header spanning 3 columns"));

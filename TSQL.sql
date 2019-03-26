@@ -335,7 +335,8 @@ AS
         RAISERROR('Error: Unable to retrieve data.',16,1)
     RETURN @ReturnCode
 
-ALTER PROCEDURE UpdateJobStatus(
+GO
+CREATE PROCEDURE UpdateJobStatus(
 	@JobPostingID INT,
 	@UserID INT,
 	@Status VARCHAR(20),
@@ -384,6 +385,31 @@ AS
 		RAISERROR('GetUserJobPostingByStatus Error: Select error.',16,1)
 	RETURN @ReturnCode
 
+GO
+CREATE PROCEDURE GetUserIDByJobPostingStatus (
+	@JobPostingID INT = NULL,
+	@Status VARCHAR(20) = NULL
+)
+AS
+	DECLARE @ReturnCode INT
+	SET @ReturnCode = 1
+
+	IF @JobPostingID IS NULL
+		RAISERROR('GetUserIDByJobPostingStatus Error: All parameters are required @JobPostingID.',16,1)
+	ELSE
+	BEGIN
+		SELECT UserID
+		FROM UserJobPosting
+		WHERE	Status = @Status AND
+				JobPostingID = @JobPostingID
+	END
+	IF @@ERROR = 0
+		SET @ReturnCode = 0
+	ELSE
+		RAISERROR('GetUserIDByJobPostingStatus Error: Select error.',16,1)
+	RETURN @ReturnCode
+
+-- SELECT UserID, JobPostingID, StatusDate FROM UserJobPosting WHERE Status = 'Interviewing'
 -- SELECT * FROM Users
 -- SELECT * FROM UserJobPosting
 -- DELETE FROM UserJobPosting
