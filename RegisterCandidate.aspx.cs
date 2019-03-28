@@ -131,9 +131,9 @@ public partial class RegisterCandidate : System.Web.UI.Page
                         }
                     }
                     //Set color to green
-                    Results.ForeColor = System.Drawing.Color.Green;
-                    Results.Text = "Candidate was added";
-
+                    //Results.ForeColor = System.Drawing.Color.Green;
+                    //Results.Text = "Candidate was added";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Candidate was added Successfully')", true);
                     #region add professions
                     int newUserID;
                     newUserID = controller.GetUserIDByEmail(EmailTextBox.Text);
@@ -164,6 +164,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
                 }
                 catch (Exception ex)
                 {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Candidate was not added')", true);
                     Results.Text = ex.ToString();
                 }
             }
