@@ -9,11 +9,24 @@ public partial class ModifyJobPosting : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
         if (!IsPostBack)
         {
             BindDropDowns();
-             ModifyPostingTable.Visible = false;
+            if (Request.QueryString["JobPostingID"] != null)
+            {
+                int passedID = int.Parse(Request.QueryString["JobPostingID"]);
+                PostingDropDown.SelectedValue = passedID.ToString();
+                Skillset.SelectedIndex = 0;
+                ModifyPostingTable.Visible = true;
+                PopulateJobPostingTable(passedID);
+                
+            }
+            else
+            {
+                ModifyPostingTable.Visible = false;
+            }
+            
         }
        
     }
@@ -155,17 +168,17 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         {
             Skillset.SelectedIndex = 0;
             ModifyPostingTable.Visible = true;
-            PopulateJobPostingTable();
+            PopulateJobPostingTable(int.Parse(PostingDropDown.SelectedValue));
         }
     }
 
-    private void PopulateJobPostingTable()
+    private void PopulateJobPostingTable(int jobID)
     {
         PRMS RequestDirector;
         RequestDirector = new PRMS();
 
         JobPosting jobPosting;
-        jobPosting = RequestDirector.GetJobPosting(int.Parse(PostingDropDown.SelectedValue));
+        jobPosting = RequestDirector.GetJobPosting(jobID);
         JobPostingDescription.Text = jobPosting.Description;
         CompanyName.Text = jobPosting.CompanyName;
         CompanyPhone.Text = jobPosting.EmployerPhone;
