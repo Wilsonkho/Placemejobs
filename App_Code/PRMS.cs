@@ -254,6 +254,11 @@ public class PRMS
         return confirmation;
     }
 
+    public bool DeleteJobPosting(string jobID)
+    {
+        JobPostings jobPostingManager = new JobPostings();
+        return jobPostingManager.DeleteJobPosting(jobID);
+    }
 
     public bool AddJobSkillSets(int jobID, int skill)
     {

@@ -144,8 +144,7 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         Skillset.SelectedValue = "0";
         CompanyPhone.Text = "";
         Date.Text = "";
-        //skillsetsLabel.Visible = false;
-        //skillLabel.Visible = false;
+        SelectJobTable.Visible = false;
         
 
     }
@@ -190,5 +189,23 @@ public partial class ModifyJobPosting : System.Web.UI.Page
     {
         Session.Clear();
         skillsetsLabel.Text = "";
+    }
+
+    protected void Delete_Click(object sender, EventArgs e)
+    {
+        PRMS controller = new PRMS();
+        bool Success;
+        Success = controller.DeleteJobPosting(PostingDropDown.SelectedValue);
+        if(Success)
+        {
+            ClearForm();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Deleted')", true);
+            
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting not Deleted')", true);
+        }
+        
     }
 }

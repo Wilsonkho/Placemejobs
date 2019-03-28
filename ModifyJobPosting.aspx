@@ -103,6 +103,9 @@
             <asp:TableRow>
                 <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Update" class="btn btn-dark" OnClick="Submit_Click"/></asp:TableCell>
             </asp:TableRow>
+            <asp:TableRow>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Delete" Text="Delete" class="btn btn-dark" OnClick="Delete_Click"/></asp:TableCell>
+            </asp:TableRow>
 
             <asp:TableRow>
                 <asp:TableCell ColumnSpan="3">

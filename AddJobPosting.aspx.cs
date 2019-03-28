@@ -62,7 +62,7 @@ public partial class AddJobPosting : System.Web.UI.Page
             skillsList.Add(int.Parse(Skillset.SelectedValue));
             skillsetsLabel.Visible = true;
             skillsetsLabel.ForeColor = System.Drawing.Color.White;
-            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + "<br>";
         }
 
         Session["skills"] = skillsList;
@@ -117,8 +117,14 @@ public partial class AddJobPosting : System.Web.UI.Page
         CompanyPhone.Text = "";
         Date.Text = "";
         skillsetsLabel.Visible = false;
-        skillsetsLabel.Text = "Skills:";
+        skillsetsLabel.Text = "";
         Session.Clear();
 
+    }
+
+    protected void ClearSkillsButton_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        skillsetsLabel.Text = "";
     }
 }
