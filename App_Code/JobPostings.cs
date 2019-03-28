@@ -215,6 +215,53 @@ public class JobPostings
         return aJobPosting;
     }
 
+    internal bool DeleteJobPosting(string jobID)
+    {
+        bool Success;
+        SqlConnection PlacemeJobsConnection;
+        PlacemeJobsConnection = new SqlConnection();
+        PlacemeJobsConnection.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand DeleteJobPostingCommand;
+        DeleteJobPostingCommand = new SqlCommand();
+        DeleteJobPostingCommand.CommandType = CommandType.StoredProcedure;
+        DeleteJobPostingCommand.Connection = PlacemeJobsConnection;
+        DeleteJobPostingCommand.CommandText = "DeleteJobPosting";
+
+        SqlParameter JobPostingID;
+        JobPostingID = new SqlParameter();
+        JobPostingID.ParameterName = "@JobPostingID";
+        JobPostingID.SqlDbType = SqlDbType.Int;
+        JobPostingID.Direction = ParameterDirection.Input;
+        JobPostingID.Value = jobID;
+
+        SqlParameter ReturnParameter;
+        ReturnParameter = new SqlParameter();
+        ReturnParameter.ParameterName = "ReturnValue";
+        ReturnParameter.SqlDbType = SqlDbType.Int;
+        ReturnParameter.Direction = ParameterDirection.ReturnValue;
+
+
+
+
+        DeleteJobPostingCommand.Parameters.Add(JobPostingID);
+        DeleteJobPostingCommand.Parameters.Add(ReturnParameter);
+        PlacemeJobsConnection.Open();
+
+
+        DeleteJobPostingCommand.ExecuteNonQuery();
+        if((int)DeleteJobPostingCommand.Parameters["ReturnValue"].Value == 0)
+        {
+            Success = true;
+        }
+        else
+        {
+            Success = false;
+        }
+        return Success;
+
+    }
+
     private List<Skillset> GetJobSkills(int jobPostingID)
     {
         List<Skillset> skillsets = new List<Skillset>();
