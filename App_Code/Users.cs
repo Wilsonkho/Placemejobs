@@ -297,13 +297,11 @@ public class Users
     public bool ModifyAccount(User newcandidate)
     {
         bool success = false;
-        newcandidate.UserPassword = CreatePasswordHash(newcandidate.UserPassword, CreateSalt(5));
 
-        //try
-        //{
+        try
+        {
             SqlConnection con;
-            con = new SqlConnection();
-            //con.ConnectionString = "Data Source=DataBaist; Initial Catalog = Placemejobs; Integrated Security=True";
+            con = new SqlConnection();         
             con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
             SqlCommand cmd;
             cmd = new SqlCommand();
@@ -328,25 +326,7 @@ public class Users
         LastName.Direction = ParameterDirection.Input;
         LastName.Value = newcandidate.LastName;
 
-        SqlParameter Resume = new SqlParameter();
-        Resume.ParameterName = "@Resume";
-        Resume.SqlDbType = SqlDbType.NVarChar;
-        Resume.Direction = ParameterDirection.Input;
-        Resume.Value = newcandidate.Resume;
-        
-        SqlParameter CoverLetter = new SqlParameter();
-        CoverLetter.ParameterName = "@CoverLetter";
-        CoverLetter.SqlDbType = SqlDbType.NVarChar;
-        CoverLetter.Direction = ParameterDirection.Input;
-        CoverLetter.Value = newcandidate.CoverLetter;
-
-
-            SqlParameter Password = new SqlParameter();
-            Password.ParameterName = "@Password";
-            Password.SqlDbType = SqlDbType.NChar;
-            Password.Direction = ParameterDirection.Input;
-            Password.Value = newcandidate.UserPassword;
-
+      
             SqlParameter Status = new SqlParameter();
         Status.ParameterName = "@Status";
         Status.SqlDbType = SqlDbType.Bit;
@@ -358,26 +338,18 @@ public class Users
         Phone.SqlDbType = SqlDbType.NVarChar;
         Phone.Direction = ParameterDirection.Input;
         Phone.Value = newcandidate.Phone;
-        SqlParameter Email = new SqlParameter();
-        Email.ParameterName = "@Email";
-        Email.SqlDbType = SqlDbType.NVarChar;
-        Email.Direction = ParameterDirection.Input;
-        Email.Value = newcandidate.UserEmail;
+
 
             cmd.Parameters.Add(UserID);
 
             cmd.Parameters.Add(FirstName);
             cmd.Parameters.Add(LastName);
-        cmd.Parameters.Add(CoverLetter);
-        cmd.Parameters.Add(Resume);
+
         
-        cmd.Parameters.Add(Password);
         cmd.Parameters.Add(Status);
         cmd.Parameters.Add(Phone);
             
-            
-            
-        cmd.Parameters.Add(Email);
+        
         
 
         con.Open();
@@ -385,12 +357,12 @@ public class Users
             con.Close();
 
             success = true;
-        /*}
-        catch (Exception e)
+        }
+        catch
         {
 
             return success;
-        }*/
+        }
         return success;
 
     }
@@ -618,7 +590,116 @@ public class Users
         return Profile;
 
     }
+    public bool PasswordCheck(User LoginUser ,String OldPassword)
+    {
+
+        bool Confirmaton = false;
+        try
+        {
+            SqlConnection con;
+            con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+            SqlCommand cmd;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "GetUser";
+
+            SqlParameter Email = new SqlParameter();
+            Email.ParameterName = "@Email";
+            Email.SqlDbType = SqlDbType.NChar;
+            Email.Direction = ParameterDirection.Input;
+            Email.Value = LoginUser.UserEmail;
+
+            cmd.Parameters.Add(Email);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            string SaltedHashPassword;
+            string ExtractedSalt;
+            string NewSaltedHashPassword;
+            while (reader.Read())
+            {
+                SaltedHashPassword = Convert.ToString(reader.GetValue(0));
+
+                ExtractedSalt = SaltedHashPassword.Substring(SaltedHashPassword.Length - 8);
+
+                NewSaltedHashPassword = CreatePasswordHash(OldPassword, ExtractedSalt);
+
+                if (SaltedHashPassword == NewSaltedHashPassword)
+                {
+                    Confirmaton = true;
+                }
+
+            }
+            con.Close();
+            return Confirmaton;
+        }
+        catch
+        {
+            return Confirmaton;
+        }
+
+    }
+    public bool UpdatePassword(User CurrentUser, string OldPassword, string NewPassword)
+    {
+        if (PasswordCheck(CurrentUser, OldPassword))
+        {
+            SqlConnection con;
+            con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+            SqlCommand cmd;
+            cmd = new SqlCommand("");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "ChangePassword";
+
+            SqlParameter UseridParameter;
+            SqlParameter NewPasswordParameter;
 
 
+            UseridParameter = new SqlParameter();
+            NewPasswordParameter = new SqlParameter();
+
+
+            UseridParameter.ParameterName = "@UserID";
+            NewPasswordParameter.ParameterName = "@NewPassword";
+
+            UseridParameter.SqlDbType = SqlDbType.Int;
+            UseridParameter.Direction = ParameterDirection.Input;
+
+            NewPasswordParameter.SqlDbType = SqlDbType.Int;
+            NewPasswordParameter.Direction = ParameterDirection.Input;
+
+
+            UseridParameter.Value = CurrentUser.UserID;
+            NewPasswordParameter.Value = NewPassword;
+
+
+            cmd.Parameters.Add(UseridParameter);
+            cmd.Parameters.Add(NewPasswordParameter);
+
+            con.Open();
+
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            Boolean success = false;
+            if (rowsAffected != 0)
+            {
+                success = true;
+            }
+            else
+            {
+                success = false;
+            }
+            return success;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }

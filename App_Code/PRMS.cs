@@ -327,4 +327,9 @@ public class PRMS
         Users UserManager = new Users();
         return UserManager.ModifyAccount(ModUser);
     }
+    public bool ChangePassword (User CurrentUser, string OldPassword, string NewPassword)
+    {
+        Users UserManager = new Users();
+        return UserManager.UpdatePassword(CurrentUser, OldPassword, NewPassword);
+    }
 }
