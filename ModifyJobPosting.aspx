@@ -86,10 +86,7 @@
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Submit" class="btn btn-dark" OnClick="Submit_Click"/></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" class="btn btn-dark"/></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Update" class="btn btn-dark" OnClick="Submit_Click"/></asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>

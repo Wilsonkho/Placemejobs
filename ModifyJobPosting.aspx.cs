@@ -134,6 +134,9 @@ public partial class ModifyJobPosting : System.Web.UI.Page
 
     protected void ClearForm()
     {
+        Session.Clear();
+        skillsetsLabel.Text = "";
+        PostingDropDown.SelectedValue = "0";
         JobPostingDescription.Text = "";
         CompanyName.Text = "";
         Region.SelectedValue = "0";
@@ -141,9 +144,9 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         Skillset.SelectedValue = "0";
         CompanyPhone.Text = "";
         Date.Text = "";
-        skillsetsLabel.Visible = false;
-        skillLabel.Visible = false;
-        Session.Clear();
+        //skillsetsLabel.Visible = false;
+        //skillLabel.Visible = false;
+        
 
     }
 
