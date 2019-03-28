@@ -29,6 +29,14 @@ public partial class CandidateProfile : System.Web.UI.Page
         EmailTextBox.Text = CurrentUser.UserEmail;
         Password.Text = CurrentUser.UserPassword;
         ConfirmPassword.Text = CurrentUser.UserPassword;
+        if (CurrentUser.ActiveInactive)
+        {
+            Active.Checked = true;
+        }
+        else
+        {
+            Active.Checked = false;
+        }
         if (!IsPostBack)
         {
             BindDropDowns();
@@ -46,10 +54,7 @@ public partial class CandidateProfile : System.Web.UI.Page
             Session["FileUpload1"] = null;
         }
 
-        Password.Attributes.Add("value", HidePassword.Value);
-        Password.Attributes.Add("onblur", "CapturePassword()");
-        ConfirmPassword.Attributes.Add("value", HideConfirmPassword.Value);
-        ConfirmPassword.Attributes.Add("onblur", "CaptureConfirmPassword()");
+
     }
 
     protected void BindDropDowns()
@@ -103,16 +108,19 @@ public partial class CandidateProfile : System.Web.UI.Page
 
         bool success = false;
         User newCandidate = new User();
-        newCandidate.UserEmail = EmailTextBox.Text;
+        newCandidate.UserID = CurrentUser.UserID;
         newCandidate.FirstName = FirstName.Text;
         newCandidate.LastName = LastName.Text;
         newCandidate.Phone = Phone.Text;
-        //newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
-        //newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : CoverLetterUpload.PostedFile.FileName;
-        newCandidate.Resume = CurrentUser.Resume;
-        newCandidate.CoverLetter = CurrentUser.CoverLetter;
-        newCandidate.UserPassword = Password.Text;
-        newCandidate.ActiveInactive = true;
+        if (Active.Checked)
+        {
+            newCandidate.ActiveInactive = true;
+        }
+        else
+        {
+            newCandidate.ActiveInactive = false;
+        }
+        
 
         PRMS controller = new PRMS();
 
@@ -315,4 +323,18 @@ public partial class CandidateProfile : System.Web.UI.Page
         Response.Redirect(path);
     }
 
+
+    protected void ChangePassword_Click(object sender, EventArgs e)
+    {
+        PRMS UserController = new PRMS();
+        if (UserController.ChangePassword(CurrentUser, OldPassword.Text, Password.Text))
+        {
+            PasswordConfirmation.Text = "Your password has been updated.";
+        }
+        else
+        {
+            PasswordConfirmation.Text = "Your old password is incorrect.";
+        }
+        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#ChangePasswordModal').modal('show')", true);
+    }
 }

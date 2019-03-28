@@ -11,53 +11,55 @@ public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
-        
+        if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
 
-        if (cp.IsInRole("Administrator"))
-        {
-            
-        }
-        if (cp.IsInRole("Candidate"))
-        {
-            //Response.Write(cp.Identity.Name + " is a Candidate <br/>");
-            //HtmlAnchor h = Master.FindControl("RegisterCandidate") as HtmlAnchor;
-            //h.Visible = false;
-        }
 
-        String activepage = Request.RawUrl;
-        if (activepage.Contains("Default.aspx"))
-        {
-            DefaultLink.Attributes.Add("class", "nav-link active");
-        }
-        else if (activepage.Contains("RegisterCandidate.aspx"))
-        {
-            RegisterCandidateLink.Attributes.Add("class", "nav-link active");
-        }
-        else if (activepage.Contains("AddJobPosting.aspx"))
-        {
-            AddJobPostingLink.Attributes.Add("class", "nav-link active");
-        }
-        else if (activepage.Contains("ModifyJobPosting.aspx"))
-        {
-            ModifyJobPostingLink.Attributes.Add("class", "nav-link active");
-        }
-        else if (activepage.Contains("ViewJobPosting.aspx"))
-        {
-            ViewJobpostingLink.Attributes.Add("class", "nav-link active");
-        }
-        else if (activepage.Contains("CandidateManagement.aspx"))
-        {
-            CandidateManagementLink.Attributes.Add("class", "nav-link active");
-        }
-        else if (activepage.Contains("Contact.aspx"))
-        {
-            ContactLink.Attributes.Add("class", "nav-link active");
-        }
-        else
-        {
-            DefaultLink.Attributes.Add("class", "nav-link active");
-        }
+            if (cp.IsInRole("Administrator"))
+            {
 
+            }
+            if (cp.IsInRole("Candidate"))
+            {
+                //Response.Write(cp.Identity.Name + " is a Candidate <br/>");
+                //HtmlAnchor h = Master.FindControl("RegisterCandidate") as HtmlAnchor;
+                //h.Visible = false;
+            }
+
+            String activepage = Request.RawUrl;
+            if (activepage.Contains("Default.aspx"))
+            {
+                DefaultLink.Attributes.Add("class", "nav-link active");
+            }
+            else if (activepage.Contains("RegisterCandidate.aspx"))
+            {
+                RegisterCandidateLink.Attributes.Add("class", "nav-link active");
+            }
+            else if (activepage.Contains("AddJobPosting.aspx"))
+            {
+                AddJobPostingLink.Attributes.Add("class", "nav-link active");
+            }
+            else if (activepage.Contains("ModifyJobPosting.aspx"))
+            {
+                ModifyJobPostingLink.Attributes.Add("class", "nav-link active");
+            }
+            else if (activepage.Contains("ViewJobPosting.aspx"))
+            {
+                ViewJobpostingLink.Attributes.Add("class", "nav-link active");
+            }
+            else if (activepage.Contains("CandidateManagement.aspx"))
+            {
+                CandidateManagementLink.Attributes.Add("class", "nav-link active");
+            }
+            else if (activepage.Contains("Contact.aspx"))
+            {
+                ContactLink.Attributes.Add("class", "nav-link active");
+            }
+            else
+            {
+                DefaultLink.Attributes.Add("class", "nav-link active");
+            }
+        }
     }
 }
