@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
 <link href="packages/bootstrap.4.2.1/content/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="Themes/MasterPage/StyleSheet.css" rel="stylesheet" />
 <!DOCTYPE html>
@@ -9,61 +10,66 @@
 
     <script src="packages/jQuery.3.3.1/Content/Scripts/jquery-3.3.1.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
-    <asp:ContentPlaceHolder id="HeaderContent" runat="server"></asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
-    
+
     <form id="form1" runat="server">
-        
-        
+
+
         <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-            
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-            <a href="Default.aspx"><asp:Image runat="server" ID="PlacemejobLogo" ImageUrl="~/Images/Logos/PMJ@0.5x.png" Width="75%"/></a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item ">
-                <a  class="nav-link" href="Default.aspx" id="DefaultLink" runat="server">Home</a>                           
 
-                <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Manage Candidates</a><span class="caret"></span>
-                   <ul class="dropdown-menu">
-                       <li class="nav-item"><a class="nav-link" href="RegisterCandidate.aspx" id="RegisterCandidateLink" runat="server" >Register Candidate</a></li>
-                       <li class="nav-item"><a class="nav-link" href="CandidateManagement2.aspx" id="CandidateManagementLink" runat="server">View Job Matches</a></li>
-                       <li class="=nav-item"><a class="nav-link" href="ViewCandidates.aspx" id="A1" runat="server">View Candidates</a></li>
-                   </ul>                
-              </li>
-              
-               <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Manage Categories</a><span class="caret"></span>
-                   <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="AddProfession.aspx" id="A2" runat="server">Add Profession</a></li>
-                        <li> <a class="nav-link" href="AddSkillSet.aspx" id="A3" runat="server">Add Skillset</a></li>
-                        <li><a class="nav-link" href="AddRegion.aspx" id="A4" runat="server">Add Region</a></li>
-                   </ul>                
-              </li>
-                
-                <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Manage Job Postings</a><span class="caret"></span>
-                   <ul class="dropdown-menu">
-                      <li class="nav-item"><a class="nav-link" href="AddJobPosting.aspx" id="AddJobPostingLink" runat="server">Add Job Posting</a></li>
-                      <li class="nav-item"><a class="nav-link" href="ViewJobPosting.aspx" id="ViewJobpostingLink" runat="server">View Job Postings</a></li>
-                       <li class="nav-item"><a class="nav-link" href="ModifyJobPosting.aspx" id="ModifyJobPostingLink" runat="server">Modify Job Posting</a></li>
-                   </ul>                     
-              </li>
-                <li>
-                    <a  class="nav-link" href="Contact.aspx" id="ContactLink" runat="server">Contact Us</a>                
-                </li>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="Default.aspx">
+                <asp:Image runat="server" ID="PlacemejobLogo" ImageUrl="~/Images/Logos/PMJ@0.5x.png" Width="75%" /></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="Default.aspx" id="DefaultLink" runat="server">Home</a>
 
-              
-            </ul>
-          </div>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Manage Candidates</a><span class="caret"></span>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a class="nav-link" href="RegisterCandidate.aspx" id="RegisterCandidateLink" runat="server">Register Candidate</a></li>
+                            <li class="nav-item"><a class="nav-link" href="CandidateManagement2.aspx" id="CandidateManagementLink" runat="server">View Job Matches</a></li>
+                            <li class="=nav-item"><a class="nav-link" href="ViewCandidates.aspx" id="A1" runat="server">View Candidates</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Manage Categories</a><span class="caret"></span>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="AddProfession.aspx" id="A2" runat="server">Add Profession</a></li>
+                            <li><a class="nav-link" href="AddSkillSet.aspx" id="A3" runat="server">Add Skillset</a></li>
+                            <li><a class="nav-link" href="AddRegion.aspx" id="A4" runat="server">Add Region</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Manage Job Postings</a><span class="caret"></span>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a class="nav-link" href="AddJobPosting.aspx" id="AddJobPostingLink" runat="server">Add Job Posting</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ViewJobPosting.aspx" id="ViewJobpostingLink" runat="server">View Job Postings</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ModifyJobPosting.aspx" id="ModifyJobPostingLink" runat="server">Modify Job Posting</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="Contact.aspx" id="ContactLink" runat="server">Contact Us</a>
+                    </li>
+                    <li>
+                        
+                        <asp:LinkButton ID="SignOut" CssClass="nav-link" runat="server" OnClick="SignOut_Click">Sign Out</asp:LinkButton>
+                    </li>
+
+
+                </ul>
+            </div>
         </nav>
 
 
-        
+
         <hr />
         <div class="Main">
-            <asp:ContentPlaceHolder id="MainContent" runat="server" />
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
     </form>
 
