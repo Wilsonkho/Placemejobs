@@ -331,4 +331,14 @@ public class PRMS
         Users UserManager = new Users();
         return UserManager.UpdatePassword(CurrentUser, OldPassword, NewPassword);
     }
+    public bool UpdateCoverLetter (int UserID, string CoverLetter)
+    {
+        Users Manager = new Users();
+        return Manager.UpdateCoverLetter(UserID, CoverLetter);
+    }
+    public bool UpdateResume(int UserID, string Resume)
+    {
+        Users Manager = new Users();
+        return Manager.UpdateResume(UserID, Resume);
+    }
 }
