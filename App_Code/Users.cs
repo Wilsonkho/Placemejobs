@@ -825,7 +825,7 @@ public class Users
         while (reader.Read())
         {
             //Continue working from here!
-            UserSkills.Add(Convert.ToString(reader["Description"]));
+            //UserSkills.Add(Convert.ToString(reader["Description"]));
         }
 
         return UserSkills;

@@ -316,7 +316,7 @@ public partial class CandidateProfile : System.Web.UI.Page
         skillsetsLabel.Text = "";
         foreach (Skillset s in Skills)
         {
-            AddSkill_Click(skill.SkillsetID, skill.Description);
+            //AddSkill_Click(skill.SkillsetID, skill.Description);
         }
 
 
