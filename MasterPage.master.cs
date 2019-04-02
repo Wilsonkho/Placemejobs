@@ -56,6 +56,10 @@ public partial class MasterPage : System.Web.UI.MasterPage
             {
                 ContactLink.Attributes.Add("class", "nav-link active");
             }
+            else if (activepage.Contains("ViewReports.aspx"))
+            {
+                ReportLink.Attributes.Add("class", "nav-link active");
+            }
             else
             {
                 DefaultLink.Attributes.Add("class", "nav-link active");

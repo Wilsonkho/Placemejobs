@@ -53,6 +53,9 @@
                         </ul>
                     </li>
                     <li>
+                        <a class="nav-link" href="ViewReports.aspx" id="ReportLink" runat="server">View Reports</a>
+                    </li>
+                    <li>
                         <a class="nav-link" href="Contact.aspx" id="ContactLink" runat="server">Contact Us</a>
                     </li>
                     <li>
