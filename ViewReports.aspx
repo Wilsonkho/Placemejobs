@@ -8,11 +8,11 @@
             <h1 class="text-center">View Reports</h1>
             </div>
          <br />
-    <asp:table runat="server" ID="ViewReportTable" class="table-bordered table-active" HorizontalAlign="Center">
-        <asp:TableHeaderRow>
+    <asp:table runat="server" ID="ViewReportTable" class=" table-active" HorizontalAlign="Center">
+<%--        <asp:TableHeaderRow>
             <asp:TableHeaderCell CssClass="label-text"><h4 class="text-center">Status</h4></asp:TableHeaderCell>
             <asp:TableHeaderCell CssClass="label-text"><h4 class="text-center">Action</h4></asp:TableHeaderCell>
-        </asp:TableHeaderRow>        
+        </asp:TableHeaderRow>    --%>    
         <asp:TableRow>
             <asp:TableCell CssClass="label-text"><h5>Interviewing</h5></asp:TableCell>
             <asp:TableCell>
