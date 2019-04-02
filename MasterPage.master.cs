@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Web.Security;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
@@ -14,7 +15,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
         {
             CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
-
 
             if (cp.IsInRole("Administrator"))
             {
@@ -60,6 +60,22 @@ public partial class MasterPage : System.Web.UI.MasterPage
             {
                 DefaultLink.Attributes.Add("class", "nav-link active");
             }
+        }else
+        {
+            SignOut.Text = "Sign In";
         }
     }
+    public void SignOut_Click(object sender, EventArgs args)
+    {
+        if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            FormsAuthentication.SignOut();
+            FormsAuthentication.RedirectToLoginPage();
+        }else
+        {
+            Response.Redirect("/Login.aspx");
+        }
+    }
+
+
 }
