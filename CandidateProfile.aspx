@@ -71,7 +71,8 @@
         <asp:TableRow>
             <asp:TableCell></asp:TableCell>
             <asp:TableCell ColumnSpan="2">
-                <asp:Button runat="server" ID="Submit" Text="Update Information" OnClick="Submit_Click" Class="btn btn-secondary" ValidationGroup="PersonalValidation" />
+                <asp:Button runat="server" ID="Submit" Text="Update Information" OnClick="Submit_Click" Class="btn btn-secondary" ValidationGroup="PersonalValidation" /><br />
+                <asp:Label runat="server" ID="UpdatedLabel" />
             </asp:TableCell>
         </asp:TableRow>
 
@@ -113,7 +114,26 @@
             <asp:TableCell ColumnSpan="3">
                 <asp:Label ID="skillsetsLabel" runat="server"></asp:Label>
             </asp:TableCell>
+
         </asp:TableRow>
+        <asp:TableRow CssClass="border-top">
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Skillset:</h5></asp:TableCell>
+                <asp:TableCell >
+                    <asp:DropDownList runat="server" ID="DropDownList1" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button runat="server" ID="Button1" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click" />&nbsp
+                    <asp:Button runat="server" ID="ClearSkillsButton" Text="Clear" Class="btn btn-dark" CausesValidation="false" OnClick="ClearSkillsButton_Click" 
+                        ToolTip="Click to clear the list of Skills"/>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow CssClass="border-bottom">
+                <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Skills:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="Label1" runat="server" CssClass="label-text"></asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
 
         <asp:TableRow ID="RegionRow" runat="server">
             <asp:TableCell HorizontalAlign="Right">Preferred Region:</asp:TableCell>
@@ -141,7 +161,9 @@
             <asp:TableCell HorizontalAlign="Right">Resume:</asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:Button runat="server" ID="ViewResume" Text="View" OnClick="ViewResumeButton_Click" CausesValidation="false"/>
-                <asp:FileUpload runat="server" ID="ResumeUpload" />
+                <asp:FileUpload runat="server" ID="ResumeUpload" /><br/>
+                <asp:Button runat="server" ID="ChangeResume" Text="Update" OnClick="ChangeResume_Click" CausesValidation="false" />
+                <asp:Label runat="server" ID="ResumeMsg" />
             </asp:TableCell>
         </asp:TableRow>
 
@@ -149,7 +171,9 @@
             <asp:TableCell HorizontalAlign="Right">Cover Letter:</asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:Button runat="server" ID="ViewCoverLetter" Text="View" OnClick="ViewCoverLetterButton_Click" CausesValidation="false" />
-                <asp:FileUpload runat="server" ID="CoverLetterUpload" />
+                <asp:FileUpload runat="server" ID="CoverLetterUpload" /><br />
+                <asp:Button runat="server" ID="ChangeCoverLetter" Text="Update" OnClick="ChangeCoverLetter_Click" CausesValidation="false" />
+                <asp:Label runat="server" ID="CoverLetterMsg" />
             </asp:TableCell>
         </asp:TableRow>
 
@@ -182,7 +206,7 @@
                                 <asp:TextBox runat="server" ID="OldPassword" Class="form-control" TextMode="Password"></asp:TextBox>
                                 <asp:HiddenField ID="HiddenField3" runat="server" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Password is required."
-                                    ControlToValidate="Password" Display="Dynamic" ValidationGroup="ValidatePassword" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    ControlToValidate="OldPassword" Display="Dynamic" ValidationGroup="ValidatePassword" ForeColor="Red"></asp:RequiredFieldValidator>
                             </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
@@ -190,9 +214,9 @@
                                 New Password:
                             </asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox runat="server" ID="Password" Class="form-control" TextMode="Password"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="NewPassword" Class="form-control" TextMode="Password"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Password is required."
-                                    ControlToValidate="Password" Display="Dynamic" ValidationGroup="ValidatePassword" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    ControlToValidate="NewPassword" Display="Dynamic" ValidationGroup="ValidatePassword" ForeColor="Red"></asp:RequiredFieldValidator>
                             </asp:TableCell>
                         </asp:TableRow>
 
@@ -203,8 +227,8 @@
                             <asp:TableCell>
                                 <asp:TextBox runat="server" ID="ConfirmPassword" Class="form-control" TextMode="Password"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ValidationGroup="ValidatePassword" ErrorMessage="Password confirmation is required."
-                                    ControlToValidate="Password" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
-                                <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="Password" ControlToValidate="ConfirmPassword" ErrorMessage="Passwords do not match. Please ensure passwords are the same." Display="Dynamic" ForeColor="Red" />
+                                    ControlToValidate="ConfirmPassword" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
+                                <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="NewPassword" ControlToValidate="ConfirmPassword" ErrorMessage="Passwords do not match. Please ensure passwords are the same." Display="Dynamic" ForeColor="Red" />
                             </asp:TableCell>
 
                         </asp:TableRow>

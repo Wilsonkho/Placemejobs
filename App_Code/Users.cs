@@ -107,7 +107,7 @@ public class Users
 
     }
 
-    public List<User> GetUserDetails(int userID)
+    public User GetUserDetails(int userID)
     {
         SqlConnection con;
         con = new SqlConnection();
@@ -130,23 +130,19 @@ public class Users
         con.Open();
         SqlDataReader reader = cmd.ExecuteReader();
 
-        List<User> userList = new List<User>();
+        reader.Read();
 
-        while (reader.Read())
-        {
-            User aUser = new User();
+        User aUser = new User();
 
-            aUser.UserID = Convert.ToInt32(reader["UserID"]);
-            aUser.UserEmail = reader["Email"].ToString();
-            aUser.Phone = reader["Phone"].ToString();
-            aUser.FirstName = reader["FirstName"].ToString();
-            aUser.LastName = reader["LastName"].ToString();
+        aUser.UserID = Convert.ToInt32(reader["UserID"]);
+        aUser.UserEmail = reader["Email"].ToString();
+        aUser.Phone = reader["Phone"].ToString();
+        aUser.FirstName = reader["FirstName"].ToString();
+        aUser.LastName = reader["LastName"].ToString();
 
-            userList.Add(aUser);
-        }
         con.Close();
 
-        return userList;
+        return aUser;
     }
 
     public Boolean AddUser(User NewUser)
@@ -192,7 +188,7 @@ public class Users
             LastName.Direction = ParameterDirection.Input;
             LastName.Value = NewUser.LastName;
 
-            
+
             cmd.Parameters.Add(Email);
             cmd.Parameters.Add(Password);
             cmd.Parameters.Add(FirstName);
@@ -301,7 +297,7 @@ public class Users
         try
         {
             SqlConnection con;
-            con = new SqlConnection();         
+            con = new SqlConnection();
             con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
             SqlCommand cmd;
             cmd = new SqlCommand();
@@ -309,50 +305,45 @@ public class Users
             cmd.Connection = con;
             cmd.CommandText = "UpdateAccount";
 
-        SqlParameter UserID = new SqlParameter();
-        UserID.ParameterName = "@UserID";
-        UserID.SqlDbType = SqlDbType.Int;
-        UserID.Direction = ParameterDirection.Input;
-        UserID.Value = newcandidate.UserID;
-        SqlParameter FirstName = new SqlParameter();
-        FirstName.ParameterName = "@FirstName";
-        FirstName.SqlDbType = SqlDbType.NVarChar;
-        FirstName.Direction = ParameterDirection.Input;
-        FirstName.Value = newcandidate.FirstName;
+            SqlParameter UserID = new SqlParameter();
+            UserID.ParameterName = "@UserID";
+            UserID.SqlDbType = SqlDbType.Int;
+            UserID.Direction = ParameterDirection.Input;
+            UserID.Value = newcandidate.UserID;
+            SqlParameter FirstName = new SqlParameter();
+            FirstName.ParameterName = "@FirstName";
+            FirstName.SqlDbType = SqlDbType.NVarChar;
+            FirstName.Direction = ParameterDirection.Input;
+            FirstName.Value = newcandidate.FirstName;
 
-        SqlParameter LastName = new SqlParameter();
-        LastName.ParameterName = "@LastName";
-        LastName.SqlDbType = SqlDbType.NVarChar;
-        LastName.Direction = ParameterDirection.Input;
-        LastName.Value = newcandidate.LastName;
+            SqlParameter LastName = new SqlParameter();
+            LastName.ParameterName = "@LastName";
+            LastName.SqlDbType = SqlDbType.NVarChar;
+            LastName.Direction = ParameterDirection.Input;
+            LastName.Value = newcandidate.LastName;
 
-      
+
             SqlParameter Status = new SqlParameter();
-        Status.ParameterName = "@Status";
-        Status.SqlDbType = SqlDbType.Bit;
-        Status.Direction = ParameterDirection.Input;
-        Status.Value = newcandidate.ActiveInactive;
+            Status.ParameterName = "@Status";
+            Status.SqlDbType = SqlDbType.Bit;
+            Status.Direction = ParameterDirection.Input;
+            Status.Value = newcandidate.ActiveInactive;
 
-        SqlParameter Phone = new SqlParameter();
-        Phone.ParameterName = "@Phone";
-        Phone.SqlDbType = SqlDbType.NVarChar;
-        Phone.Direction = ParameterDirection.Input;
-        Phone.Value = newcandidate.Phone;
+            SqlParameter Phone = new SqlParameter();
+            Phone.ParameterName = "@Phone";
+            Phone.SqlDbType = SqlDbType.NVarChar;
+            Phone.Direction = ParameterDirection.Input;
+            Phone.Value = newcandidate.Phone;
 
 
             cmd.Parameters.Add(UserID);
-
             cmd.Parameters.Add(FirstName);
             cmd.Parameters.Add(LastName);
+            cmd.Parameters.Add(Status);
+            cmd.Parameters.Add(Phone);
 
-        
-        cmd.Parameters.Add(Status);
-        cmd.Parameters.Add(Phone);
-            
-        
-        
 
-        con.Open();
+            con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
 
@@ -504,10 +495,10 @@ public class Users
             con.Close();
 
             success = true;
-            }
+        }
         catch (Exception e)
         {
-            
+
             return success;
         }
         return success;
@@ -590,7 +581,7 @@ public class Users
         return Profile;
 
     }
-    public bool PasswordCheck(User LoginUser ,String OldPassword)
+    public bool PasswordCheck(User LoginUser, String OldPassword)
     {
 
         bool Confirmaton = false;
@@ -646,6 +637,7 @@ public class Users
     {
         if (PasswordCheck(CurrentUser, OldPassword))
         {
+            NewPassword = CreatePasswordHash(NewPassword, CreateSalt(5));
             SqlConnection con;
             con = new SqlConnection();
             con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
@@ -670,7 +662,7 @@ public class Users
             UseridParameter.SqlDbType = SqlDbType.Int;
             UseridParameter.Direction = ParameterDirection.Input;
 
-            NewPasswordParameter.SqlDbType = SqlDbType.Int;
+            NewPasswordParameter.SqlDbType = SqlDbType.VarChar;
             NewPasswordParameter.Direction = ParameterDirection.Input;
 
 
@@ -701,5 +693,143 @@ public class Users
             return false;
         }
     }
+    public bool UpdateCoverLetter(int CurrentUser, string CoverLetter)
+    {
+
+            SqlConnection con;
+            con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+            SqlCommand cmd;
+            cmd = new SqlCommand("");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "ChangeCoverLetter";
+
+            SqlParameter UseridParameter;
+            SqlParameter CoverLetterParameter;
+
+
+            UseridParameter = new SqlParameter();
+            CoverLetterParameter = new SqlParameter();
+
+
+            UseridParameter.ParameterName = "@UserID";
+            CoverLetterParameter.ParameterName = "@CoverLetter";
+
+            CoverLetterParameter.SqlDbType = SqlDbType.VarChar;
+            CoverLetterParameter.Direction = ParameterDirection.Input;
+
+
+            UseridParameter.Value = CurrentUser;
+            CoverLetterParameter.Value = CoverLetter;
+
+
+            cmd.Parameters.Add(UseridParameter);
+            cmd.Parameters.Add(CoverLetterParameter);
+
+            con.Open();
+
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            Boolean success = false;
+            if (rowsAffected != 0)
+            {
+                success = true;
+            }
+            else
+            {
+                success = false;
+            }
+            return success;
+        }
+    public bool UpdateResume(int CurrentUser, string Resume)
+    {
+
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "ChangeResume";
+
+        SqlParameter UseridParameter;
+        SqlParameter ResumeParameter;
+
+
+        UseridParameter = new SqlParameter();
+        ResumeParameter = new SqlParameter();
+
+
+        UseridParameter.ParameterName = "@UserID";
+        ResumeParameter.ParameterName = "@Resume";
+
+        ResumeParameter.SqlDbType = SqlDbType.VarChar;
+        ResumeParameter.Direction = ParameterDirection.Input;
+
+
+        UseridParameter.Value = CurrentUser;
+        ResumeParameter.Value = Resume;
+
+
+        cmd.Parameters.Add(UseridParameter);
+        cmd.Parameters.Add(ResumeParameter);
+
+        con.Open();
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+
+        Boolean success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
+    public List<Skillset> GetUserSkills(int CurrentUser)
+    {
+        List<Skillset> UserSkills = new List<Skillset>();
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetuserSkills";
+
+        SqlParameter UseridParameter;
+
+        UseridParameter = new SqlParameter();
+
+        UseridParameter.ParameterName = "@UserID";
+
+        UseridParameter.Value = CurrentUser;
+
+
+
+        cmd.Parameters.Add(UseridParameter);
+
+
+        con.Open();
+
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            //Continue working from here!
+            UserSkills.Add(Convert.ToString(reader["Description"]));
+        }
+
+        return UserSkills;
+    }
+
 
 }

@@ -17,24 +17,24 @@ public class PRMS
 
     }
 
-    public List<User> GetUserDetails(int userID)
+    public User GetUserDetails(int userID)
     {
-        List<User> userList = new List<User>();
+        User aUser = new User();
 
         Users userManager = new Users();
-        userList = userManager.GetUserDetails(userID);
+        aUser = userManager.GetUserDetails(userID);
 
-        return userList;
+        return aUser;
     }
 
-    public List<JobPosting> GetJobPostingDetails(int jobPostingID)
+    public JobPosting GetJobPostingDetails(int jobPostingID)
     {
-        List<JobPosting> jobPostingList = new List<JobPosting>();
+        JobPosting aJobPosting = new JobPosting();
 
         JobPostings jobPostingManager = new JobPostings();
-        jobPostingList = jobPostingManager.GetJobPostingDetails(jobPostingID);
+        aJobPosting = jobPostingManager.GetJobPostingDetails(jobPostingID);
 
-        return jobPostingList;
+        return aJobPosting;
     }
 
     public Boolean AddUser(User NewUser)
@@ -330,5 +330,20 @@ public class PRMS
     {
         Users UserManager = new Users();
         return UserManager.UpdatePassword(CurrentUser, OldPassword, NewPassword);
+    }
+    public bool UpdateCoverLetter (int UserID, string CoverLetter)
+    {
+        Users Manager = new Users();
+        return Manager.UpdateCoverLetter(UserID, CoverLetter);
+    }
+    public bool UpdateResume(int UserID, string Resume)
+    {
+        Users Manager = new Users();
+        return Manager.UpdateResume(UserID, Resume);
+    }
+    public List<Skillset> GetUserSkills (int UserID)
+    {
+        Users Manager = new Users();
+        return Manager.GetUserSkills(UserID);
     }
 }
