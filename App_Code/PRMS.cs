@@ -223,7 +223,6 @@ public class PRMS
         return confirmation;
     }
 
-
     public bool UpdateProfession(string UpdatedProfessionDescription, int ProfessionID)
     {
         bool confirmation = false;
