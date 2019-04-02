@@ -107,7 +107,7 @@ public class Users
 
     }
 
-    public List<User> GetUserDetails(int userID)
+    public User GetUserDetails(int userID)
     {
         SqlConnection con;
         con = new SqlConnection();
@@ -130,23 +130,19 @@ public class Users
         con.Open();
         SqlDataReader reader = cmd.ExecuteReader();
 
-        List<User> userList = new List<User>();
+        reader.Read();
 
-        while (reader.Read())
-        {
-            User aUser = new User();
+        User aUser = new User();
 
-            aUser.UserID = Convert.ToInt32(reader["UserID"]);
-            aUser.UserEmail = reader["Email"].ToString();
-            aUser.Phone = reader["Phone"].ToString();
-            aUser.FirstName = reader["FirstName"].ToString();
-            aUser.LastName = reader["LastName"].ToString();
+        aUser.UserID = Convert.ToInt32(reader["UserID"]);
+        aUser.UserEmail = reader["Email"].ToString();
+        aUser.Phone = reader["Phone"].ToString();
+        aUser.FirstName = reader["FirstName"].ToString();
+        aUser.LastName = reader["LastName"].ToString();
 
-            userList.Add(aUser);
-        }
         con.Close();
 
-        return userList;
+        return aUser;
     }
 
     public Boolean AddUser(User NewUser)

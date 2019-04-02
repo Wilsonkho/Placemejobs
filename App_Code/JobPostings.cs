@@ -46,7 +46,7 @@ public class JobPostings
     }
 
 
-    public List<JobPosting> GetJobPostingDetails(int jobPostingID)
+    public JobPosting GetJobPostingDetails(int jobPostingID)
     {
         SqlConnection con;
         con = new SqlConnection();
@@ -69,21 +69,17 @@ public class JobPostings
         con.Open();
         SqlDataReader reader = cmd.ExecuteReader();
 
-        List<JobPosting> jobPostingList = new List<JobPosting>();
+        reader.Read();
 
-        while (reader.Read())
-        {
-            JobPosting aJobPosting = new JobPosting();
+        JobPosting aJobPosting = new JobPosting();
 
-            aJobPosting.JobPostingID = Convert.ToInt32(reader["JobPostingID"]);
-            aJobPosting.CompanyName = reader["CompanyName"].ToString();
-            aJobPosting.Description = reader["Description"].ToString();
+        aJobPosting.JobPostingID = Convert.ToInt32(reader["JobPostingID"]);
+        aJobPosting.CompanyName = reader["CompanyName"].ToString();
+        aJobPosting.Description = reader["Description"].ToString();
 
-            jobPostingList.Add(aJobPosting);
-        }
         con.Close();
 
-        return jobPostingList;
+        return aJobPosting;
     }
 
     public int AddJobPosting(JobPosting job)
