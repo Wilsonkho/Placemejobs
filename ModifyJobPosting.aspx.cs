@@ -9,11 +9,24 @@ public partial class ModifyJobPosting : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
         if (!IsPostBack)
         {
             BindDropDowns();
-             ModifyPostingTable.Visible = false;
+            if (Request.QueryString["JobPostingID"] != null)
+            {
+                int passedID = int.Parse(Request.QueryString["JobPostingID"]);
+                PostingDropDown.SelectedValue = passedID.ToString();
+                Skillset.SelectedIndex = 0;
+                ModifyPostingTable.Visible = true;
+                PopulateJobPostingTable(passedID);
+                
+            }
+            else
+            {
+                ModifyPostingTable.Visible = false;
+            }
+            
         }
        
     }
@@ -134,6 +147,9 @@ public partial class ModifyJobPosting : System.Web.UI.Page
 
     protected void ClearForm()
     {
+        Session.Clear();
+        skillsetsLabel.Text = "";
+        PostingDropDown.SelectedValue = "0";
         JobPostingDescription.Text = "";
         CompanyName.Text = "";
         Region.SelectedValue = "0";
@@ -141,9 +157,8 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         Skillset.SelectedValue = "0";
         CompanyPhone.Text = "";
         Date.Text = "";
-        skillsetsLabel.Visible = false;
-        skillLabel.Visible = false;
-        Session.Clear();
+        SelectJobTable.Visible = false;
+        
 
     }
 
@@ -153,17 +168,17 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         {
             Skillset.SelectedIndex = 0;
             ModifyPostingTable.Visible = true;
-            PopulateJobPostingTable();
+            PopulateJobPostingTable(int.Parse(PostingDropDown.SelectedValue));
         }
     }
 
-    private void PopulateJobPostingTable()
+    private void PopulateJobPostingTable(int jobID)
     {
         PRMS RequestDirector;
         RequestDirector = new PRMS();
 
         JobPosting jobPosting;
-        jobPosting = RequestDirector.GetJobPosting(int.Parse(PostingDropDown.SelectedValue));
+        jobPosting = RequestDirector.GetJobPosting(jobID);
         JobPostingDescription.Text = jobPosting.Description;
         CompanyName.Text = jobPosting.CompanyName;
         CompanyPhone.Text = jobPosting.EmployerPhone;
@@ -187,5 +202,23 @@ public partial class ModifyJobPosting : System.Web.UI.Page
     {
         Session.Clear();
         skillsetsLabel.Text = "";
+    }
+
+    protected void Delete_Click(object sender, EventArgs e)
+    {
+        PRMS controller = new PRMS();
+        bool Success;
+        Success = controller.DeleteJobPosting(PostingDropDown.SelectedValue);
+        if(Success)
+        {
+            ClearForm();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Deleted')", true);
+            
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting not Deleted')", true);
+        }
+        
     }
 }

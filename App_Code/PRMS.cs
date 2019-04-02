@@ -233,7 +233,6 @@ public class PRMS
         return confirmation;
     }
 
-
     public bool UpdateRegion(string UpdatedRegionDescription, int RegionID)
     {
         bool confirmation = false;
@@ -252,6 +251,12 @@ public class PRMS
         confirmation = skillsetManager.UpdateSkillSet(UpdatedSkillSetDescription, skillsetid, ProfessionID);
 
         return confirmation;
+    }
+
+    public bool DeleteJobPosting(string jobID)
+    {
+        JobPostings jobPostingManager = new JobPostings();
+        return jobPostingManager.DeleteJobPosting(jobID);
     }
 
     public bool AddJobSkillSets(int jobID, int skill)
@@ -310,5 +315,20 @@ public class PRMS
         userJobPostingList = userJobPostingManager.GetUserIDByJobPostingStatus(jobPostingID, status);
 
         return userJobPostingList;
+    }
+    public User ViewProfile (string Email)
+    {
+        Users UserManager = new Users();
+        return UserManager.GetProfile(Email);
+    }
+    public bool UpdateProfile (User ModUser)
+    {
+        Users UserManager = new Users();
+        return UserManager.ModifyAccount(ModUser);
+    }
+    public bool ChangePassword (User CurrentUser, string OldPassword, string NewPassword)
+    {
+        Users UserManager = new Users();
+        return UserManager.UpdatePassword(CurrentUser, OldPassword, NewPassword);
     }
 }

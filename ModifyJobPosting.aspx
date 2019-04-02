@@ -6,7 +6,6 @@
         <h1 class="text-center">Modify Job Posting</h1>
     </div>
     <br /><br />
-    <%--<div id="PMJform" class=" col-7 test" >--%>
     <asp:Table runat="server" ID="SelectJobTable" HorizontalAlign="Center" CssClass="table-active table-responsive-sm">
         <asp:TableRow>
             <asp:TableCell CssClass="label-text"><h5>Select Job Posting:</h5></asp:TableCell>
@@ -27,7 +26,9 @@
                 <asp:TableCell ColumnSpan="2">
                     <asp:TextBox runat="server" ID="JobPostingDescription" Class="form-control"></asp:TextBox>                  
                     <asp:RequiredFieldValidator ID="JobPostingRequiredFieldValidator" runat="server" ErrorMessage="Job Posting Description is required"
-                         ControlToValidate="JobPostingDescription" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
+                         ControlToValidate="JobPostingDescription" Display="None" ForeColor="Red" BackColor="PaleVioletRed"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="JobPostingValidator" runat="server" Display="None" ErrorMessage="Job Posting Description must be less than 3000 characters" ForeColor="Red"
+                    ControlToValidate="JobPostingDescription" ValidationExpression="^.{0,3000}$" ></asp:RegularExpressionValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -35,6 +36,10 @@
                 <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Company Name:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:TextBox runat="server" ID="CompanyName" Wrap="true" Class="form-control"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="CompanyNameRequiredFieldValidator" runat="server" ErrorMessage="Company name is required"
+                         ControlToValidate="CompanyName" Display="None" ForeColor="Red" BackColor="PaleVioletRed"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="CompanyNameRegularExpressionValidator" runat="server" Display="None" ErrorMessage="Company Name must be less than 100 characters" ForeColor="Red"
+                    ControlToValidate="CompanyName" ValidationExpression="^.{0,100}$" ></asp:RegularExpressionValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -42,13 +47,19 @@
                 <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Company Phone:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:TextBox runat="server" ID="CompanyPhone" Wrap="true" Class="form-control"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="CompanyPhoneRequiredFieldValidator" runat="server" ErrorMessage="Company Phone is required"
+                         ControlToValidate="CompanyPhone" Display="None" ForeColor="Red" BackColor="PaleVioletRed"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator Display = "None" ControlToValidate = "CompanyPhone" ID="PhoneRegularExpressionValidator" 
+                         ValidationExpression = "[0-9]{10}" runat="server" ErrorMessage="Phone Format must be like 7805551234" ForeColor="Red"></asp:RegularExpressionValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
                 <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Posting Date:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:TextBox runat="server" ID="Date" Wrap="true" Class="form-control" TextMode="Date"></asp:TextBox>                    
+                    <asp:TextBox runat="server" ID="Date" Wrap="true" Class="form-control" TextMode="Date"></asp:TextBox>   
+                    <asp:RequiredFieldValidator ID="DateRequiredFieldValidator" runat="server" ErrorMessage="Date is required"
+                         ControlToValidate="Date" Display="None" ForeColor="Red" BackColor="PaleVioletRed"></asp:RequiredFieldValidator>                 
                 </asp:TableCell>
             </asp:TableRow>
         
@@ -75,6 +86,8 @@
                 <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Profession:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:DropDownList runat="server" ID="Profession" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:CompareValidator ID="ProfessionCompareValidator" runat="server" ErrorMessage="Must Select Profession" ControlToValidate="Profession" 
+                        ValueToCompare="0" Operator="NotEqual" Display="None"></asp:CompareValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -82,14 +95,16 @@
                 <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Region:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:DropDownList runat="server" ID="Region" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:CompareValidator ID="RegionCompareValidator" runat="server" ErrorMessage="Must Select Region" ControlToValidate="Region" 
+                        ValueToCompare="0" Operator="NotEqual" Display="None"></asp:CompareValidator>
                 </asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Submit" class="btn btn-dark" OnClick="Submit_Click"/></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Update" class="btn btn-dark" OnClick="Submit_Click"/></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear" OnClientClick="this.form.reset();return false;" class="btn btn-dark"/></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Delete" Text="Delete" class="btn btn-dark" OnClick="Delete_Click"/></asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
@@ -98,5 +113,5 @@
                 </asp:TableCell>
             </asp:TableRow>
         </asp:Table>
-    <%--</div>--%>
+    <asp:ValidationSummary runat="server" ShowMessageBox="true" ShowSummary="false" />
 </asp:Content>

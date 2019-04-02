@@ -294,6 +294,79 @@ public class Users
 
     }
 
+    public bool ModifyAccount(User newcandidate)
+    {
+        bool success = false;
+
+        try
+        {
+            SqlConnection con;
+            con = new SqlConnection();         
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+            SqlCommand cmd;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "UpdateAccount";
+
+        SqlParameter UserID = new SqlParameter();
+        UserID.ParameterName = "@UserID";
+        UserID.SqlDbType = SqlDbType.Int;
+        UserID.Direction = ParameterDirection.Input;
+        UserID.Value = newcandidate.UserID;
+        SqlParameter FirstName = new SqlParameter();
+        FirstName.ParameterName = "@FirstName";
+        FirstName.SqlDbType = SqlDbType.NVarChar;
+        FirstName.Direction = ParameterDirection.Input;
+        FirstName.Value = newcandidate.FirstName;
+
+        SqlParameter LastName = new SqlParameter();
+        LastName.ParameterName = "@LastName";
+        LastName.SqlDbType = SqlDbType.NVarChar;
+        LastName.Direction = ParameterDirection.Input;
+        LastName.Value = newcandidate.LastName;
+
+      
+            SqlParameter Status = new SqlParameter();
+        Status.ParameterName = "@Status";
+        Status.SqlDbType = SqlDbType.Bit;
+        Status.Direction = ParameterDirection.Input;
+        Status.Value = newcandidate.ActiveInactive;
+
+        SqlParameter Phone = new SqlParameter();
+        Phone.ParameterName = "@Phone";
+        Phone.SqlDbType = SqlDbType.NVarChar;
+        Phone.Direction = ParameterDirection.Input;
+        Phone.Value = newcandidate.Phone;
+
+
+            cmd.Parameters.Add(UserID);
+
+            cmd.Parameters.Add(FirstName);
+            cmd.Parameters.Add(LastName);
+
+        
+        cmd.Parameters.Add(Status);
+        cmd.Parameters.Add(Phone);
+            
+        
+        
+
+        con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            success = true;
+        }
+        catch
+        {
+
+            return success;
+        }
+        return success;
+
+    }
+
     public string GetRoles(User LoginUser)
     {
         SqlConnection con;
@@ -472,6 +545,161 @@ public class Users
         con.Close();
         return userID;
 
+    }
+
+    public User GetProfile(string userEmail)
+    {
+        User Profile = new User();
+        try
+        {
+            SqlConnection con;
+            con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+            SqlCommand cmd;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "GetProfile";
+
+            SqlParameter Email = new SqlParameter();
+            Email.ParameterName = "@Email";
+            Email.SqlDbType = SqlDbType.VarChar;
+            Email.Direction = ParameterDirection.Input;
+            Email.Value = userEmail;
+
+            cmd.Parameters.Add(Email);
+
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+
+            Profile.UserID = Convert.ToInt32(reader["UserID"]);
+            Profile.UserEmail = reader["Email"].ToString();
+            Profile.FirstName = reader["FirstName"].ToString();
+            Profile.LastName = reader["LastName"].ToString();
+            Profile.Resume = reader["Resume"].ToString();
+            Profile.CoverLetter = reader["CoverLetter"].ToString();
+            Profile.Phone = reader["Phone"].ToString();
+            Profile.ActiveInactive = Convert.ToBoolean(reader["ActiveInactive"]);
+
+            con.Close();
+        }
+        catch { };
+
+        return Profile;
+
+    }
+    public bool PasswordCheck(User LoginUser ,String OldPassword)
+    {
+
+        bool Confirmaton = false;
+        try
+        {
+            SqlConnection con;
+            con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+            SqlCommand cmd;
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "GetUser";
+
+            SqlParameter Email = new SqlParameter();
+            Email.ParameterName = "@Email";
+            Email.SqlDbType = SqlDbType.NChar;
+            Email.Direction = ParameterDirection.Input;
+            Email.Value = LoginUser.UserEmail;
+
+            cmd.Parameters.Add(Email);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            string SaltedHashPassword;
+            string ExtractedSalt;
+            string NewSaltedHashPassword;
+            while (reader.Read())
+            {
+                SaltedHashPassword = Convert.ToString(reader.GetValue(0));
+
+                ExtractedSalt = SaltedHashPassword.Substring(SaltedHashPassword.Length - 8);
+
+                NewSaltedHashPassword = CreatePasswordHash(OldPassword, ExtractedSalt);
+
+                if (SaltedHashPassword == NewSaltedHashPassword)
+                {
+                    Confirmaton = true;
+                }
+
+            }
+            con.Close();
+            return Confirmaton;
+        }
+        catch
+        {
+            return Confirmaton;
+        }
+
+    }
+    public bool UpdatePassword(User CurrentUser, string OldPassword, string NewPassword)
+    {
+        if (PasswordCheck(CurrentUser, OldPassword))
+        {
+            SqlConnection con;
+            con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+            SqlCommand cmd;
+            cmd = new SqlCommand("");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            cmd.CommandText = "ChangePassword";
+
+            SqlParameter UseridParameter;
+            SqlParameter NewPasswordParameter;
+
+
+            UseridParameter = new SqlParameter();
+            NewPasswordParameter = new SqlParameter();
+
+
+            UseridParameter.ParameterName = "@UserID";
+            NewPasswordParameter.ParameterName = "@NewPassword";
+
+            UseridParameter.SqlDbType = SqlDbType.Int;
+            UseridParameter.Direction = ParameterDirection.Input;
+
+            NewPasswordParameter.SqlDbType = SqlDbType.Int;
+            NewPasswordParameter.Direction = ParameterDirection.Input;
+
+
+            UseridParameter.Value = CurrentUser.UserID;
+            NewPasswordParameter.Value = NewPassword;
+
+
+            cmd.Parameters.Add(UseridParameter);
+            cmd.Parameters.Add(NewPasswordParameter);
+
+            con.Open();
+
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            Boolean success = false;
+            if (rowsAffected != 0)
+            {
+                success = true;
+            }
+            else
+            {
+                success = false;
+            }
+            return success;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

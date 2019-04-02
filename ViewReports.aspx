@@ -13,7 +13,23 @@
         </thead>
         <tr>
             <td>Interviewing</td>
-            <td><asp:Button runat="server" ID="Button1" OnClientClick="window.open('ReportDisplay.aspx?status=Interviewing')" Text="View Report" /></td>
+            <td><asp:Button runat="server" ID="Button1" OnClientClick="window.open('ReportDisplay.aspx?status=Interviewing')" Text="View" /></td>
+        </tr>
+        <tr>
+            <td>Selected</td>
+            <td><asp:Button runat="server" ID="Button2" OnClientClick="window.open('ReportDisplay.aspx?status=Selected')" Text="View" /></td>
+        </tr>
+        <tr>
+            <td>Rejected</td>
+            <td><asp:Button runat="server" ID="Button3" OnClientClick="window.open('ReportDisplay.aspx?status=Rejected')" Text="View" /></td>
+        </tr>
+        <tr>
+            <td>Joined</td>
+            <td><asp:Button runat="server" ID="Button4" OnClientClick="window.open('ReportDisplay.aspx?status=Joined')" Text="View" /></td>
+        </tr>
+        <tr>
+            <td>On-Hold</td>
+            <td><asp:Button runat="server" ID="Button5" OnClientClick="window.open('ReportDisplay.aspx?status=On-Hold')" Text="View" /></td>
         </tr>
     </table>
 </asp:Content>
