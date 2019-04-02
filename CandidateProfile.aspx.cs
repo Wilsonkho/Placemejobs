@@ -13,32 +13,39 @@ public partial class CandidateProfile : System.Web.UI.Page
     List<Profession> professions;
     List<Skillset> skillsets;
     List<Region> regions;
-    User CurrentUser = new User();
+    int CurrentUserID;
+    string CurrentUserCoverLetter;
+    string CurrentUserResume;
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        User CurrentUser = new User();
         CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
         PRMS UserController = new PRMS();
         CurrentUser = UserController.ViewProfile(cp.Identity.Name);
+        CurrentUserID = CurrentUser.UserID;
+        CurrentUserCoverLetter = CurrentUser.CoverLetter;
+        CurrentUserResume = CurrentUser.Resume;
 
         Welcome.Text = "Hello " + CurrentUser.FirstName + " " + CurrentUser.LastName + "!";
 
-        FirstName.Text = CurrentUser.FirstName;
-        LastName.Text = CurrentUser.LastName;
-        Phone.Text = CurrentUser.Phone;
-        EmailTextBox.Text = CurrentUser.UserEmail;
-        Password.Text = CurrentUser.UserPassword;
-        ConfirmPassword.Text = CurrentUser.UserPassword;
-        if (CurrentUser.ActiveInactive)
-        {
-            Active.Checked = true;
-        }
-        else
-        {
-            Active.Checked = false;
-        }
+  
         if (!IsPostBack)
         {
+            FirstName.Text = CurrentUser.FirstName;
+            LastName.Text = CurrentUser.LastName;
+            Phone.Text = CurrentUser.Phone;
+            EmailTextBox.Text = CurrentUser.UserEmail;
+            //Password.Text = CurrentUser.UserPassword;
+            //ConfirmPassword.Text = CurrentUser.UserPassword;
+            if (CurrentUser.ActiveInactive)
+            {
+                Active.Checked = true;
+            }
+            else
+            {
+                Active.Checked = false;
+            }
             BindDropDowns();
             professionsLabel.Visible = false;
             skillsetsLabel.Visible = false;
@@ -53,7 +60,6 @@ public partial class CandidateProfile : System.Web.UI.Page
             Session["regions"] = null;
             Session["FileUpload1"] = null;
         }
-
 
     }
 
@@ -79,171 +85,35 @@ public partial class CandidateProfile : System.Web.UI.Page
         Region.Items.Insert(0, new ListItem("Select Region...", "0"));
         Region.DataBind();
 
-
     }
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        /*
-        List<int> list;
-        bool dropdownsChecked = true;
-        list = (List<int>)Session["professions"];
-        if (list == null)
-        {
-            dropdownsChecked = false;
-        }
-        list = (List<int>)Session["skills"];
-        if (list == null)
-        {
-            dropdownsChecked = false;
-        }
-        list = (List<int>)Session["regions"];
-        if (list == null)
-        {
-            dropdownsChecked = false;
-        }
-
-        if (dropdownsChecked)
-        {*/
-
-        bool success = false;
-        User newCandidate = new User();
-        newCandidate.UserID = CurrentUser.UserID;
-        newCandidate.FirstName = FirstName.Text;
-        newCandidate.LastName = LastName.Text;
-        newCandidate.Phone = Phone.Text;
+        User UpdateCandidate = new User();
+        UpdateCandidate.UserID = CurrentUserID;
+        UpdateCandidate.FirstName = FirstName.Text;
+        UpdateCandidate.LastName = LastName.Text;
+        UpdateCandidate.Phone = Phone.Text;
         if (Active.Checked)
         {
-            newCandidate.ActiveInactive = true;
+            UpdateCandidate.ActiveInactive = true;
         }
         else
         {
-            newCandidate.ActiveInactive = false;
+            UpdateCandidate.ActiveInactive = false;
         }
         
 
         PRMS controller = new PRMS();
-
-
-
-        #region add user
-        success = controller.UpdateProfile(newCandidate);
-
-        if (success)
+        if (controller.UpdateProfile(UpdateCandidate))
         {
-            try
-            {
-                int userID;
-                userID = controller.GetUserIDByEmail(EmailTextBox.Text);
-
-                if (ResumeUpload.HasFile)
-                {
-
-                    string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
-
-                    if (fileExtension == ".pdf" || fileExtension == ".docx")
-                    {
-                        Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/Resume/"));
-
-                        DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/Resume/"));
-                        foreach (FileInfo file in directory.GetFiles())
-                        {
-                            file.Delete();
-                        }
-                        foreach (DirectoryInfo di in directory.GetDirectories())
-                        {
-                            di.Delete(true);
-                        }
-
-                        ResumeUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "Resume/" + ResumeUpload.FileName));
-                    }
-                    else
-                    {
-                        Msg.Text = "Only .pdf and .docx resume files are accepted.";
-                    }
-                }
-                if (CoverLetterUpload.HasFile)
-                {
-
-                    string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
-
-                    if (fileExtension == ".pdf" || fileExtension == ".docx")
-                    {
-                        Directory.CreateDirectory(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
-
-                        DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + userID + "/CoverLetter/"));
-                        foreach (FileInfo file in directory.GetFiles())
-                        {
-                            file.Delete();
-                        }
-                        foreach (DirectoryInfo di in directory.GetDirectories())
-                        {
-                            di.Delete(true);
-                        }
-
-                        CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + userID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
-                    }
-                    else
-                    {
-                        Msg.Text = "Only .pdf and .docx cover letter files are accepted.";
-                    }
-                }
-                //Set color to green
-                Results.ForeColor = System.Drawing.Color.Green;
-                Results.Text = "Your account for Placemejob has been successfully updated.";
-                /*
-                #region add professions
-                int newUserID;
-                newUserID = controller.GetUserIDByEmail(EmailTextBox.Text);
-
-                List<int> professions = (List<int>)Session["professions"];
-                foreach (int profession in professions)
-                {
-                    controller.AddUserProfessions(newUserID, profession);
-                }
-
-                #endregion
-
-                #region add skills
-                List<int> skills = (List<int>)Session["skills"];
-                foreach (int skill in skills)
-                {
-                    controller.AddUserSkills(newUserID, skill);
-                }
-
-                #endregion
-                #region add regions
-                List<int> regions = (List<int>)Session["regions"];
-                foreach (int region in regions)
-                {
-                    controller.AddUserRegions(newUserID, region);
-                }
-                #endregion
-                */
-
-            }
-            catch (Exception ex)
-            {
-                Results.Text = ex.ToString();
-            }
-        }
-        else //if(success)
+            UpdatedLabel.Text = "Your information has been update";
+        }else
         {
-            Results.Text = "An error has occurred with your account registration. Please try again. If this issue persists, please contact customer support for assistance.";
+            UpdatedLabel.Text = "Sorry we could not update your information at this time.";
         }
-        #endregion
-
-
-    }
-    /*
-    else //if(dropdownsChecked)
-    {
-        Results.Text = "You must select at least one profession, skill, and region preference.";
     }
 
-
-
-}*/
 
 
     protected void AddRegion_Click(object sender, EventArgs e)
@@ -311,14 +181,14 @@ public partial class CandidateProfile : System.Web.UI.Page
     }
     protected void ViewCoverLetterButton_Click(object sender, EventArgs e)
     {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUser.UserID + "/CoverLetter/" + CurrentUser.CoverLetter;
+        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUserID + "/CoverLetter/" + CurrentUserCoverLetter;
 
         Response.Redirect(path);
     }
 
     protected void ViewResumeButton_Click(object sender, EventArgs e)
     {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUser.UserID + "/Resume/" + CurrentUser.Resume;
+        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUserID + "/Resume/" + CurrentUserResume;
 
         Response.Redirect(path);
     }
@@ -326,15 +196,108 @@ public partial class CandidateProfile : System.Web.UI.Page
 
     protected void ChangePassword_Click(object sender, EventArgs e)
     {
+        User NewUser = new User();
+        NewUser.UserID = CurrentUserID;
+        NewUser.UserEmail = EmailTextBox.Text;
         PRMS UserController = new PRMS();
-        if (UserController.ChangePassword(CurrentUser, OldPassword.Text, Password.Text))
+        if (UserController.ChangePassword(NewUser, OldPassword.Text, NewPassword.Text))
         {
             PasswordConfirmation.Text = "Your password has been updated.";
+
         }
         else
         {
             PasswordConfirmation.Text = "Your old password is incorrect.";
         }
         ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#ChangePasswordModal').modal('show')", true);
+    }
+
+
+
+    protected void ChangeCoverLetter_Click(object sender, EventArgs e)
+    {
+        if (CoverLetterUpload.HasFile)
+        {
+
+            string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
+
+            if (fileExtension == ".pdf" || fileExtension == ".docx")
+            {
+                Directory.CreateDirectory(Server.MapPath("~/Files/" + CurrentUserID + "/CoverLetter/"));
+
+                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + CurrentUserID + "/CoverLetter/"));
+                foreach (FileInfo file in directory.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo di in directory.GetDirectories())
+                {
+                    di.Delete(true);
+                }
+
+                CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + CurrentUserID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
+                
+                PRMS Controller = new PRMS();
+                if (Controller.UpdateCoverLetter(CurrentUserID, CoverLetterUpload.FileName))
+                {
+                    CoverLetterMsg.Text = "Your cover letter has been updated.";
+                }
+                else
+                {
+                    CoverLetterMsg.Text = "Your cover letter could not be udpated.";
+                }
+                
+            }
+            else
+            {
+                CoverLetterMsg.Text = "Only .pdf and .docx cover letter files are accepted.";
+            }
+        }else
+        {
+            CoverLetterMsg.Text = "Please select a file to upload.";
+        }
+    }
+
+    protected void ChangeResume_Click(object sender, EventArgs e)
+    {
+        if (ResumeUpload.HasFile)
+        {
+
+            string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
+
+            if (fileExtension == ".pdf" || fileExtension == ".docx")
+            {
+                Directory.CreateDirectory(Server.MapPath("~/Files/" + CurrentUserID + "/Resume/"));
+
+                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + CurrentUserID + "/Resume/"));
+                foreach (FileInfo file in directory.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo di in directory.GetDirectories())
+                {
+                    di.Delete(true);
+                }
+
+                ResumeUpload.SaveAs(Server.MapPath("~/Files/" + CurrentUserID + "/" + "Resume/" + ResumeUpload.FileName));
+                PRMS Controller = new PRMS();
+                if (Controller.UpdateResume(CurrentUserID, ResumeUpload.FileName))
+                {
+                    ResumeMsg.Text = "Your resume has been updated.";
+                }
+                else
+                {
+                    ResumeMsg.Text = "Your resume could not be udpated.";
+                }
+                ResumeMsg.Text = "Your resume has been updated.";
+            }
+            else
+            {
+                ResumeMsg.Text = "Only .pdf and .docx resume files are accepted.";
+            }
+        }else
+        {
+            ResumeMsg.Text = "Please select a file to upload.";
+        }
     }
 }
