@@ -300,4 +300,29 @@ public partial class CandidateProfile : System.Web.UI.Page
             ResumeMsg.Text = "Please select a file to upload.";
         }
     }
+    protected void ClearSkillsButton_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        skillsetsLabel.Text = "";
+    }
+    private void PopulateJobPostingTable(int jobID)
+    {
+        PRMS RequestDirector;
+        RequestDirector = new PRMS();
+
+        List<Skillset> Skills = RequestDirector.GetUserSkills(CurrentUserID);
+        
+        //Someting for skillsets
+        skillsetsLabel.Text = "";
+        foreach (Skillset s in Skills)
+        {
+            AddSkill_Click(skill.SkillsetID, skill.Description);
+        }
+
+
+        //Profession.SelectedValue = jobPosting.ProfessionID.ToString();
+        //Region.SelectedValue = jobPosting.RegionID.ToString();
+
+
+    }
 }

@@ -341,4 +341,9 @@ public class PRMS
         Users Manager = new Users();
         return Manager.UpdateResume(UserID, Resume);
     }
+    public List<Skillset> GetUserSkills (int UserID)
+    {
+        Users Manager = new Users();
+        return Manager.GetUserSkills(UserID);
+    }
 }

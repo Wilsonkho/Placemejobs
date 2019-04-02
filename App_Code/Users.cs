@@ -793,6 +793,43 @@ public class Users
         }
         return success;
     }
+    public List<Skillset> GetUserSkills(int CurrentUser)
+    {
+        List<Skillset> UserSkills = new List<Skillset>();
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetuserSkills";
+
+        SqlParameter UseridParameter;
+
+        UseridParameter = new SqlParameter();
+
+        UseridParameter.ParameterName = "@UserID";
+
+        UseridParameter.Value = CurrentUser;
+
+
+
+        cmd.Parameters.Add(UseridParameter);
+
+
+        con.Open();
+
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            //Continue working from here!
+            UserSkills.Add(Convert.ToString(reader["Description"]));
+        }
+
+        return UserSkills;
+    }
 
 
 }
