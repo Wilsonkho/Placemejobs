@@ -1,16 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" MasterPageFile="~/MasterPage.master"%>
 
-<!DOCTYPE html>
-<link href="Themes/MasterPage/StyleSheet.css" rel="stylesheet" />
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Placemejobs - Login</title>
-    <link href="packages/bootstrap.4.2.1/content/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="packages/jQuery.3.3.1/Content/Scripts/jquery-3.3.1.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
         <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">        
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -20,9 +10,6 @@
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="Default.aspx" >Home</a>
-              <li class="nav-item">
-                <a class="nav-link" href="Register.aspx" id="Register" >Registration</a>                  
-              </li>
             </ul>
           </div>
         </nav>
@@ -50,6 +37,5 @@
             <asp:Button ID="LoginButton" OnClick="Login_Click" Text="Login" runat="server" />
             <p><asp:Label ID="Msg" ForeColor="Red" runat="server" /></p>
         </div>
-    </form>
-</body>
-</html>
+
+</asp:Content>
