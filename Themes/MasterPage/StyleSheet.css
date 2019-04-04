@@ -11,7 +11,8 @@
     body {
         margin: 0 0 20rem 0;
         padding-bottom: 5rem;
-        
+        background:url(../../Images/background.png) no-repeat;
+        background-size: cover;
     }
 
     .footer {

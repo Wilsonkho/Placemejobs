@@ -199,7 +199,7 @@ public partial class RegisterAccount : System.Web.UI.Page
                         string email = EmailTextBox.Text;
                         string firstName = FirstName.Text;
 
-                        MailAddress from = new MailAddress("b990cap@gmail.com");
+                        MailAddress from = new MailAddress("donotreplytoplacemejob@gmail.com");
                         MailAddress to = new MailAddress(email);
                         MailMessage message = new MailMessage(from, to);
 
@@ -215,7 +215,7 @@ public partial class RegisterAccount : System.Web.UI.Page
                         SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                         client.UseDefaultCredentials = false;
                         client.EnableSsl = true;
-                        client.Credentials = new NetworkCredential("b990cap@gmail.com", "Capstone2019");
+                        client.Credentials = new NetworkCredential("donotreplytoplacemejob@gmail.com", "placeme123");
 
                         try
                         {
