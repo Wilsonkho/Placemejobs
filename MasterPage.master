@@ -93,7 +93,9 @@
                     <li>      
                         <asp:LinkButton ID="LinkButton1" CssClass="nav-link" runat="server" OnClick="SignOut_Click">Sign Out</asp:LinkButton>
                     </li>
-
+                    <li>      
+                        <a class="nav-link" href="Login.aspx" id="LoginLink" runat="server" visible="false">Log In</a>
+                    </li>
 
                 </ul>
             </div>
