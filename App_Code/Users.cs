@@ -804,17 +804,49 @@ public class Users
         cmd = new SqlCommand("");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Connection = con;
-        cmd.CommandText = "GetuserSkills";
+        cmd.CommandText = "GetUserSkills";
 
         SqlParameter UseridParameter;
 
         UseridParameter = new SqlParameter();
-
         UseridParameter.ParameterName = "@UserID";
-
         UseridParameter.Value = CurrentUser;
 
+        cmd.Parameters.Add(UseridParameter);
 
+
+        con.Open();
+        
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            Skillset Skill = new Skillset();
+            Skill.SkillsetID = Convert.ToInt32(reader["SkillsetID"]);
+            Skill.Description = Convert.ToString(reader["Description"]);
+            UserSkills.Add(Skill);    
+        }
+
+        return UserSkills;
+    }
+
+    public List<Profession> GetUserProfessions(int CurrentUser)
+    {
+        List<Profession> UserProfessions = new List<Profession>();
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetUserProfessions";
+
+        SqlParameter UseridParameter;
+
+        UseridParameter = new SqlParameter();
+        UseridParameter.ParameterName = "@UserID";
+        UseridParameter.Value = CurrentUser;
 
         cmd.Parameters.Add(UseridParameter);
 
@@ -824,12 +856,84 @@ public class Users
         SqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
-            //Continue working from here!
-            //UserSkills.Add(Convert.ToString(reader["Description"]));
+            Profession Pro = new Profession();
+            Pro.ProfessionID = Convert.ToInt32(reader["ProfessionID"]);
+            Pro.Description = Convert.ToString(reader["Description"]);
+            UserProfessions.Add(Pro);
         }
 
-        return UserSkills;
+        return UserProfessions;
     }
+    public List<Region> GetUserRegions(int CurrentUser)
+    {
+        List<Region> UserRegions = new List<Region>();
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetUserRegions";
+
+        SqlParameter UseridParameter;
+
+        UseridParameter = new SqlParameter();
+        UseridParameter.ParameterName = "@UserID";
+        UseridParameter.Value = CurrentUser;
+
+        cmd.Parameters.Add(UseridParameter);
 
 
+        con.Open();
+
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            Region Reg = new Region();
+            Reg.RegionID = Convert.ToInt32(reader["RegionID"]);
+            Reg.Description = Convert.ToString(reader["Description"]);
+            UserRegions.Add(Reg);
+        }
+
+        return UserRegions;
+    }
+    public bool DeleteUserCategories(int CurrentUser)
+    {
+
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "DeleteUserCategories";
+
+        SqlParameter UseridParameter;
+
+
+        UseridParameter = new SqlParameter();
+        UseridParameter.ParameterName = "@UserID";
+
+        UseridParameter.Value = CurrentUser;
+
+        cmd.Parameters.Add(UseridParameter);
+        con.Open();
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+
+        Boolean success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
 }

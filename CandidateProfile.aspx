@@ -24,7 +24,7 @@
         </asp:TableRow>
 
 
-        <asp:TableRow>
+        <asp:TableRow CssClass="border-top">
             <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
                 <h4>Personal Information</h4>
             </asp:TableCell>
@@ -77,49 +77,36 @@
         </asp:TableRow>
 
 
-        <asp:TableRow>
+        <asp:TableRow CssClass="border-top">
             <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
                 <h4>Skills & Preferences</h4>
             </asp:TableCell>
         </asp:TableRow>
 
-        <asp:TableRow ID="ProfessionRow" runat="server">
-            <asp:TableCell HorizontalAlign="Right">Profession:</asp:TableCell>
-            <asp:TableCell>
-                <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control" AppendDataBoundItems="true">
-                </asp:DropDownList>
-            </asp:TableCell>
-            <asp:TableCell>
-                <asp:Button runat="server" ID="AddProfession" Text="Add" Class="btn btn-secondary" CausesValidation="false" OnClick="AddProfession_Click" />
-            </asp:TableCell>
-        </asp:TableRow>
+              <asp:TableRow>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Profession:</h5></asp:TableCell>
+                <asp:TableCell >
+                    <asp:DropDownList runat="server" ID="Profession" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button runat="server" ID="AddProfession" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddProfession_Click" />&nbsp
+                    <asp:Button runat="server" ID="ClearProfession" Text="Clear" Class="btn btn-dark" CausesValidation="false" OnClick="ClearProfession_Click"
+                        ToolTip="Click to clear the list of Profession"/>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell ID="ProfessionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Professions:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="professionsLabel" runat="server" CssClass="label-text"><h5>Professions:</h5></asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
+
 
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="professionsLabel" runat="server"> </asp:Label>
-            </asp:TableCell>
-        </asp:TableRow>
-
-        <asp:TableRow ID="SkillsetRow" runat="server">
-            <asp:TableCell HorizontalAlign="Right">Skillset:</asp:TableCell>
-            <asp:TableCell>
-                <asp:DropDownList runat="server" ID="Skillset" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-            </asp:TableCell>
-            <asp:TableCell>
-                <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-secondary" CausesValidation="false" OnClick="AddSkill_Click" />
-            </asp:TableCell>
-        </asp:TableRow>
-
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="skillsetsLabel" runat="server"></asp:Label>
-            </asp:TableCell>
-
-        </asp:TableRow>
-        <asp:TableRow CssClass="border-top">
                 <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Skillset:</h5></asp:TableCell>
                 <asp:TableCell >
-                    <asp:DropDownList runat="server" ID="DropDownList1" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="Skillset" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
                 <asp:TableCell>
                     <asp:Button runat="server" ID="Button1" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click" />&nbsp
@@ -128,30 +115,40 @@
                 </asp:TableCell>
             </asp:TableRow>
 
-            <asp:TableRow CssClass="border-bottom">
+            <asp:TableRow>
                 <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Skills:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="Label1" runat="server" CssClass="label-text"></asp:Label>
+                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"><h5>Skills:</h5></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 
-        <asp:TableRow ID="RegionRow" runat="server">
-            <asp:TableCell HorizontalAlign="Right">Preferred Region:</asp:TableCell>
-            <asp:TableCell>
-                <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-            </asp:TableCell>
-            <asp:TableCell>
-                <asp:Button runat="server" ID="AddRegion" Text="Add" Class="btn btn-secondary" CausesValidation="false" OnClick="AddRegion_Click" />
-            </asp:TableCell>
+
+
+              <asp:TableRow>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Preferred Region:</h5></asp:TableCell>
+                <asp:TableCell >
+                    <asp:DropDownList runat="server" ID="Region" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button runat="server" ID="AddRegion" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddRegion_Click" />&nbsp
+                    <asp:Button runat="server" ID="ClearRegion" Text="Clear" Class="btn btn-dark" CausesValidation="false" OnClick="ClearRegion_Click"
+                        ToolTip="Click to clear the list of regions"/>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow >
+                <asp:TableCell ID="regionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Preferred Region:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="regionsLabel" runat="server" CssClass="label-text"><h5>Preferred Region:</h5></asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell ColumnSpan="1"></asp:TableCell>
+            <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="EditCategories" Text="Save Updates" Class="btn btn-dark" OnClick="EditCategories_Click"/></asp:TableCell>
         </asp:TableRow>
 
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="regionsLabel" runat="server"> </asp:Label>
-            </asp:TableCell>
-        </asp:TableRow>
 
-        <asp:TableRow>
+        <asp:TableRow CssClass="border-top">
             <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
                 <h4>Upload Documents</h4>
             </asp:TableCell>
@@ -260,10 +257,11 @@
                         ControlToValidate="EmailTextBox" Display="Dynamic" ValidationGroup="ValidateEmail" ForeColor="Red"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator Display="Dynamic" ControlToValidate="EmailTextBox" ID="RegularExpressionValidator1"
                         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" runat="server" ErrorMessage="Please enter a valid email address (For example: example@email.com)." ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:Label runat="server" ID="EmailConfirmation"></asp:Label>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Change Password</button>
+                    <asp:Button CssClass="btn btn-primary" ID="ChangeEmailButton" runat="server" Text=" Udpate Email" OnClick="ChangeEmail_Click" />               
                 </div>
             </div>
         </div>

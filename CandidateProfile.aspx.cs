@@ -26,6 +26,7 @@ public partial class CandidateProfile : System.Web.UI.Page
         CurrentUserID = CurrentUser.UserID;
         CurrentUserCoverLetter = CurrentUser.CoverLetter;
         CurrentUserResume = CurrentUser.Resume;
+        
 
         Welcome.Text = "Hello " + CurrentUser.FirstName + " " + CurrentUser.LastName + "!";
 
@@ -36,8 +37,6 @@ public partial class CandidateProfile : System.Web.UI.Page
             LastName.Text = CurrentUser.LastName;
             Phone.Text = CurrentUser.Phone;
             EmailTextBox.Text = CurrentUser.UserEmail;
-            //Password.Text = CurrentUser.UserPassword;
-            //ConfirmPassword.Text = CurrentUser.UserPassword;
             if (CurrentUser.ActiveInactive)
             {
                 Active.Checked = true;
@@ -46,10 +45,11 @@ public partial class CandidateProfile : System.Web.UI.Page
             {
                 Active.Checked = false;
             }
+            
             BindDropDowns();
-            professionsLabel.Visible = false;
-            skillsetsLabel.Visible = false;
-            regionsLabel.Visible = false;
+            PopulateSkillsTable();
+            PopulateProfessionTable();
+            PopulateRegionTable();
 
             professions = new List<Profession>();
             skillsets = new List<Skillset>();
@@ -115,7 +115,6 @@ public partial class CandidateProfile : System.Web.UI.Page
     }
 
 
-
     protected void AddRegion_Click(object sender, EventArgs e)
     {
         List<int> regionsList;
@@ -130,8 +129,8 @@ public partial class CandidateProfile : System.Web.UI.Page
         {
             regionsList.Add(int.Parse(Region.SelectedValue));
             regionsLabel.Visible = true;
-            regionsLabel.ForeColor = System.Drawing.Color.Blue;
-            regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+            regionsLabel.ForeColor = System.Drawing.Color.White;
+            regionsLabel.Text = regionsLabel.Text + Region.SelectedItem + "<br/>";
         }
 
 
@@ -152,13 +151,14 @@ public partial class CandidateProfile : System.Web.UI.Page
         {
             skillsList.Add(int.Parse(Skillset.SelectedValue));
             skillsetsLabel.Visible = true;
-            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
-            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+            skillLabel.Visible = true;
+            skillsetsLabel.ForeColor = System.Drawing.Color.White;
+            skillsetsLabel.Text = skillsetsLabel.Text + Skillset.SelectedItem + "<br/>";
         }
 
         Session["skills"] = skillsList;
-    }
 
+    }
     protected void AddProfession_Click(object sender, EventArgs e)
     {
         List<int> professionList;
@@ -173,8 +173,8 @@ public partial class CandidateProfile : System.Web.UI.Page
         {
             professionList.Add(int.Parse(Profession.SelectedValue));
             professionsLabel.Visible = true;
-            professionsLabel.ForeColor = System.Drawing.Color.Blue;
-            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
+            professionsLabel.ForeColor = System.Drawing.Color.White;
+            professionsLabel.Text = professionsLabel.Text + Profession.SelectedItem + "<br/>";
         }
 
         Session["professions"] = professionList;
@@ -305,24 +305,160 @@ public partial class CandidateProfile : System.Web.UI.Page
         Session.Clear();
         skillsetsLabel.Text = "";
     }
-    private void PopulateJobPostingTable(int jobID)
+
+    protected void ClearProfession_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        professionsLabel.Text = "";
+    }
+    protected void ClearRegion_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        regionsLabel.Text = "";
+    }
+    private void PopulateSkillsTable()
     {
         PRMS RequestDirector;
         RequestDirector = new PRMS();
 
         List<Skillset> Skills = RequestDirector.GetUserSkills(CurrentUserID);
         
-        //Someting for skillsets
+
         skillsetsLabel.Text = "";
         foreach (Skillset s in Skills)
         {
-            //AddSkill_Click(skill.SkillsetID, skill.Description);
+            AddSkill_Click(s.SkillsetID, s.Description);
         }
 
+    }
 
-        //Profession.SelectedValue = jobPosting.ProfessionID.ToString();
-        //Region.SelectedValue = jobPosting.RegionID.ToString();
+    private void PopulateProfessionTable()
+    {
+        PRMS RequestDirector;
+        RequestDirector = new PRMS();
+
+        List<Profession> Professions = RequestDirector.GetUserProfessions(CurrentUserID);
+
+        professionsLabel.Text = "";
+        foreach (Profession p in Professions)
+        {
+            AddProfession_Click(p.ProfessionID, p.Description);
+        }
+
+    }
+    private void PopulateRegionTable()
+    {
+        PRMS RequestDirector;
+        RequestDirector = new PRMS();
+
+        List<Region> Regions = RequestDirector.GetUserRegions(CurrentUserID);
+
+        regionsLabel.Text = "";
+        foreach (Region r in Regions)
+        {
+            AddRegion_Click(r.RegionID, r.Description);
+        }
+
+    }
+    protected void AddProfession_Click(int ProfessionID, string ProfessionText)
+    {
+        List<int> ProfessionsList;
+        ProfessionsList = (List<int>)Session["professions"];
+        if (ProfessionsList == null)
+        {
+            Session["professions"] = ProfessionsList;
+            ProfessionsList = new List<int>();
+        }
+
+        ProfessionsList.Add(ProfessionID);
+        professionsLabel.Visible = true;
+        professionsLabel.Visible = true;
+        professionsLabel.ForeColor = System.Drawing.Color.White;
+        professionsLabel.Text = professionsLabel.Text + ProfessionText + "<br/> ";
+
+        Session["professions"] = ProfessionsList;
+
+    }
+    protected void AddSkill_Click(int skillsetID, string skillText)
+    {
+        List<int> skillsList;
+        skillsList = (List<int>)Session["skills"];
+        if (skillsList == null)
+        {
+            Session["skills"] = skillsList;
+            skillsList = new List<int>();
+        }
+
+        skillsList.Add(skillsetID);
+        skillsetsLabel.Visible = true;
+        skillsetsLabel.Visible = true;
+        skillsetsLabel.ForeColor = System.Drawing.Color.White;
+        skillsetsLabel.Text = skillsetsLabel.Text + skillText + "<br/> ";
 
 
+        Session["skills"] = skillsList;
+
+    }
+    protected void AddRegion_Click(int regionID, string regionText)
+    {
+        List<int> regionList;
+        regionList = (List<int>)Session["regions"];
+        if (regionList == null)
+        {
+            Session["regions"] = regionList;
+            regionList = new List<int>();
+        }
+
+        regionList.Add(regionID);
+        regionsLabel.Visible = true;
+        regionsLabel.Visible = true;
+        regionsLabel.ForeColor = System.Drawing.Color.White;
+        regionsLabel.Text = regionsLabel.Text + regionText + "<br/> ";
+
+        Session["regions"] = regionList;
+
+    }
+
+    protected void EditCategories_Click(object sender, EventArgs e)
+    {
+        bool Success;
+        try
+        {
+            PRMS controller = new PRMS();
+            controller.DeleteUserCategories(CurrentUserID);
+
+            #region add professions
+            List<int> professions = (List<int>)Session["professions"];
+            foreach (int profession in professions)
+            {
+                controller.AddUserProfessions(CurrentUserID, profession);
+            }
+
+            #endregion
+
+            #region add skills
+            List<int> skills = (List<int>)Session["skills"];
+            foreach (int skill in skills)
+            {
+                controller.AddUserSkills(CurrentUserID, skill);
+            }
+
+            #endregion
+            #region add regions
+            List<int> regions = (List<int>)Session["regions"];
+            foreach (int region in regions)
+            {
+                controller.AddUserRegions(CurrentUserID, region);
+            }
+            #endregion
+            Success = true;
+        }
+        catch { Success = false; }
+    }
+
+    protected void ChangeEmail_Click(object sender, EventArgs e)
+    {
+        PRMS Controller = new PRMS();
+        //continue here next class
     }
 }

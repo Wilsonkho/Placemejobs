@@ -346,4 +346,19 @@ public class PRMS
         Users Manager = new Users();
         return Manager.GetUserSkills(UserID);
     }
+    public List<Profession> GetUserProfessions(int UserID)
+    {
+        Users Manager = new Users();
+        return Manager.GetUserProfessions(UserID);
+    }
+    public List<Region> GetUserRegions(int UserID)
+    {
+        Users Manager = new Users();
+        return Manager.GetUserRegions(UserID);
+    }
+    public bool DeleteUserCategories(int UserID)
+    {
+        Users Manager = new Users();
+        return Manager.DeleteUserCategories(UserID);
+    }
 }
