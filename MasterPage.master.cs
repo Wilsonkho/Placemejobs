@@ -18,8 +18,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
             String activepage = Request.RawUrl;
             if (cp != null && cp.IsInRole("Admin"))
             {
-                AdminNav.Disabled = false;
-                CandidateNav.Disabled = true;
+                AdminPanel.Visible = true;
+                CandidatePanel.Visible = false;
             }
             if (cp == null || cp.IsInRole("Candidate") )
             {
@@ -37,11 +37,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     Response.Redirect("/Default.aspx");
                 }
 
-                 AdminNav.Disabled = true;
-                CandidateNav.Disabled = false;
-                
-               
-            }
+                AdminPanel.Visible = false;
+                CandidatePanel.Visible = true;
+
+
+        }
 
             if(cp == null)
             {
