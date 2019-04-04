@@ -205,8 +205,8 @@ public partial class RegisterAccount : System.Web.UI.Page
 
                         message.Subject = "Placemejob Account Registration";
 
-                        string note = "Hello " + firstName + "!<br /><br />";
-                        note += "Thank you for applying on Placemejob. We will review your profile and the information you have provided to us and we shall get back to you soon.";
+                        string note = "Dear " + firstName + ",<br /><br />";
+                        note += "Thank you for your application on Placemejob. We shall check your profile with relevant openings and get back to you.";
 
                         message.Body = note;
                         message.BodyEncoding = System.Text.Encoding.UTF8;
