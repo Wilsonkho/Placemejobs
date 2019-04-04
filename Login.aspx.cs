@@ -38,7 +38,7 @@ public partial class Login : System.Web.UI.Page
         }
         else
         {
-            Msg.Text = "Invalid credentials. Please try again.";
+            //Msg.Text = "Invalid credentials. Please try again.";
         }
 
 
