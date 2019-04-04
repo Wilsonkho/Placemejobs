@@ -15,8 +15,7 @@
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table><br /><br />
-    
-
+   
 
     <asp:Table runat="server" ID="ModifyPostingTable" HorizontalAlign="Center" CssClass="table-active table-responsive-sm">
 
