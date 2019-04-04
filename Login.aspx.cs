@@ -38,9 +38,14 @@ public partial class Login : System.Web.UI.Page
         }
         else
         {
-            Msg.Text = "Invalid credentials. Please try again.";
+            //Msg.Text = "Invalid credentials. Please try again.";
         }
 
 
+    }
+
+    protected void RegisterLink_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("RegisterAccount.aspx");
     }
 }

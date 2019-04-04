@@ -16,10 +16,10 @@ public partial class MasterPage : System.Web.UI.MasterPage
         //{
             CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
             String activepage = Request.RawUrl;
-            if (cp != null && cp.IsInRole("Administrator"))
+            if (cp != null && cp.IsInRole("Admin"))
             {
-                AdminNav.Disabled = false;
-                CandidateNav.Disabled = true;
+                AdminPanel.Visible = true;
+                CandidatePanel.Visible = false;
             }
             if (cp == null || cp.IsInRole("Candidate") )
             {
@@ -37,17 +37,19 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     Response.Redirect("/Default.aspx");
                 }
 
-                 AdminNav.Disabled = true;
-                CandidateNav.Disabled = false;
-                
-               
-            }
+                AdminPanel.Visible = false;
+                CandidatePanel.Visible = true;
+
+
+        }
 
             if(cp == null)
             {
                 CandidateProfileLink.Visible = false;
                 LinkButton1.Visible = false;
                 RegisterCandidateLink.Visible = true;
+                LoginLink.Visible = true;
+                RegisterAccountLink.Visible = true;
             }
 
 

@@ -199,14 +199,14 @@ public partial class RegisterAccount : System.Web.UI.Page
                         string email = EmailTextBox.Text;
                         string firstName = FirstName.Text;
 
-                        MailAddress from = new MailAddress("b990cap@gmail.com");
+                        MailAddress from = new MailAddress("donotreplytoplacemejob@gmail.com");
                         MailAddress to = new MailAddress(email);
                         MailMessage message = new MailMessage(from, to);
 
                         message.Subject = "Placemejob Account Registration";
 
-                        string note = "Hello " + firstName + "!<br /><br />";
-                        note += "Thank you for applying on Placemejob. We will review your profile and the information you have provided to us and we shall get back to you soon.";
+                        string note = "Dear " + firstName + ",<br /><br />";
+                        note += "Thank you for your application on Placemejob. We shall check your profile with relevant openings and get back to you.";
 
                         message.Body = note;
                         message.BodyEncoding = System.Text.Encoding.UTF8;
@@ -215,7 +215,7 @@ public partial class RegisterAccount : System.Web.UI.Page
                         SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                         client.UseDefaultCredentials = false;
                         client.EnableSsl = true;
-                        client.Credentials = new NetworkCredential("b990cap@gmail.com", "Capstone2019");
+                        client.Credentials = new NetworkCredential("donotreplytoplacemejob@gmail.com", "placeme123");
 
                         try
                         {
