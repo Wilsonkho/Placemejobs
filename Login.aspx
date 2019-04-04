@@ -46,6 +46,9 @@
             <asp:TableCell>
                 <asp:Button ID="LoginButton" OnClick="Login_Click" Text="Login" runat="server" CssClass="btn btn-dark"/>
             </asp:TableCell>
+            <asp:TableCell>
+                <asp:LinkButton ID="RegisterLink" runat="server" ForeColor="White" CssClass="float-right" OnClick="RegisterLink_Click">Register?</asp:LinkButton>
+            </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
 
