@@ -16,7 +16,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         //{
             CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
             String activepage = Request.RawUrl;
-            if (cp != null && cp.IsInRole("Administrator"))
+            if (cp != null && cp.IsInRole("Admin"))
             {
                 AdminNav.Disabled = false;
                 CandidateNav.Disabled = true;
@@ -48,6 +48,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 CandidateProfileLink.Visible = false;
                 LinkButton1.Visible = false;
                 RegisterCandidateLink.Visible = true;
+                LoginLink.Visible = true;
+                RegisterAccountLink.Visible = true;
             }
 
 
