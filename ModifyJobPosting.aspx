@@ -104,7 +104,7 @@
                 <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Submit" Text="Update" class="btn btn-dark" OnClick="Submit_Click"/></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Delete" Text="Delete" class="btn btn-dark" OnClick="Delete_Click"/></asp:TableCell>
+                <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Delete" Text="Delete" class="btn btn-dark" OnClientClick="return AlertFunction();" OnClick="Delete_Click"/></asp:TableCell>
             </asp:TableRow>
 
             <asp:TableRow>
@@ -114,4 +114,14 @@
             </asp:TableRow>
         </asp:Table>
     <asp:ValidationSummary runat="server" ShowMessageBox="true" ShowSummary="false" />
+    <script>
+        function AlertFunction() {
+            if (confirm('Are you sure you want to delete?')) {
+                return;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
 </asp:Content>
