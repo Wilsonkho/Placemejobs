@@ -30,6 +30,7 @@ CREATE TABLE Skillset (
 	[Description] VARCHAR(30),
 	ProfessionID INT CHECK(ProfessionID > 0) FOREIGN KEY REFERENCES Profession(ProfessionID)
 	)
+
 GO
 CREATE TABLE JobPosting (
 	JobPostingID INT IDENTITY (1,1) PRIMARY KEY,
@@ -989,11 +990,10 @@ CREATE procedure PopulateRegion
 	insert into Region values(@Description)
 GO
 CREATE procedure PopulateSkillSet
-	@Description  VARCHAR(30),
-	@ProfessionID int
+	@Description  VARCHAR(30)
 	as
 	set nocount on
-	insert into Skillset values(@Description,@ProfessionID)
+	insert into Skillset(Description) values(@Description)
 
 GO
 	CREATE procedure PopulateUserJobPosting
