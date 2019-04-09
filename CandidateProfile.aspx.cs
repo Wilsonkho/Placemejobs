@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Net;
 using System.Net.Mail;
 using System.IO;
+using System.Web.Security;
 
 public partial class CandidateProfile : System.Web.UI.Page
 {
@@ -51,13 +52,6 @@ public partial class CandidateProfile : System.Web.UI.Page
             PopulateProfessionTable();
             PopulateRegionTable();
 
-            professions = new List<Profession>();
-            skillsets = new List<Skillset>();
-            regions = new List<Region>();
-
-            Session["professions"] = null;
-            Session["skills"] = null;
-            Session["regions"] = null;
             Session["FileUpload1"] = null;
         }
 
@@ -459,6 +453,15 @@ public partial class CandidateProfile : System.Web.UI.Page
     protected void ChangeEmail_Click(object sender, EventArgs e)
     {
         PRMS Controller = new PRMS();
-        //continue here next class
+        if(Controller.ChangeEmail(CurrentUserID, EmailTextBox.Text))
+        {
+            EmailConfirmation.Text = "Your email has been successfully changed. Please login again with your new email.";
+            FormsAuthentication.SignOut();
+            FormsAuthentication.RedirectToLoginPage();
+        }
+        else
+        {
+            EmailConfirmation.Text = "That email is registered under a different user.";
+        }
     }
 }

@@ -693,56 +693,108 @@ public class Users
             return false;
         }
     }
+    public bool UpdateEmail(int UserID, string Oldemail)
+    {
+
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "ChangeEmail";
+
+        SqlParameter EmailParameter;
+        SqlParameter UseridParameter;
+
+        EmailParameter = new SqlParameter();
+        UseridParameter = new SqlParameter();
+
+        UseridParameter.ParameterName = "@UserID";
+        EmailParameter.ParameterName = "@NewEmail";
+
+        UseridParameter.SqlDbType = SqlDbType.Int;
+        UseridParameter.Direction = ParameterDirection.Input;
+
+        EmailParameter.SqlDbType = SqlDbType.VarChar;
+        EmailParameter.Direction = ParameterDirection.Input;
+
+
+        UseridParameter.Value = UserID;
+        EmailParameter.Value = Oldemail;
+
+
+        cmd.Parameters.Add(UseridParameter);
+        cmd.Parameters.Add(EmailParameter);
+
+        con.Open();
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+
+        Boolean success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
+        }
+        else
+        {
+            success = false;
+        }
+        return success;
+
+    }
     public bool UpdateCoverLetter(int CurrentUser, string CoverLetter)
     {
 
-            SqlConnection con;
-            con = new SqlConnection();
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
 
-            SqlCommand cmd;
-            cmd = new SqlCommand("");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Connection = con;
-            cmd.CommandText = "ChangeCoverLetter";
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "ChangeCoverLetter";
 
-            SqlParameter UseridParameter;
-            SqlParameter CoverLetterParameter;
-
-
-            UseridParameter = new SqlParameter();
-            CoverLetterParameter = new SqlParameter();
+        SqlParameter UseridParameter;
+        SqlParameter CoverLetterParameter;
 
 
-            UseridParameter.ParameterName = "@UserID";
-            CoverLetterParameter.ParameterName = "@CoverLetter";
-
-            CoverLetterParameter.SqlDbType = SqlDbType.VarChar;
-            CoverLetterParameter.Direction = ParameterDirection.Input;
+        UseridParameter = new SqlParameter();
+        CoverLetterParameter = new SqlParameter();
 
 
-            UseridParameter.Value = CurrentUser;
-            CoverLetterParameter.Value = CoverLetter;
+        UseridParameter.ParameterName = "@UserID";
+        CoverLetterParameter.ParameterName = "@CoverLetter";
+
+        CoverLetterParameter.SqlDbType = SqlDbType.VarChar;
+        CoverLetterParameter.Direction = ParameterDirection.Input;
 
 
-            cmd.Parameters.Add(UseridParameter);
-            cmd.Parameters.Add(CoverLetterParameter);
+        UseridParameter.Value = CurrentUser;
+        CoverLetterParameter.Value = CoverLetter;
 
-            con.Open();
 
-            int rowsAffected = cmd.ExecuteNonQuery();
+        cmd.Parameters.Add(UseridParameter);
+        cmd.Parameters.Add(CoverLetterParameter);
 
-            Boolean success = false;
-            if (rowsAffected != 0)
-            {
-                success = true;
-            }
-            else
-            {
-                success = false;
-            }
-            return success;
+        con.Open();
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+
+        Boolean success = false;
+        if (rowsAffected != 0)
+        {
+            success = true;
         }
+        else
+        {
+            success = false;
+        }
+        return success;
+    }
     public bool UpdateResume(int CurrentUser, string Resume)
     {
 
@@ -816,14 +868,14 @@ public class Users
 
 
         con.Open();
-        
+
         SqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
             Skillset Skill = new Skillset();
             Skill.SkillsetID = Convert.ToInt32(reader["SkillsetID"]);
             Skill.Description = Convert.ToString(reader["Description"]);
-            UserSkills.Add(Skill);    
+            UserSkills.Add(Skill);
         }
 
         return UserSkills;
