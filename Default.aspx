@@ -10,40 +10,29 @@
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active ">
-          <img src="Images/banner1.jpg" height="65%" width="100%" />
+          <img src="Images/businessPeople.jpg" class="d-block w-100"/>
         <div class="container">
           <div class="carousel-caption text-left">
-            <h1>Example headline.</h1>
+            <h1>Become part of the Team!</h1>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            <p><a class="btn btn-lg btn-dark" href="RegisterAccount.aspx" role="button">Register</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-          <img src="Images/banner2.jpg" height="65%" width="100%" />
+          <img src="Images/businessPeople2.jpg" class="d-block w-100"  />
          <div class="container">
           <div class="carousel-caption text-left">
             <h1>Another example headline.</h1>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+            <p><a class="btn btn-lg btn-dark" href="Contact.aspx" role="button">Contact Us</a></p>
           </div>
         </div>
       </div>
-      <div class="carousel-item">
-          <img src="Images/banner4.jpg" height="65%" width="100%" />
-          <div class="container">
-          <div class="carousel-caption text-left">
-            <h1>One more for good measure.</h1>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-          </div>
-        </div>
       </div>
-    </div>
     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
@@ -53,7 +42,6 @@
       <span class="sr-only">Next</span>
     </a><br /><br />
   </div>
-
 
 <div class="container">
 
