@@ -31,6 +31,7 @@ public partial class AddProfession : System.Web.UI.Page
             {
                 Confirmation.Text = "Error has occurred.";
             }
+            Profession.Text = "";
         }
         catch (Exception)
         {

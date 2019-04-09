@@ -28,10 +28,7 @@ public partial class CandidateProfile : System.Web.UI.Page
             CurrentUser = UserController.ViewProfile(cp.Identity.Name);
             CurrentUserID = CurrentUser.UserID;
             CurrentUserCoverLetter = CurrentUser.CoverLetter;
-            CurrentUserResume = CurrentUser.Resume;
-
-
-            Welcome.Text = "Hello " + CurrentUser.FirstName + " " + CurrentUser.LastName + "!";
+            CurrentUserResume = CurrentUser.Resume;           
 
 
             if (!IsPostBack)
@@ -230,8 +227,6 @@ public partial class CandidateProfile : System.Web.UI.Page
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with changing password. Please contact customer support for assistance if this issue persists.’)", true);
         }
     }
-
-
 
     protected void ChangeCoverLetter_Click(object sender, EventArgs e)
     {

@@ -31,6 +31,7 @@ public partial class AddRegion : System.Web.UI.Page
                 Confirmation.Text = "Error has occurred.";
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with adding a region. Please contact customer support for assistance if this issue persists.’)", true);
             }
+            Region.Text = "";
         }
         catch (Exception)
         {
