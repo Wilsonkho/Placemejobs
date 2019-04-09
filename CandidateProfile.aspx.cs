@@ -20,39 +20,46 @@ public partial class CandidateProfile : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        User CurrentUser = new User();
-        CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
-        PRMS UserController = new PRMS();
-        CurrentUser = UserController.ViewProfile(cp.Identity.Name);
-        CurrentUserID = CurrentUser.UserID;
-        CurrentUserCoverLetter = CurrentUser.CoverLetter;
-        CurrentUserResume = CurrentUser.Resume;
-        
-
-        Welcome.Text = "Hello " + CurrentUser.FirstName + " " + CurrentUser.LastName + "!";
-
-  
-        if (!IsPostBack)
+        try
         {
-            FirstName.Text = CurrentUser.FirstName;
-            LastName.Text = CurrentUser.LastName;
-            Phone.Text = CurrentUser.Phone;
-            EmailTextBox.Text = CurrentUser.UserEmail;
-            if (CurrentUser.ActiveInactive)
-            {
-                Active.Checked = true;
-            }
-            else
-            {
-                Active.Checked = false;
-            }
-            
-            BindDropDowns();
-            PopulateSkillsTable();
-            PopulateProfessionTable();
-            PopulateRegionTable();
+            User CurrentUser = new User();
+            CustomPrincipal cp = HttpContext.Current.User as CustomPrincipal;
+            PRMS UserController = new PRMS();
+            CurrentUser = UserController.ViewProfile(cp.Identity.Name);
+            CurrentUserID = CurrentUser.UserID;
+            CurrentUserCoverLetter = CurrentUser.CoverLetter;
+            CurrentUserResume = CurrentUser.Resume;
 
-            Session["FileUpload1"] = null;
+
+            Welcome.Text = "Hello " + CurrentUser.FirstName + " " + CurrentUser.LastName + "!";
+
+
+            if (!IsPostBack)
+            {
+                FirstName.Text = CurrentUser.FirstName;
+                LastName.Text = CurrentUser.LastName;
+                Phone.Text = CurrentUser.Phone;
+                EmailTextBox.Text = CurrentUser.UserEmail;
+                if (CurrentUser.ActiveInactive)
+                {
+                    Active.Checked = true;
+                }
+                else
+                {
+                    Active.Checked = false;
+                }
+
+                BindDropDowns();
+                PopulateSkillsTable();
+                PopulateProfessionTable();
+                PopulateRegionTable();
+
+                Session["FileUpload1"] = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred while obtaining data. Please contact customer support for assistance if this issue persists.’)", true);
         }
 
     }
@@ -83,28 +90,39 @@ public partial class CandidateProfile : System.Web.UI.Page
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        User UpdateCandidate = new User();
-        UpdateCandidate.UserID = CurrentUserID;
-        UpdateCandidate.FirstName = FirstName.Text;
-        UpdateCandidate.LastName = LastName.Text;
-        UpdateCandidate.Phone = Phone.Text;
-        if (Active.Checked)
+        try
         {
-            UpdateCandidate.ActiveInactive = true;
-        }
-        else
-        {
-            UpdateCandidate.ActiveInactive = false;
-        }
-        
+            User UpdateCandidate = new User();
+            UpdateCandidate.UserID = CurrentUserID;
+            UpdateCandidate.FirstName = FirstName.Text;
+            UpdateCandidate.LastName = LastName.Text;
+            UpdateCandidate.Phone = Phone.Text;
+            if (Active.Checked)
+            {
+                UpdateCandidate.ActiveInactive = true;
+            }
+            else
+            {
+                UpdateCandidate.ActiveInactive = false;
+            }
 
-        PRMS controller = new PRMS();
-        if (controller.UpdateProfile(UpdateCandidate))
+
+            PRMS controller = new PRMS();
+            if (controller.UpdateProfile(UpdateCandidate))
+            {
+                UpdatedLabel.Text = "Your information has been updated";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Your profile was updated successfully')", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating your profile. Please contact customer support for assistance if this issue persists.’)", true);
+                UpdatedLabel.Text = "Sorry we could not update your information at this time.";
+            }
+        }
+        catch (Exception)
         {
-            UpdatedLabel.Text = "Your information has been update";
-        }else
-        {
-            UpdatedLabel.Text = "Sorry we could not update your information at this time.";
+
+            throw;
         }
     }
 
@@ -190,109 +208,135 @@ public partial class CandidateProfile : System.Web.UI.Page
 
     protected void ChangePassword_Click(object sender, EventArgs e)
     {
-        User NewUser = new User();
-        NewUser.UserID = CurrentUserID;
-        NewUser.UserEmail = EmailTextBox.Text;
-        PRMS UserController = new PRMS();
-        if (UserController.ChangePassword(NewUser, OldPassword.Text, NewPassword.Text))
+        try
         {
-            PasswordConfirmation.Text = "Your password has been updated.";
-
+            User NewUser = new User();
+            NewUser.UserID = CurrentUserID;
+            NewUser.UserEmail = EmailTextBox.Text;
+            PRMS UserController = new PRMS();
+            if (UserController.ChangePassword(NewUser, OldPassword.Text, NewPassword.Text))
+            {
+                PasswordConfirmation.Text = "Your password has been updated.";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Password has updated successfully')", true);
+            }
+            else
+            {
+                PasswordConfirmation.Text = "Your old password is incorrect.";
+            }
+            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#ChangePasswordModal').modal('show')", true);
         }
-        else
+        catch (Exception)
         {
-            PasswordConfirmation.Text = "Your old password is incorrect.";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with changing password. Please contact customer support for assistance if this issue persists.’)", true);
         }
-        ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#ChangePasswordModal').modal('show')", true);
     }
 
 
 
     protected void ChangeCoverLetter_Click(object sender, EventArgs e)
     {
-        if (CoverLetterUpload.HasFile)
+        try
         {
-
-            string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
-
-            if (fileExtension == ".pdf" || fileExtension == ".docx")
+            if (CoverLetterUpload.HasFile)
             {
-                Directory.CreateDirectory(Server.MapPath("~/Files/" + CurrentUserID + "/CoverLetter/"));
 
-                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + CurrentUserID + "/CoverLetter/"));
-                foreach (FileInfo file in directory.GetFiles())
-                {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo di in directory.GetDirectories())
-                {
-                    di.Delete(true);
-                }
+                string fileExtension = Path.GetExtension(CoverLetterUpload.PostedFile.FileName);
 
-                CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + CurrentUserID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
-                
-                PRMS Controller = new PRMS();
-                if (Controller.UpdateCoverLetter(CurrentUserID, CoverLetterUpload.FileName))
+                if (fileExtension == ".pdf" || fileExtension == ".docx")
                 {
-                    CoverLetterMsg.Text = "Your cover letter has been updated.";
+                    Directory.CreateDirectory(Server.MapPath("~/Files/" + CurrentUserID + "/CoverLetter/"));
+
+                    DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + CurrentUserID + "/CoverLetter/"));
+                    foreach (FileInfo file in directory.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    foreach (DirectoryInfo di in directory.GetDirectories())
+                    {
+                        di.Delete(true);
+                    }
+
+                    CoverLetterUpload.SaveAs(Server.MapPath("~/Files/" + CurrentUserID + "/" + "CoverLetter/" + CoverLetterUpload.FileName));
+
+                    PRMS Controller = new PRMS();
+                    if (Controller.UpdateCoverLetter(CurrentUserID, CoverLetterUpload.FileName))
+                    {
+                        CoverLetterMsg.Text = "Your cover letter has been updated.";
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Cover letter has been updated')", true);
+                    }
+                    else
+                    {
+                        CoverLetterMsg.Text = "Your cover letter could not be udpated.";
+                    }
+
                 }
                 else
                 {
-                    CoverLetterMsg.Text = "Your cover letter could not be udpated.";
+                    CoverLetterMsg.Text = "Only .pdf and .docx cover letter files are accepted.";
                 }
-                
             }
             else
             {
-                CoverLetterMsg.Text = "Only .pdf and .docx cover letter files are accepted.";
+                CoverLetterMsg.Text = "Please select a file to upload.";
             }
-        }else
+        }
+        catch (Exception)
         {
-            CoverLetterMsg.Text = "Please select a file to upload.";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating the cover letter. Please contact customer support for assistance if this issue persists.’)", true);
         }
     }
 
     protected void ChangeResume_Click(object sender, EventArgs e)
     {
-        if (ResumeUpload.HasFile)
+        try
         {
-
-            string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
-
-            if (fileExtension == ".pdf" || fileExtension == ".docx")
+            if (ResumeUpload.HasFile)
             {
-                Directory.CreateDirectory(Server.MapPath("~/Files/" + CurrentUserID + "/Resume/"));
 
-                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + CurrentUserID + "/Resume/"));
-                foreach (FileInfo file in directory.GetFiles())
-                {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo di in directory.GetDirectories())
-                {
-                    di.Delete(true);
-                }
+                string fileExtension = Path.GetExtension(ResumeUpload.PostedFile.FileName);
 
-                ResumeUpload.SaveAs(Server.MapPath("~/Files/" + CurrentUserID + "/" + "Resume/" + ResumeUpload.FileName));
-                PRMS Controller = new PRMS();
-                if (Controller.UpdateResume(CurrentUserID, ResumeUpload.FileName))
+                if (fileExtension == ".pdf" || fileExtension == ".docx")
                 {
+                    Directory.CreateDirectory(Server.MapPath("~/Files/" + CurrentUserID + "/Resume/"));
+
+                    DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Files/" + CurrentUserID + "/Resume/"));
+                    foreach (FileInfo file in directory.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    foreach (DirectoryInfo di in directory.GetDirectories())
+                    {
+                        di.Delete(true);
+                    }
+
+                    ResumeUpload.SaveAs(Server.MapPath("~/Files/" + CurrentUserID + "/" + "Resume/" + ResumeUpload.FileName));
+                    PRMS Controller = new PRMS();
+                    if (Controller.UpdateResume(CurrentUserID, ResumeUpload.FileName))
+                    {
+                        ResumeMsg.Text = "Your resume has been updated.";
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Resume has been updated')", true);
+                    }
+                    else
+                    {
+                        ResumeMsg.Text = "Your resume could not be udpated.";
+                    }
                     ResumeMsg.Text = "Your resume has been updated.";
                 }
                 else
                 {
-                    ResumeMsg.Text = "Your resume could not be udpated.";
+                    ResumeMsg.Text = "Only .pdf and .docx resume files are accepted.";
                 }
-                ResumeMsg.Text = "Your resume has been updated.";
             }
             else
             {
-                ResumeMsg.Text = "Only .pdf and .docx resume files are accepted.";
+                ResumeMsg.Text = "Please select a file to upload.";
             }
-        }else
-        {
-            ResumeMsg.Text = "Please select a file to upload.";
         }
+        catch (Exception)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating the resume. Please contact customer support for assistance if this issue persists.’)", true);
+        }
+
     }
     protected void ClearSkillsButton_Click(object sender, EventArgs e)
     {
@@ -415,7 +459,6 @@ public partial class CandidateProfile : System.Web.UI.Page
 
     protected void EditCategories_Click(object sender, EventArgs e)
     {
-        bool Success;
         try
         {
             PRMS controller = new PRMS();
@@ -445,23 +488,36 @@ public partial class CandidateProfile : System.Web.UI.Page
                 controller.AddUserRegions(CurrentUserID, region);
             }
             #endregion
-            Success = true;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Categories have been updated successfully.')", true);
         }
-        catch { Success = false; }
+        catch {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with udpating categories. Please contact customer support for assistance if this issue persists.’)", true);
+        }
     }
 
     protected void ChangeEmail_Click(object sender, EventArgs e)
     {
-        PRMS Controller = new PRMS();
-        if(Controller.ChangeEmail(CurrentUserID, EmailTextBox.Text))
+        try
         {
-            EmailConfirmation.Text = "Your email has been successfully changed. Please login again with your new email.";
-            FormsAuthentication.SignOut();
-            FormsAuthentication.RedirectToLoginPage();
+            PRMS Controller = new PRMS();
+            if(Controller.ChangeEmail(CurrentUserID, EmailTextBox.Text))
+            {
+                EmailConfirmation.Text = "Your email has been successfully changed. Please login again with your new email.";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Your email has been updated. Please login again with your new email.')", true);
+                FormsAuthentication.SignOut();
+                FormsAuthentication.RedirectToLoginPage();
+            }
+            else
+            {
+                EmailConfirmation.Text = "That email is registered under a different user.";
+            }
         }
-        else
+        catch (Exception)
         {
-            EmailConfirmation.Text = "That email is registered under a different user.";
+
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating email. Please contact customer support for assistance if this issue persists.’)", true);
+
         }
+
     }
 }

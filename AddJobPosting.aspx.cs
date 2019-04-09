@@ -72,23 +72,23 @@ public partial class AddJobPosting : System.Web.UI.Page
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        PRMS controller = new PRMS();
-
-
-        List<int> skillsList;
-        skillsList = (List<int>)Session["skills"];
-
-        JobPosting newPosting = new JobPosting();
-
-        newPosting.Description = JobPostingDescription.Text;
-        newPosting.CompanyName = CompanyName.Text;
-        newPosting.RegionID = int.Parse(Region.Text);
-        newPosting.ProfessionID = int.Parse(Profession.Text);
-        newPosting.Date = DateTime.Parse(Date.Text);
-        newPosting.EmployerPhone = CompanyPhone.Text;
-
         try
         {
+            PRMS controller = new PRMS();
+
+
+            List<int> skillsList;
+            skillsList = (List<int>)Session["skills"];
+
+            JobPosting newPosting = new JobPosting();
+
+            newPosting.Description = JobPostingDescription.Text;
+            newPosting.CompanyName = CompanyName.Text;
+            newPosting.RegionID = int.Parse(Region.Text);
+            newPosting.ProfessionID = int.Parse(Profession.Text);
+            newPosting.Date = DateTime.Parse(Date.Text);
+            newPosting.EmployerPhone = CompanyPhone.Text;
+
             int newJobID;
             newJobID = controller.AddJobPosting(newPosting);
 
@@ -97,12 +97,11 @@ public partial class AddJobPosting : System.Web.UI.Page
                 controller.AddJobSkillSets(newJobID, skill);
             }
             ClearForm();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Inserted Successfully')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job posting added successfully')", true);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            Confirmation.Text = "the following error has occurred: " + ex;
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Insert Failed')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error occurred while with adding a job posting. Please contact customer support for assistance if this issue persists.')", true);
         }
        
     }

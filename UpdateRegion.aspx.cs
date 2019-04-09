@@ -29,20 +29,24 @@ public partial class UpdateRegion : System.Web.UI.Page
 
     protected void RegionUpdateButton1_Click(object sender, EventArgs e)
     {
-        bool confirmation = false;
-        PRMS controller = new PRMS();
-        int regionID = Convert.ToInt32(Region.Text);
-        //confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
-        confirmation = controller.UpdateRegion(UpdateDescription.Text, regionID);
-        //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
+        try
+        {
+            bool confirmation = false;
+            PRMS controller = new PRMS();
+            int regionID = Convert.ToInt32(Region.Text);
+            //confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
+            confirmation = controller.UpdateRegion(UpdateDescription.Text, regionID);
+            //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
 
-        if (confirmation)
-        {
-            Confirmation.Text = "Region updated successfully.";
+            if (confirmation)
+            {
+                Confirmation.Text = "Region updated successfully.";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was updated successfully')", true);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Confirmation.Text = "Error has occurred.";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating region. Please contact customer support for assistance if this issue persists.’)", true);
         }
     }
 }
