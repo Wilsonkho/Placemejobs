@@ -15,18 +15,26 @@ public partial class AddProfession : System.Web.UI.Page
 
     protected void AddProfessionButton_Click(object sender, EventArgs e)
     {
-        bool confirmation = false;
-        PRMS controller = new PRMS();
-
-        confirmation = controller.AddProfession(Profession.Text);
-
-        if (confirmation)
+        try
         {
-            Confirmation.Text = "Profession added successfully.";
+            bool confirmation = false;
+            PRMS controller = new PRMS();
+
+            confirmation = controller.AddProfession(Profession.Text);
+
+            if (confirmation)
+            {
+                Confirmation.Text = "Profession added successfully.";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was added successfully')", true);
+            }
+            else
+            {
+                Confirmation.Text = "Error has occurred.";
+            }
         }
-        else
+        catch (Exception)
         {
-            Confirmation.Text = "Error has occurred.";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with adding a profession. Please contact customer support for assistance if this issue persists.’)", true);
         }
     }
 

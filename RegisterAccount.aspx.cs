@@ -65,47 +65,47 @@ public partial class RegisterAccount : System.Web.UI.Page
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        List<int> list;
-        bool dropdownsChecked = true;
-        list = (List<int>)Session["professions"];
-        if (list == null)
+        try
         {
-            dropdownsChecked = false;
-        }
-        list = (List<int>)Session["skills"];
-        if (list == null)
-        {
-            dropdownsChecked = false;
-        }
-        list = (List<int>)Session["regions"];
-        if (list == null)
-        {
-            dropdownsChecked = false;
-        }
-
-        if (dropdownsChecked)
-        {
-
-            bool success = false;
-            User newCandidate = new User();
-            newCandidate.UserEmail = EmailTextBox.Text;
-            newCandidate.FirstName = FirstName.Text;
-            newCandidate.LastName = LastName.Text;
-            newCandidate.Phone = Phone.Text;
-            newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
-            newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : CoverLetterUpload.PostedFile.FileName;
-            newCandidate.UserPassword = Password.Text;
-
-            PRMS controller = new PRMS();
-
-
-
-            #region add user
-            success = controller.AddAccount(newCandidate);
-
-            if (success)
+            List<int> list;
+            bool dropdownsChecked = true;
+            list = (List<int>)Session["professions"];
+            if (list == null)
             {
-                try
+                dropdownsChecked = false;
+            }
+            list = (List<int>)Session["skills"];
+            if (list == null)
+            {
+                dropdownsChecked = false;
+            }
+            list = (List<int>)Session["regions"];
+            if (list == null)
+            {
+                dropdownsChecked = false;
+            }
+
+            if (dropdownsChecked)
+            {
+
+                bool success = false;
+                User newCandidate = new User();
+                newCandidate.UserEmail = EmailTextBox.Text;
+                newCandidate.FirstName = FirstName.Text;
+                newCandidate.LastName = LastName.Text;
+                newCandidate.Phone = Phone.Text;
+                newCandidate.Resume = (ResumeUpload.PostedFile.FileName == "") ? null : ResumeUpload.PostedFile.FileName;
+                newCandidate.CoverLetter = (CoverLetterUpload.PostedFile.FileName == "") ? null : CoverLetterUpload.PostedFile.FileName;
+                newCandidate.UserPassword = Password.Text;
+
+                PRMS controller = new PRMS();
+
+
+
+                #region add user
+                success = controller.AddAccount(newCandidate);
+
+                if (success)
                 {
                     int userID;
                     userID = controller.GetUserIDByEmail(EmailTextBox.Text);
@@ -162,10 +162,6 @@ public partial class RegisterAccount : System.Web.UI.Page
                             Msg.Text = "Only .pdf and .docx cover letter files are accepted.";
                         }
                     }
-                    //Set color to green
-                    Results.ForeColor = System.Drawing.Color.Green;
-                    Results.Text = "Your account for Placemejob has been successfully created.";
-
                     #region add professions
                     int newUserID;
                     newUserID = controller.GetUserIDByEmail(EmailTextBox.Text);
@@ -225,27 +221,28 @@ public partial class RegisterAccount : System.Web.UI.Page
                         {
                             Results.Text = "Error occurred with sending email.";
                         }
+
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have successfully registered an account')", true);
                     }
                     #endregion
                 }
-                catch (Exception ex)
+                else //if(success)
                 {
-                    Results.Text = ex.ToString();
+                    Results.Text = "An error has occurred with your account registration. Please try again. If this issue persists, please contact customer support for assistance.";
                 }
+                #endregion
             }
-            else //if(success)
+            else //if(dropdownsChecked)
             {
-                Results.Text = "An error has occurred with your account registration. Please try again. If this issue persists, please contact customer support for assistance.";
+                Results.Text = "You must select at least one profession, skill, and region preference.";
             }
-            #endregion
-
-
         }
-        else //if(dropdownsChecked)
+        catch (Exception ex)
         {
-            Results.Text = "You must select at least one profession, skill, and region preference.";
-        }
 
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''Error occurred with registering account. Please contact customer support for assistance if this issue persists.'')", true);
+            Results.Text = ex.ToString();
+        }
 
 
     }
