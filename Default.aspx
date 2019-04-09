@@ -17,7 +17,7 @@
         <div class="container">
           <div class="carousel-caption text-left">
             <h1>Become part of the Team!</h1>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p>Register with us to be hired for a career that suits you.</p>
             <p><a class="btn btn-lg btn-dark" href="RegisterAccount.aspx" role="button">Register</a></p>
           </div>
         </div>
@@ -26,8 +26,8 @@
           <img src="Images/businessPeople2.jpg" class="d-block w-100"  />
          <div class="container">
           <div class="carousel-caption text-left">
-            <h1>Another example headline.</h1>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <h1>How to Reach Us</h1>
+            <p>If you prefer to contact us directly, follow the link to go to our Contact page.</p>
             <p><a class="btn btn-lg btn-dark" href="Contact.aspx" role="button">Contact Us</a></p>
           </div>
         </div>

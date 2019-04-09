@@ -39,20 +39,24 @@ public partial class UpdateProfession : System.Web.UI.Page
 
     protected void ProfessionUpdateButton1_Click(object sender, EventArgs e)
     {
-        bool confirmation = false;
-        PRMS controller = new PRMS();
-        int professionID = Convert.ToInt32(Profession.Text);
-        confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
-
-        //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
-
-        if (confirmation)
+        try
         {
-            Confirmation.Text = "Profession updated successfully.";
+            bool confirmation = false;
+            PRMS controller = new PRMS();
+            int professionID = Convert.ToInt32(Profession.Text);
+            confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
+
+            //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
+
+            if (confirmation)
+            {
+                Confirmation.Text = "Profession updated successfully.";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was updated successfully')", true);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Confirmation.Text = "Error has occurred.";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating profession. Please contact customer support for assistance if this issue persists.’)", true);
         }
     }
 }

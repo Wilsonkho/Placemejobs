@@ -27,11 +27,12 @@ public partial class ReportDisplay : System.Web.UI.Page
             document.Open();
             PopulatePDF(ref document);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
 
-            throw;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error occurred while generating a report. Please contact customer support for assistance if this issue persists.')", true);
         }
+
         document.Close();
         Response.OutputStream.Write(m.GetBuffer(), 0, m.GetBuffer().Length);
         Response.OutputStream.Flush();

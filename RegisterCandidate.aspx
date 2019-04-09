@@ -117,8 +117,10 @@
 
             <asp:TableRow>
                 <asp:TableCell ColumnSpan="3">
-                    <asp:Panel runat="server">           
-                        <asp:Label ID="Results" runat="server" ForeColor="Red"></asp:Label>
+                    <asp:Panel runat="server">
+                        <asp:CustomValidator ID="DropDownValidators" Text="Candidate must have at least one Profession, Skill, and Region added."
+                             ControlToValidate="" runat="server" Display="None"></asp:CustomValidator>           
+                        <asp:Label ID="Results" runat="server" ForeColor="#ff6666" Font-Size="Large" Font-Bold="true"></asp:Label>
                     </asp:Panel>                    
                 </asp:TableCell>
             </asp:TableRow>
@@ -131,7 +133,7 @@
                 <asp:TableCell ColumnSpan="3"><asp:Button runat="server" ID="Cancel" Text="Clear"  Class="btn btn-dark" OnClick="Cancel_Click" CausesValidation="false"/></asp:TableCell>
             </asp:TableRow>
         </asp:Table>
-    <asp:ValidationSummary runat="server" ShowMessageBox="true" ShowSummary="false" />
+    <asp:ValidationSummary runat="server" ShowMessageBox="true" ShowSummary="false" ID="ValidationSummary" />
         <asp:Label runat="server" ID="Msg" />
         <br /><br />
 </asp:Content>

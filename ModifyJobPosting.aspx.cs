@@ -63,6 +63,7 @@ public partial class ModifyJobPosting : System.Web.UI.Page
 
     protected void AddSkill_Click(object sender, EventArgs e)
     {
+
         List<int> skillsList;
         skillsList = (List<int>)Session["skills"];
         if (skillsList == null)
@@ -77,7 +78,7 @@ public partial class ModifyJobPosting : System.Web.UI.Page
             skillsetsLabel.Visible = true;
             skillLabel.Visible = true;
             skillsetsLabel.ForeColor = System.Drawing.Color.White;
-            skillsetsLabel.Text = skillsetsLabel.Text  + Skillset.SelectedItem + "<br/>";
+            skillsetsLabel.Text = skillsetsLabel.Text + Skillset.SelectedItem + "<br/>";
         }
 
         Session["skills"] = skillsList;
@@ -99,32 +100,32 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         skillLabel.Visible = true;
         skillsetsLabel.ForeColor = System.Drawing.Color.White;
         skillsetsLabel.Text = skillsetsLabel.Text + skillText + "<br/> ";
-        
+
 
         Session["skills"] = skillsList;
-
     }
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        PRMS controller = new PRMS();
-
-
-        List<int> skillsList;
-        skillsList = (List<int>)Session["skills"];
-
-        JobPosting jobPosting = new JobPosting();
-
-        jobPosting.JobPostingID = int.Parse(PostingDropDown.SelectedValue);
-        jobPosting.Description = JobPostingDescription.Text;
-        jobPosting.CompanyName = CompanyName.Text;
-        jobPosting.RegionID = int.Parse(Region.Text);
-        jobPosting.ProfessionID = int.Parse(Profession.Text);
-        jobPosting.Date = DateTime.Parse(Date.Text);
-        jobPosting.EmployerPhone = CompanyPhone.Text;
-
         try
         {
+            PRMS controller = new PRMS();
+
+
+            List<int> skillsList;
+            skillsList = (List<int>)Session["skills"];
+
+            JobPosting jobPosting = new JobPosting();
+
+            jobPosting.JobPostingID = int.Parse(PostingDropDown.SelectedValue);
+            jobPosting.Description = JobPostingDescription.Text;
+            jobPosting.CompanyName = CompanyName.Text;
+            jobPosting.RegionID = int.Parse(Region.Text);
+            jobPosting.ProfessionID = int.Parse(Profession.Text);
+            jobPosting.Date = DateTime.Parse(Date.Text);
+            jobPosting.EmployerPhone = CompanyPhone.Text;
+
+
             bool success;
             success = controller.UpdateJobPosting(jobPosting);
             if (success)
@@ -134,15 +135,15 @@ public partial class ModifyJobPosting : System.Web.UI.Page
                     controller.AddJobSkillSets(jobPosting.JobPostingID, skill);
                 }
                 ClearForm();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Updated Successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job posting has updated successfully')", true);
             }
-        }
-        catch (Exception ex)
-        {
-            Confirmation.Text = "the following error has occurred: " + ex;
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Update Failed')", true);
-        }
 
+        }
+        catch (Exception)
+        {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error occurred with updating job posting. Please contact customer support for assistance if this issue persists.')", true);
+        }
+        
     }
 
     protected void ClearForm()

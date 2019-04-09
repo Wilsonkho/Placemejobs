@@ -34,21 +34,25 @@ public partial class UpdateSkillSet : System.Web.UI.Page
 
     protected void SkillSetUpdateButton1_Click(object sender, EventArgs e)
     {
-        bool confirmation = false;
-        PRMS controller = new PRMS();
-        int skillsetID = Convert.ToInt32(Skillset.Text);
-        int ProfessionID = Convert.ToInt32(Profession.Text);
-        //confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
-        //confirmation = controller.UpdateRegion(UpdateDescription.Text, skillsetID);
-        //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
-        confirmation = controller.UpdateSkillSet(UpdateDescription.Text, skillsetID, ProfessionID);
-        if (confirmation)
+        try
         {
-            Confirmation.Text = "Skillset updated successfully.";
+            bool confirmation = false;
+            PRMS controller = new PRMS();
+            int skillsetID = Convert.ToInt32(Skillset.Text);
+            int ProfessionID = Convert.ToInt32(Profession.Text);
+            //confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
+            //confirmation = controller.UpdateRegion(UpdateDescription.Text, skillsetID);
+            //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
+            confirmation = controller.UpdateSkillSet(UpdateDescription.Text, skillsetID, ProfessionID);
+            if (confirmation)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Skillset was updated successfully')", true);
+            }
         }
-        else
+        catch (Exception)
         {
-            Confirmation.Text = "Error has occurred.";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating skillset. Please contact customer support for assistance if this issue persists.’)", true);
+            throw;
         }
     }
 }
