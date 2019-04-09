@@ -61,7 +61,7 @@
                         </li>
                         <li>
                         
-                            <asp:LinkButton ID="SignOut" CssClass="nav-link" runat="server" OnClick="SignOut_Click">Sign Out</asp:LinkButton>
+                            <asp:LinkButton ID="SignOut" CssClass="nav-link" runat="server" OnClick="SignOut_Click" CausesValidation="false">Sign Out</asp:LinkButton>
                         </li>
 
 
@@ -93,7 +93,7 @@
                             <a class="nav-link" href="RegisterAccount.aspx" id="RegisterAccountLink" runat="server" visible="false">Register</a>
                         </li>
                         <li>      
-                            <asp:LinkButton ID="LinkButton1" CssClass="nav-link" runat="server" OnClick="SignOut_Click">Sign Out</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton1" CssClass="nav-link" runat="server" OnClick="SignOut_Click" CausesValidation="false">Sign Out</asp:LinkButton>
                         </li>
                         <li>      
                             <a class="nav-link" href="Login.aspx" id="LoginLink" runat="server" visible="false">Log In</a>

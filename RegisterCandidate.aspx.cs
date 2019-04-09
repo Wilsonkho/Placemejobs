@@ -177,9 +177,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
         }
         else //if(dropdownsChecked)
         {
-            Results.Text = "Candidate must have at least one profession, skill, and region added.";
-            DropDownValidators.IsValid = false;
-            
+            Results.Text = "Candidate must have at least one profession, skill, and region added.";            
         }
      
     }

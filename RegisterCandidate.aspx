@@ -36,7 +36,6 @@
                          ControlToValidate="Phone" Display="None" ForeColor="Red"></asp:RequiredFieldValidator>
                      <asp:RegularExpressionValidator Display = "None" ControlToValidate = "Phone" ID="PhoneRegularExpressionValidator" 
                          ValidationExpression = "[0-9]{10}" runat="server" ErrorMessage="Phone Format must be like 7805551234" ForeColor="Red"></asp:RegularExpressionValidator>
-                    <%--^((\+)?(\d{2}[-])?(\d{10}){1})?(\d{11}){0,1}?$ (India Phone Regex)--%>
                 </asp:TableCell>
             </asp:TableRow>
             
@@ -74,7 +73,7 @@
                     <asp:DropDownList runat="server" ID="Skillset" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
                 <asp:TableCell  >
-                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click" PostBackUrl/>
+                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click"/>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -117,9 +116,7 @@
 
             <asp:TableRow>
                 <asp:TableCell ColumnSpan="3">
-                    <asp:Panel runat="server">
-                        <asp:CustomValidator ID="DropDownValidators" Text="Candidate must have at least one Profession, Skill, and Region added."
-                             ControlToValidate="" runat="server" Display="None"></asp:CustomValidator>           
+                    <asp:Panel runat="server">     
                         <asp:Label ID="Results" runat="server" ForeColor="#ff6666" Font-Size="Large" Font-Bold="true"></asp:Label>
                     </asp:Panel>                    
                 </asp:TableCell>
