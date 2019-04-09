@@ -180,13 +180,12 @@ public partial class RegisterCandidate : System.Web.UI.Page
             else //if(dropdownsChecked)
             {
                 Results.Text = "Candidate must have at least one profession, skill, and region added.";
-                DropDownValidators.IsValid = false;
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with registering the candidate. Please contact customer support for assistance if this issue persists.’)", true);
             }
         }
         catch (Exception)
         {
-
+            Results.Text = "Candidate must have at least one profession, skill, and region added.";            
             throw;
         }
      
