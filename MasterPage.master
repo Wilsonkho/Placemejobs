@@ -41,8 +41,11 @@
                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Manage Categories</a><span class="caret"></span>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="AddProfession.aspx" id="AddProfessionLink" runat="server">Add Profession</a></li>
+                                <li><a class="nav-link" href="UpdateProfession.aspx" id="ModifyProfessionLink" runat="server">Modify Profession</a></li>
                                 <li><a class="nav-link" href="AddSkillSet.aspx" id="AddSkillsetLink" runat="server">Add Skillset</a></li>
+                                <li><a class="nav-link" href="UpdateSkillSet.aspx" id="ModifySkillsetLink" runat="server">Modify Skillset</a></li>
                                 <li><a class="nav-link" href="AddRegion.aspx" id="AddRegionLink" runat="server">Add Region</a></li>
+                                <li><a class="nav-link" href="UpdateRegion.aspx" id="ModifyRegionLink" runat="server">Modify Region</a></li>
                             </ul>
                         </li>
 
