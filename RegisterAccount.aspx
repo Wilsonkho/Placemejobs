@@ -16,7 +16,7 @@
         </asp:TableRow>
 
         <asp:TableRow>
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Email:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Email:</h5></asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:TextBox runat="server" ID="EmailTextBox" Class="form-control"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="EmailRequiredFieldValidator" runat="server" ErrorMessage="Email is required."
@@ -28,7 +28,7 @@
         </asp:TableRow> 
 
         <asp:TableRow>
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Password:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Password:</h5></asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:TextBox runat="server" ID="Password" Class="form-control" TextMode="Password"></asp:TextBox>
                 <asp:HiddenField ID="HidePassword" runat="server" />
@@ -38,7 +38,7 @@
         </asp:TableRow> 
 
         <asp:TableRow>
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Confirm Password:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Confirm Password:</h5></asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:TextBox runat="server" ID="ConfirmPassword" Class="form-control" TextMode="Password"></asp:TextBox>
                 <asp:HiddenField ID="HideConfirmPassword" runat="server" />
@@ -49,7 +49,7 @@
         </asp:TableRow> 
 
         <asp:TableRow>
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">First Name:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>First Name:</h5></asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:TextBox runat="server" ID="FirstName" Class="form-control"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="FirstNameRequiredFieldValidator" runat="server" ErrorMessage="First Name is required."
@@ -60,7 +60,7 @@
         </asp:TableRow>
 
         <asp:TableRow>
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Last Name:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Last Name:</h5></asp:TableCell>
             <asp:TableCell  ColumnSpan="2">
                 <asp:TextBox runat="server" ID="LastName" Class="form-control"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="LastNameRequiredFieldValidator" runat="server" ErrorMessage="Last Name is required."
@@ -71,7 +71,7 @@
         </asp:TableRow>
 
         <asp:TableRow>
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Phone Number:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Phone Number:</h5></asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:TextBox runat="server" ID="Phone" Class="form-control"></asp:TextBox>                  
                 <asp:RequiredFieldValidator ID="PhoneRequiredFieldValidator" runat="server" ErrorMessage="Phone number is required."
@@ -89,7 +89,7 @@
         </asp:TableRow>
 
         <asp:TableRow ID="ProfessionRow" runat="server">
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Profession:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Profession:</h5></asp:TableCell>
             <asp:TableCell>
                 <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control" AppendDataBoundItems="true">
                 </asp:DropDownList>
@@ -100,15 +100,15 @@
         </asp:TableRow>
 
         <asp:TableRow>
-                <asp:TableCell ID="ProfessionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Professions:</h5></asp:TableCell>
+                <asp:TableCell ID="ProfessionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top" ><h5>Professions:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="professionsLabel" runat="server" CssClass="label-text"><h5>Professions:</h5></asp:Label>
+                    <asp:Label ID="professionsLabel" runat="server" CssClass="label-text" Font-Italic="true"><h5>Professions:</h5></asp:Label><hr />
                 </asp:TableCell>
         </asp:TableRow>
-
+        
 
         <asp:TableRow ID="SkillsetRow" runat="server">
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Skillset:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Skillset:</h5></asp:TableCell>
             <asp:TableCell >
                 <asp:DropDownList runat="server" ID="Skillset" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
             </asp:TableCell>
@@ -120,12 +120,13 @@
         <asp:TableRow>
                 <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Skills:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"><h5>Skills:</h5></asp:Label>
+                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text" Font-Italic="true"><h5>Skills:</h5></asp:Label><hr />
                 </asp:TableCell>
             </asp:TableRow>
 
+        
         <asp:TableRow ID="RegionRow" runat="server">
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Preferred Region:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Preferred Region:</h5></asp:TableCell>
             <asp:TableCell>
                 <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
             </asp:TableCell>
@@ -137,7 +138,7 @@
         <asp:TableRow >
                 <asp:TableCell ID="regionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Regions:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="regionsLabel" runat="server" CssClass="label-text"><h5>Regions:</h5></asp:Label>
+                    <asp:Label ID="regionsLabel" runat="server" CssClass="label-text" Font-Italic="true"><h5>Regions:</h5></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -148,14 +149,14 @@
         </asp:TableRow>
         
          <asp:TableRow >
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Resume:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Resume:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:FileUpload runat="server" ID="ResumeUpload" />
                 </asp:TableCell>
         </asp:TableRow>
 
         <asp:TableRow >
-            <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Cover Letter:</asp:TableCell>
+            <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Cover Letter:</h5></asp:TableCell>
             <asp:TableCell ColumnSpan="2">
                 <asp:FileUpload runat="server" ID="CoverLetterUpload" />
             </asp:TableCell>

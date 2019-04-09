@@ -31,6 +31,9 @@ public partial class RegisterAccount : System.Web.UI.Page
             Session["regions"] = null;
             Session["FileUpload1"] = null;
 
+            ProfessionLabel.Text = "";
+            skillLabel.Text = "";
+            regionLabel.Text = "";
             professionsLabel.Text = "";
             skillsetsLabel.Text = "";
             regionsLabel.Text = "";
@@ -269,6 +272,7 @@ public partial class RegisterAccount : System.Web.UI.Page
         if (!regionsList.Contains(int.Parse(Region.SelectedValue)) && int.Parse(Region.SelectedValue) != 0)
         {
             regionsList.Add(int.Parse(Region.SelectedValue));
+            regionLabel.Text = "Professions:";
             regionsLabel.Visible = true;
             regionsLabel.ForeColor = System.Drawing.Color.White;
             regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + "<br/>";
@@ -291,6 +295,7 @@ public partial class RegisterAccount : System.Web.UI.Page
         if (!skillsList.Contains(int.Parse(Skillset.SelectedValue)) && int.Parse(Skillset.SelectedValue) != 0)
         {
             skillsList.Add(int.Parse(Skillset.SelectedValue));
+            skillLabel.Text = "Skills:";
             skillsetsLabel.Visible = true;
             skillsetsLabel.ForeColor = System.Drawing.Color.White;
             skillsetsLabel.Text = skillsetsLabel.Text  + Skillset.SelectedItem + "<br/> ";
@@ -312,6 +317,7 @@ public partial class RegisterAccount : System.Web.UI.Page
         if (!professionList.Contains(int.Parse(Profession.SelectedValue)) && int.Parse(Profession.SelectedValue) != 0)
         {
             professionList.Add(int.Parse(Profession.SelectedValue));
+            ProfessionLabel.Text = "Professions:";
             professionsLabel.Visible = true;
             professionsLabel.ForeColor = System.Drawing.Color.White;
             professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + "<br/>";
