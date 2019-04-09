@@ -81,9 +81,10 @@
             </asp:TableCell>
         </asp:TableRow>
 
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center" CssClass="label-text">
-                <h4>Skills & Preferences</h4>
+
+        <asp:TableRow CssClass="border-top">
+            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
+                <asp:Label runat="server" CssClass="label-text"><h4>Skills & Preferences</h4></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
 
@@ -99,10 +100,12 @@
         </asp:TableRow>
 
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="professionsLabel" runat="server" CssClass="label-text"> </asp:Label>
-            </asp:TableCell>
+                <asp:TableCell ID="ProfessionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Professions:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="professionsLabel" runat="server" CssClass="label-text"><h5>Professions:</h5></asp:Label>
+                </asp:TableCell>
         </asp:TableRow>
+
 
         <asp:TableRow ID="SkillsetRow" runat="server">
             <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Skillset:</asp:TableCell>
@@ -115,10 +118,11 @@
         </asp:TableRow>
 
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"></asp:Label>
-            </asp:TableCell>
-        </asp:TableRow>
+                <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Skills:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"><h5>Skills:</h5></asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
 
         <asp:TableRow ID="RegionRow" runat="server">
             <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Preferred Region:</asp:TableCell>
@@ -130,15 +134,16 @@
             </asp:TableCell>
         </asp:TableRow>
 
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="3">
-                <asp:Label ID="regionsLabel" runat="server" CssClass="label-text"> </asp:Label>
-            </asp:TableCell>
-        </asp:TableRow>
+        <asp:TableRow >
+                <asp:TableCell ID="regionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Regions:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="regionsLabel" runat="server" CssClass="label-text"><h5>Regions:</h5></asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
 
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center" CssClass="label-text">
-                <h4>Upload Documents</h4>
+        <asp:TableRow CssClass="border-top">
+            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
+                <asp:Label runat="server" CssClass="label-text"><h4>Upload Documents</h4></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         

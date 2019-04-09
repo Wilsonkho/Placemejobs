@@ -30,6 +30,10 @@ public partial class RegisterAccount : System.Web.UI.Page
             Session["skills"] = null;
             Session["regions"] = null;
             Session["FileUpload1"] = null;
+
+            professionsLabel.Text = "";
+            skillsetsLabel.Text = "";
+            regionsLabel.Text = "";
         }
 
         Password.Attributes.Add("value", HidePassword.Value);
@@ -266,8 +270,8 @@ public partial class RegisterAccount : System.Web.UI.Page
         {
             regionsList.Add(int.Parse(Region.SelectedValue));
             regionsLabel.Visible = true;
-            regionsLabel.ForeColor = System.Drawing.Color.Blue;
-            regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+            regionsLabel.ForeColor = System.Drawing.Color.White;
+            regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + "<br/>";
         }
 
 
@@ -288,8 +292,8 @@ public partial class RegisterAccount : System.Web.UI.Page
         {
             skillsList.Add(int.Parse(Skillset.SelectedValue));
             skillsetsLabel.Visible = true;
-            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
-            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+            skillsetsLabel.ForeColor = System.Drawing.Color.White;
+            skillsetsLabel.Text = skillsetsLabel.Text  + Skillset.SelectedItem + "<br/> ";
         }
 
         Session["skills"] = skillsList;
@@ -309,8 +313,8 @@ public partial class RegisterAccount : System.Web.UI.Page
         {
             professionList.Add(int.Parse(Profession.SelectedValue));
             professionsLabel.Visible = true;
-            professionsLabel.ForeColor = System.Drawing.Color.Blue;
-            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
+            professionsLabel.ForeColor = System.Drawing.Color.White;
+            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + "<br/>";
         }
 
         Session["professions"] = professionList;
