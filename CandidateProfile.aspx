@@ -8,7 +8,7 @@
 
     <asp:Table runat="server" ID="AccountDetails" HorizontalAlign="Center" Class="table-active">
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
+            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center" CssClass="label-text">
                 <h4>Login Credentials</h4>
             </asp:TableCell>
         </asp:TableRow>
@@ -22,7 +22,7 @@
 
 
         <asp:TableRow CssClass="border-top">
-            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
+            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center" CssClass="label-text">
                 <h4>Personal Information</h4>
             </asp:TableCell>
         </asp:TableRow>
@@ -75,7 +75,7 @@
 
 
         <asp:TableRow CssClass="border-top">
-            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
+            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center" CssClass="label-text">
                 <h4>Skills & Preferences</h4>
             </asp:TableCell>
         </asp:TableRow>
@@ -95,7 +95,7 @@
             <asp:TableRow>
                 <asp:TableCell ID="ProfessionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Professions:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="professionsLabel" runat="server" CssClass="label-text"><h5>Professions:</h5></asp:Label>
+                    <asp:Label ID="professionsLabel" runat="server" CssClass="label-text" Font-Italic="true"><h5>Professions:</h5></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -115,7 +115,7 @@
             <asp:TableRow>
                 <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Skills:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"><h5>Skills:</h5></asp:Label>
+                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text" Font-Italic="true"><h5>Skills:</h5></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 
@@ -136,7 +136,7 @@
             <asp:TableRow >
                 <asp:TableCell ID="regionLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Regions:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="regionsLabel" runat="server" CssClass="label-text"><h5>Regions:</h5></asp:Label>
+                    <asp:Label ID="regionsLabel" runat="server" CssClass="label-text" Font-Italic="true"><h5>Regions:</h5></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
         <asp:TableRow>
@@ -146,7 +146,7 @@
 
 
         <asp:TableRow CssClass="border-top">
-            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center">
+            <asp:TableCell ColumnSpan="3" HorizontalAlign="Center" CssClass="label-text">
                 <h4>Upload Documents</h4>
             </asp:TableCell>
         </asp:TableRow>
