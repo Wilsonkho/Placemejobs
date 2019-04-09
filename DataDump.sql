@@ -1,0 +1,23 @@
+DELETE FROM UserJobPosting
+GO
+DELETE FROM UserRegion
+GO
+DELETE FROM UserProfession
+GO 
+DELETE FROM UserSkillset
+GO 
+DELETE FROM JobPostingSKillSet
+GO 
+DELETE FROM Region
+GO
+DELETE FROM Profession
+GO
+DELETE FROM JobPosting
+GO
+DELETE FROM Skillset
+GO 
+DELETE FROM Users
+
+
+
+
