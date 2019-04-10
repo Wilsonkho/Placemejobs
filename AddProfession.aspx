@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddProfession.aspx.cs" Inherits="AddProfession"  MasterPageFile="~/MasterPage.master"%>
+﻿<%@ Page Title="Add Profession" Language="C#" AutoEventWireup="true" CodeFile="AddProfession.aspx.cs" Inherits="AddProfession"  MasterPageFile="~/MasterPage.master"%>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
         <br /><br /><h1 class="text-center">Add New Profession</h1><br />

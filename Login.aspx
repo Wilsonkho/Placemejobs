@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" MasterPageFile="~/MasterPage.master"%>
+﻿<%@ Page Title="Login" Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" MasterPageFile="~/MasterPage.master"%>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
         <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">        
@@ -28,7 +28,7 @@
             </asp:TableCell>
             <asp:TableCell>
                 <asp:Textbox ID="UserEmail" runat="server" Text="tester@email.com" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="RequiredFieldvalidator1" ControlToValidate="UserEmail" Display="None" ErrorMessage="Cannot be empty." runat="server" />
+                <asp:RequiredFieldValidator ID="RequiredFieldvalidator1" ControlToValidate="UserEmail" Display="None" ErrorMessage="Email address cannot be empty." runat="server" />
             </asp:TableCell>
         </asp:TableRow>
 
@@ -38,7 +38,7 @@
             </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox ID="UserPass" TextMode="Password" runat="server" Text="password" CssClass="form-control"/>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="UserPass" ErrorMessage="Cannot be empty" runat="server" Display="None" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="UserPass" ErrorMessage="Password cannot be empty" runat="server" Display="None" />
             </asp:TableCell>
         </asp:TableRow>
 
@@ -47,7 +47,7 @@
                 <asp:Button ID="LoginButton" OnClick="Login_Click" Text="Login" runat="server" CssClass="btn btn-dark"/>
             </asp:TableCell>
             <asp:TableCell>
-                <asp:LinkButton ID="RegisterLink" runat="server" ForeColor="White" CssClass="float-right" OnClick="RegisterLink_Click">Register?</asp:LinkButton>
+                <asp:LinkButton ID="RegisterLink" runat="server" ForeColor="White" CssClass="float-right" OnClick="RegisterLink_Click" CausesValidation="false">Register?</asp:LinkButton>
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>

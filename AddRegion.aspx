@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddRegion.aspx.cs" Inherits="AddRegion"  MasterPageFile="~/MasterPage.master"%>
+﻿<%@ Page Title="Add Region" Language="C#" AutoEventWireup="true" CodeFile="AddRegion.aspx.cs" Inherits="AddRegion"  MasterPageFile="~/MasterPage.master"%>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
         <br /><br /><h1 class="text-center">Add New Region</h1><br />

@@ -1,5 +1,5 @@
 ﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewCandidates.aspx.cs" Inherits="ViewCandidates" MasterPageFile="~/MasterPage.master" %>
+<%@ Page Title="View Candidates" Language="C#" AutoEventWireup="true" CodeFile="ViewCandidates.aspx.cs" Inherits="ViewCandidates" MasterPageFile="~/MasterPage.master" %>
 
 <asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
 

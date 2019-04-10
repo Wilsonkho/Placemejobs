@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UpdateProfession.aspx.cs" Inherits="UpdateProfession" %>
+﻿<%@ Page Title="Update Profession" Language="C#" AutoEventWireup="true" CodeFile="UpdateProfession.aspx.cs" Inherits="UpdateProfession" %>
 
 <!DOCTYPE html>
 

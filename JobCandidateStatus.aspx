@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="JobCandidateStatus.aspx.cs" Inherits="JobCandidateStatus" MasterPageFile="~/MasterPage.master"%>
+﻿<%@ Page Title="Job Candidate Status" Language="C#" AutoEventWireup="true" CodeFile="JobCandidateStatus.aspx.cs" Inherits="JobCandidateStatus" MasterPageFile="~/MasterPage.master"%>
 
 <asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
 

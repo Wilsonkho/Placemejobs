@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UpdateRegion.aspx.cs" Inherits="UpdateRegion" %>
+﻿<%@ Page Title="Update Region" Language="C#" AutoEventWireup="true" CodeFile="UpdateRegion.aspx.cs" Inherits="UpdateRegion" %>
 
 <!DOCTYPE html>
 
