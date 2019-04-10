@@ -135,7 +135,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
                         //Set color to green
                         //Results.ForeColor = System.Drawing.Color.Green;
                         //Results.Text = "Candidate was added";
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Candidate was added Successfully')", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Candidate was added successfully.')", true);
                         #region add professions
                         int newUserID;
                         newUserID = controller.GetUserIDByEmail(EmailTextBox.Text);

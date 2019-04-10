@@ -135,7 +135,7 @@ public partial class ModifyJobPosting : System.Web.UI.Page
                     controller.AddJobSkillSets(jobPosting.JobPostingID, skill);
                 }
                 ClearForm();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job posting has updated successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job posting has updated successfully.')", true);
             }
 
         }

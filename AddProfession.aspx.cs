@@ -25,7 +25,7 @@ public partial class AddProfession : System.Web.UI.Page
             if (confirmation)
             {
                 Confirmation.Text = "Profession added successfully.";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was added successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was added successfully.')", true);
             }
             else
             {

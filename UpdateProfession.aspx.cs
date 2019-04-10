@@ -51,7 +51,7 @@ public partial class UpdateProfession : System.Web.UI.Page
             if (confirmation)
             {
                 Confirmation.Text = "Profession updated successfully.";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was updated successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was updated successfully.')", true);
             }
         }
         catch (Exception ex)

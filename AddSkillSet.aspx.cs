@@ -27,21 +27,31 @@ public partial class AddSkillSet : System.Web.UI.Page
     }
     protected void SkillSetAddButton1_Click(object sender, EventArgs e)
     {
-        bool confirmation = false;
-        PRMS controller = new PRMS();
-
-        int ProfessionID = Convert.ToInt32(Profession.Text);
-        //confirmation = controller.UpdateSkillSet(ProfessionID,);
-        confirmation = controller.AddSkillSet(SkillsetDescription.Text, ProfessionID);
-
-        if (confirmation)
+        try
         {
-            Confirmation.Text = "Skillset added successfully.";
+            bool confirmation = false;
+            PRMS controller = new PRMS();
+
+            int ProfessionID = Convert.ToInt32(Profession.Text);
+            //confirmation = controller.UpdateSkillSet(ProfessionID,);
+            confirmation = controller.AddSkillSet(SkillsetDescription.Text, ProfessionID);
+
+            if (confirmation)
+            {
+                Confirmation.Text = "Skillset added successfully.";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Skillset was added successfully.')", true);
+            }
+            else
+            {
+                Confirmation.Text = "Error has occurred.";
+            }
         }
-        else
+        catch (Exception)
         {
-            Confirmation.Text = "Error has occurred.";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with adding a skillset. Please contact customer support for assistance if this issue persists.’)", true);
+            throw;
         }
+
     }
 
 }

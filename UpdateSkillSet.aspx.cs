@@ -46,7 +46,7 @@ public partial class UpdateSkillSet : System.Web.UI.Page
             confirmation = controller.UpdateSkillSet(UpdateDescription.Text, skillsetID, ProfessionID);
             if (confirmation)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Skillset was updated successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Skillset was updated successfully.')", true);
             }
         }
         catch (Exception)

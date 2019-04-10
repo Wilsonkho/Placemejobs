@@ -14,22 +14,32 @@ public partial class Register : System.Web.UI.Page
 
     protected void Reg_Click(object sender, EventArgs e)
     {
-        User NewUser = new User();
-        NewUser.UserEmail = UserEmail.Text;
-        NewUser.UserPassword = UserPass.Text;
-        NewUser.FirstName = FirstNameBox.Text;
-        NewUser.LastName = LastNameBox.Text;
-
-        PRMS Control = new PRMS();
-
-        if (Control.AddUser(NewUser))
+        try
         {
-            Confirmation.Text = "User account created. ";
-            Login.Visible = true;
+            User NewUser = new User();
+            NewUser.UserEmail = UserEmail.Text;
+            NewUser.UserPassword = UserPass.Text;
+            NewUser.FirstName = FirstNameBox.Text;
+            NewUser.LastName = LastNameBox.Text;
+
+            PRMS Control = new PRMS();
+
+            if (Control.AddUser(NewUser))
+            {
+                Confirmation.Text = "User account created. ";
+                Login.Visible = true;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Account registered successfully.')", true);
+            }
+            else
+            {
+                Confirmation.Text = "Failed to register user";
+            }
         }
-        else
+        catch (Exception)
         {
-            Confirmation.Text = "Failed to register user";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error occurred while with registering account. Please contact customer support for assistance if this issue persists.')", true);
+            throw;
         }
+
     }
 }

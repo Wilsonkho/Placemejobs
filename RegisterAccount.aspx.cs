@@ -72,8 +72,8 @@ public partial class RegisterAccount : System.Web.UI.Page
 
     protected void Submit_Click(object sender, EventArgs e)
     {
-        //try
-        //{
+        try
+        {
             List<int> list;
             bool dropdownsChecked = true;
             list = (List<int>)Session["professions"];
@@ -229,7 +229,7 @@ public partial class RegisterAccount : System.Web.UI.Page
                             Results.Text = "Error occurred with sending email.";
                         }
 
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have successfully registered an account')", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have successfully registered an account.')", true);
                     }
                     #endregion
                 }
@@ -243,13 +243,13 @@ public partial class RegisterAccount : System.Web.UI.Page
             {
                 Results.Text = "You must select at least one profession, skill, and region preference.";
             }
-        //}
-        //catch (Exception ex)
-        //{
+    }
+        catch (Exception ex)
+        {
 
-        //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''Error occurred with registering account. Please contact customer support for assistance if this issue persists.'')", true);
-        //    Results.Text = ex.ToString();
-        //}
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''Error occurred with registering account. Please contact customer support for assistance if this issue persists.'')", true);
+            Results.Text = ex.ToString();
+        }
 
 
     }

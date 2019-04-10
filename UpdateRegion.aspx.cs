@@ -41,7 +41,7 @@ public partial class UpdateRegion : System.Web.UI.Page
             if (confirmation)
             {
                 Confirmation.Text = "Region updated successfully.";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was updated successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was updated successfully.')", true);
             }
         }
         catch (Exception ex)

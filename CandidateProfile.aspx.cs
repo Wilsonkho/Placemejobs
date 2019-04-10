@@ -108,7 +108,7 @@ public partial class CandidateProfile : System.Web.UI.Page
             if (controller.UpdateProfile(UpdateCandidate))
             {
                 UpdatedLabel.Text = "Your information has been updated";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Your profile was updated successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Your profile was updated successfully.')", true);
             }
             else
             {

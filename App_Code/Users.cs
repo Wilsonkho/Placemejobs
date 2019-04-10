@@ -213,8 +213,8 @@ public class Users
         bool success = false;
         newcandidate.UserPassword = CreatePasswordHash(newcandidate.UserPassword, CreateSalt(5));
 
-        try
-        {
+        //try
+        //{
             SqlConnection con;
             con = new SqlConnection();
             //con.ConnectionString = "Data Source=DataBaist; Initial Catalog = Placemejobs; Integrated Security=True";
@@ -255,37 +255,37 @@ public class Users
             Phone.Direction = ParameterDirection.Input;
             Phone.Value = newcandidate.Phone;
 
-            SqlParameter Resume = new SqlParameter();
-            Resume.ParameterName = "@Resume";
-            Resume.SqlDbType = SqlDbType.NVarChar;
-            Resume.Direction = ParameterDirection.Input;
-            Resume.Value = newcandidate.Resume;
+            SqlParameter ResumeParameter = new SqlParameter();
+            ResumeParameter.ParameterName = "@Resume";
+            ResumeParameter.SqlDbType = SqlDbType.NVarChar;
+            ResumeParameter.Direction = ParameterDirection.Input;
+            ResumeParameter.Value = newcandidate.Resume;
 
-            SqlParameter CoverLetter = new SqlParameter();
-            CoverLetter.ParameterName = "@CoverLetter";
-            CoverLetter.SqlDbType = SqlDbType.NVarChar;
-            CoverLetter.Direction = ParameterDirection.Input;
-            CoverLetter.Value = newcandidate.CoverLetter;
+            SqlParameter CoverLetterParameter = new SqlParameter();
+            CoverLetterParameter.ParameterName = "@CoverLetter";
+            CoverLetterParameter.SqlDbType = SqlDbType.NVarChar;
+            CoverLetterParameter.Direction = ParameterDirection.Input;
+            CoverLetterParameter.Value = newcandidate.CoverLetter;
 
             cmd.Parameters.Add(Email);
             cmd.Parameters.Add(Password);
             cmd.Parameters.Add(FirstName);
             cmd.Parameters.Add(LastName);
             cmd.Parameters.Add(Phone);
-            cmd.Parameters.Add(Resume);
-            cmd.Parameters.Add(CoverLetter);
+            cmd.Parameters.Add(ResumeParameter);
+            cmd.Parameters.Add(CoverLetterParameter);
 
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
 
             success = true;
-        }
-        catch (Exception e)
-        {
+        //}
+        //catch (Exception e)
+        //{
 
-            return success;
-        }
+        //    return success;
+        //}
         return success;
 
     }

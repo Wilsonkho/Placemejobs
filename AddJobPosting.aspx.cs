@@ -97,7 +97,7 @@ public partial class AddJobPosting : System.Web.UI.Page
                 controller.AddJobSkillSets(newJobID, skill);
             }
             ClearForm();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job posting added successfully')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job posting added successfully.')", true);
         }
         catch (Exception ex)
         {

@@ -24,18 +24,18 @@ public partial class AddRegion : System.Web.UI.Page
             if (confirmation)
             {
                 Confirmation.Text = "Region added successfully.";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was added successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was added successfully.')", true);
             }
             else
             {
                 Confirmation.Text = "Error has occurred.";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with adding a region. Please contact customer support for assistance if this issue persists.’)", true);
+                
             }
             Region.Text = "";
         }
         catch (Exception)
         {
-
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with adding a region. Please contact customer support for assistance if this issue persists.’)", true);
             throw;
         }
     }
