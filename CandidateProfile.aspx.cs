@@ -190,16 +190,31 @@ public partial class CandidateProfile : System.Web.UI.Page
     }
     protected void ViewCoverLetterButton_Click(object sender, EventArgs e)
     {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUserID + "/CoverLetter/" + CurrentUserCoverLetter;
+        try
+        {
+            string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUserID + "/CoverLetter/" + CurrentUserCoverLetter;
 
-        Response.Redirect(path);
+            Response.Redirect(path);
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘File does not exist.’)", true);
+        }
     }
 
     protected void ViewResumeButton_Click(object sender, EventArgs e)
     {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUserID + "/Resume/" + CurrentUserResume;
+        try
+        {
+            string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + CurrentUserID + "/Resume/" + CurrentUserResume;
 
-        Response.Redirect(path);
+            Response.Redirect(path);
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘File does not exist.’)", true);
+        }
+
     }
 
 
