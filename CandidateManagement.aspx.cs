@@ -107,16 +107,32 @@ public partial class CandidateManagement : System.Web.UI.Page
 
     protected void ViewCoverLetterButton_Click(object sender, EventArgs e, int userID, string coverLetter)
     {
+        try
+        {
         string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/CoverLetter/" + coverLetter;
 
         Response.Redirect(path);
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘File does not exist.’)", true);
+        }
+
     }
 
     protected void ViewResumeButton_Click(object sender, EventArgs e, int userID, string resume)
     {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/Resume/" + resume;
+        try
+        {
+            string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/Resume/" + resume;
 
-        Response.Redirect(path);
+            Response.Redirect(path);
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘File does not exist.’)", true);
+        }
+
     }
 
     protected void AssignButton_Click(object sender, EventArgs e, int userID, string date)
