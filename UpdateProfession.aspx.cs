@@ -46,11 +46,8 @@ public partial class UpdateProfession : System.Web.UI.Page
             int professionID = Convert.ToInt32(Profession.Text);
             confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
 
-            //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
-
             if (confirmation)
             {
-                Confirmation.Text = "Profession updated successfully.";
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was updated successfully.')", true);
             }
         }
@@ -58,5 +55,11 @@ public partial class UpdateProfession : System.Web.UI.Page
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating profession. Please contact customer support for assistance if this issue persists.’)", true);
         }
+    }
+
+
+    protected void Delete_Click(object sender, EventArgs e)
+    {
+
     }
 }
