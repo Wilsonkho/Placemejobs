@@ -1,7 +1,5 @@
-CREATE DATABASE Placemejobs
-GO
-USE Placemejobs
-GO
+USE Placemejobs;
+
 CREATE TABLE Users (
 	UserID INT IDENTITY (1,1) PRIMARY KEY,
 	Email VARCHAR(100) UNIQUE,
@@ -13,25 +11,24 @@ CREATE TABLE Users (
 	[Password] VARCHAR(100) NULL,
 	ActiveInactive BIT NULL,
 	Roles VARCHAR (10) NOT NULL
-	)
-GO
+	);
+
 CREATE TABLE Region (
 	RegionID INT IDENTITY (1,1) PRIMARY KEY,
 	[Description] VARCHAR(30)
-	)
-GO
+	);
+
 CREATE TABLE Profession (
 	ProfessionID INT IDENTITY(1,1) PRIMARY KEY,
 	[Description] VARCHAR(30)
-	)
-GO	
+	);
+
 CREATE TABLE Skillset (
 	SkillsetID INT IDENTITY(1,1) PRIMARY KEY,
-	[Description] VARCHAR(30),
-	ProfessionID INT CHECK(ProfessionID > 0) FOREIGN KEY REFERENCES Profession(ProfessionID)
-	)
+	[Description] VARCHAR(30)
+	);
 
-GO
+
 CREATE TABLE JobPosting (
 	JobPostingID INT IDENTITY (1,1) PRIMARY KEY,
 	[Description] VARCHAR(3000),
@@ -39,41 +36,40 @@ CREATE TABLE JobPosting (
 	RegionID INT CHECK (RegionID > 0) FOREIGN KEY REFERENCES Region(RegionID),
 	[Date] DATE,
 	Active BIT
-	)
+	);
 ALTER TABLE JobPosting
-	ADD EmployerPhone VARCHAR(10), CompanyName VARCHAR(30)
+	ADD EmployerPhone VARCHAR(10), CompanyName VARCHAR(30);
 
-GO
+
 CREATE TABLE UserProfession (
 	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
 	ProfessionID INT CHECK (ProfessionID > 0),
 	PRIMARY KEY (UserID, ProfessionID)
-	)
+	);
 
-GO
+
 CREATE TABLE UserSkillset (
 	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
 	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
 	PRIMARY KEY (UserID, SkillsetID)
-	)
-GO
+	);
+
 CREATE TABLE UserRegion(
 	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
 	RegionID INT CHECK (RegionID > 0) FOREIGN KEY REFERENCES Region(RegionID),
-	PRIMARY KEY (UserID, RegionID))
-GO
+	PRIMARY KEY (UserID, RegionID));
+
 CREATE TABLE UserJobPosting(
 	UserID INT CHECK (UserID > 0) FOREIGN KEY REFERENCES Users(UserID),
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
 	Status VARCHAR(20),
 	StatusDate DATE,
-	PRIMARY KEY (UserID, JobPostingID))
+	PRIMARY KEY (UserID, JobPostingID));
 
-GO
 CREATE TABLE JobPostingSKillSet(
 	JobPostingID INT CHECK (JobPostingID > 0) FOREIGN KEY REFERENCES JobPosting(JobPostingID),
 	SkillsetID INT CHECK(SkillsetID > 0) FOREIGN KEY REFERENCES Skillset(SkillsetID),
-	PRIMARY KEY (JobPostingID, SKillsetID))
+	PRIMARY KEY (JobPostingID, SKillsetID));
 GO
 CREATE PROCEDURE AddCandidateAsAdmin (
 	@Email VARCHAR(100) = NULL,
@@ -118,13 +114,13 @@ AS
 	RETURN @ReturnCode
 GO
 CREATE PROCEDURE AddCandidates (
-	@Email varchar(100),
-	@Phone VARCHAR(10),
-	@FirstName VARCHAR(15),
-	@LastName VARCHAR(15),
-	@Resume VARCHAR(100),
-	@CoverLetter VARCHAR(100),
-	@Password VARCHAR(100)
+	@Email varchar(100)=NULL,
+	@Phone VARCHAR(10)=NULL,
+	@FirstName VARCHAR(15)=NULL,
+	@LastName VARCHAR(15)=NULL,
+	@Resume VARCHAR(100)=NULL,
+	@CoverLetter VARCHAR(100)=NULL,
+	@Password VARCHAR(100)=NULL
 	)
 	AS
 	SET NOCOUNT ON
@@ -305,7 +301,7 @@ GO
 CREATE PROCEDURE AddUser @Email VARCHAR(100), @Password VARCHAR(100) ,@FirstName VARCHAR(15), @LastName VARCHAR(15)
 	AS
 		INSERT INTO Users (Email, [Password], FirstName, LastName, Roles)
-		VALUES (@Email, @Password, @FirstName, @LastName, 'Candidate')
+		VALUES (@Email, @Password, @FirstName, @LastName, 'Admin')
 
 GO
 CREATE PROCEDURE AddUserProfession (@UserID INT = NULL, @ProfessionID INT = NULL)
@@ -969,7 +965,7 @@ CREATE PROCEDURE JobMatch @JobID INT
 					AND JobPosting.JobPostingID=JobPostingSKillSet.JobPostingID
 					AND JobPosting.RegionID=UserRegion.RegionID
 					LEFT JOIN UserJobPosting ON Users.UserID = UserJobPosting.UserID
-		WHERE JobPosting.JobPostingID=@JobID AND UserJobPosting.UserID IS NULL AND ActiveInactive=0
+		WHERE JobPosting.JobPostingID=@JobID AND UserJobPosting.UserID IS NULL AND ActiveInactive=1
 GO
 	CREATE procedure PopulateJobPostingSkillset
 	@jobpostingid int, @skillsetid int
@@ -994,7 +990,6 @@ CREATE procedure PopulateSkillSet
 	as
 	set nocount on
 	insert into Skillset(Description) values(@Description)
-
 GO
 	CREATE procedure PopulateUserJobPosting
 	@UserID int, @Jobpostingid  int
@@ -1105,4 +1100,4 @@ GO
 	@UpdatedDescription VARCHAR(30),	@ProfessionID int, @SkillSetID int
 	as 
 	set nocount on
-	update Skillset set [Description] = @UpdatedDescription where ProfessionID= @ProfessionID and SkillsetID = @SkillSetID
+	update Skillset set [Description] = @UpdatedDescription where SkillsetID = @SkillSetID
