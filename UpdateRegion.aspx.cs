@@ -18,6 +18,7 @@ public partial class UpdateRegion : System.Web.UI.Page
     }
     protected void BindDropDowns()
     {
+        Region.Items.Clear();
         PRMS controller = new PRMS();
 
         Region.DataSource = controller.GetRegions();
@@ -34,19 +35,45 @@ public partial class UpdateRegion : System.Web.UI.Page
             bool confirmation = false;
             PRMS controller = new PRMS();
             int regionID = Convert.ToInt32(Region.Text);
-            //confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
-            confirmation = controller.UpdateRegion(UpdateDescription.Text, regionID);
-            //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
+            confirmation = controller.UpdateRegion(RegionUpdated.Text, regionID);
 
             if (confirmation)
             {
-                Confirmation.Text = "Region updated successfully.";
+                ClearForm();
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was updated successfully.')", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was not updated.')", true);
             }
         }
         catch (Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating region. Please contact customer support for assistance if this issue persists.’)", true);
+        }
+    }
+
+    private void ClearForm()
+    {
+        Region.SelectedValue = "0";
+        RegionUpdated.Text = "";
+        BindDropDowns();
+    }
+
+    protected void Delete_Click(object sender, EventArgs e)
+    {
+        PRMS controller = new PRMS();
+        bool Success;
+        Success = controller.DeleteRegion(Region.SelectedValue);
+        if (Success)
+        {
+            ClearForm();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region Deleted')", true);
+
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region not Deleted')", true);
         }
     }
 }

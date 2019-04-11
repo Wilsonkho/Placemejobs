@@ -64,12 +64,12 @@ public partial class UpdateSkillSet : System.Web.UI.Page
         if (Success)
         {
             ClearForm();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession Deleted')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Skillset Deleted')", true);
 
         }
         else
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession not Deleted')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Skillset not Deleted')", true);
         }
     }
 }

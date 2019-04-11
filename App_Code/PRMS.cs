@@ -92,6 +92,12 @@ public class PRMS
         return confirmation;
     }
 
+    public bool DeleteRegion(string regionID)
+    {
+        Regions regionManager = new Regions();
+        return regionManager.DeleteRegion(regionID);
+    }
+
     public bool DeleteSkillset(string skillID)
     {
         Skillsets skillsetManager = new Skillsets();

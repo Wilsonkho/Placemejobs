@@ -97,6 +97,52 @@ public class Regions
         return Success;
     }
 
+    public bool DeleteRegion(string regionID)
+    {
+        bool Success;
+        SqlConnection PlacemeJobsConnection;
+        PlacemeJobsConnection = new SqlConnection();
+        PlacemeJobsConnection.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand DeleteRegionCommand;
+        DeleteRegionCommand = new SqlCommand();
+        DeleteRegionCommand.CommandType = CommandType.StoredProcedure;
+        DeleteRegionCommand.Connection = PlacemeJobsConnection;
+        DeleteRegionCommand.CommandText = "DeleteRegion";
+
+        SqlParameter RegionID;
+        RegionID = new SqlParameter();
+        RegionID.ParameterName = "@RegionID";
+        RegionID.SqlDbType = SqlDbType.Int;
+        RegionID.Direction = ParameterDirection.Input;
+        RegionID.Value = regionID;
+
+        SqlParameter ReturnParameter;
+        ReturnParameter = new SqlParameter();
+        ReturnParameter.ParameterName = "ReturnValue";
+        ReturnParameter.SqlDbType = SqlDbType.Int;
+        ReturnParameter.Direction = ParameterDirection.ReturnValue;
+
+
+
+
+        DeleteRegionCommand.Parameters.Add(RegionID);
+        DeleteRegionCommand.Parameters.Add(ReturnParameter);
+        PlacemeJobsConnection.Open();
+
+
+        int rowsAffected = DeleteRegionCommand.ExecuteNonQuery();
+        if (rowsAffected != 0)
+        {
+            Success = true;
+        }
+        else
+        {
+            Success = false;
+        }
+        return Success;
+    }
+
     public bool AddRegion(string description)
     {
         SqlConnection con;
