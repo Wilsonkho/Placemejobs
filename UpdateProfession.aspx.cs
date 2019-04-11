@@ -17,6 +17,7 @@ public partial class UpdateProfession : System.Web.UI.Page
     }
     protected void BindDropDowns()
     {
+        Profession.Items.Clear();
         PRMS controller = new PRMS();
 
         Profession.DataSource = controller.GetProfessions();
@@ -48,6 +49,7 @@ public partial class UpdateProfession : System.Web.UI.Page
 
             if (confirmation)
             {
+                ClearForm();
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was updated successfully.')", true);
             }
         }
@@ -57,9 +59,27 @@ public partial class UpdateProfession : System.Web.UI.Page
         }
     }
 
+    private void ClearForm()
+    {
+        Profession.SelectedValue = "0";
+        UpdateDescription.Text = "";
+        BindDropDowns();
+    }
 
     protected void Delete_Click(object sender, EventArgs e)
     {
+        PRMS controller = new PRMS();
+        bool Success;
+        Success = controller.DeleteProfession(Profession.SelectedValue);
+        if (Success)
+        {
+            ClearForm();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession Deleted')", true);
 
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession not Deleted')", true);
+        }
     }
 }
