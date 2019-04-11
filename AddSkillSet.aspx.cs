@@ -12,18 +12,18 @@ public partial class AddSkillSet : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            BindDropDowns();
+            //BindDropDowns();
         }
     }
     protected void BindDropDowns()
     {
-        PRMS controller = new PRMS();
+        //PRMS controller = new PRMS();
 
-        Profession.DataSource = controller.GetProfessions();
-        Profession.DataTextField = "Description";
-        Profession.DataValueField = "ProfessionID";
-        Profession.Items.Insert(0, new ListItem("Select Profession...", "0"));
-        Profession.DataBind();
+        //Profession.DataSource = controller.GetProfessions();
+        //Profession.DataTextField = "Description";
+        //Profession.DataValueField = "ProfessionID";
+        //Profession.Items.Insert(0, new ListItem("Select Profession...", "0"));
+        //Profession.DataBind();
     }
     protected void SkillSetAddButton1_Click(object sender, EventArgs e)
     {
@@ -32,9 +32,9 @@ public partial class AddSkillSet : System.Web.UI.Page
             bool confirmation = false;
             PRMS controller = new PRMS();
 
-            int ProfessionID = Convert.ToInt32(Profession.Text);
+            //int ProfessionID = Convert.ToInt32(Profession.Text);
             //confirmation = controller.UpdateSkillSet(ProfessionID,);
-            confirmation = controller.AddSkillSet(SkillsetDescription.Text, ProfessionID);
+            confirmation = controller.AddSkillSet(SkillsetDescription.Text);
 
             if (confirmation)
             {

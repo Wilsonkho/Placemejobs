@@ -26,11 +26,11 @@
                 <td> <asp:TextBox ID="SkillsetDescription" runat="server"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
+<%--            <tr>
                 <td class="auto-style2">select Profession:</td>
                 <td> <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                      </td>
-            </tr>
+            </tr>--%>
         </table>
         &nbsp;<asp:Button ID="SkillsetAddButton" runat="server" Text="Submit" OnClick="SkillSetAddButton1_Click" />
         <br />

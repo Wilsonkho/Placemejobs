@@ -213,12 +213,12 @@ public class PRMS
         return JobPostingManager.GetJobPosting(JobPostingID);
     }
 
-    public bool AddSkillSet(string SkillSetDescription, int ProfessionID)
+    public bool AddSkillSet(string SkillSetDescription)
     {
         bool confirmation = false;
 
         Skillsets skillsetsManager = new Skillsets();
-        confirmation = skillsetsManager.AddSkillSet(SkillSetDescription, ProfessionID);
+        confirmation = skillsetsManager.AddSkillSet(SkillSetDescription);
 
         return confirmation;
     }
