@@ -69,7 +69,7 @@ public partial class JobCandidateStatus : System.Web.UI.Page
                 Button viewCoverLetterButton = new Button();
                 viewCoverLetterButton.ID = "ViewCoverLetterButton" + index;
                 viewCoverLetterButton.Text = "View";
-                viewCoverLetterButton.CssClass = "btn btn-outline-primary";
+                viewCoverLetterButton.CssClass = "btn btn-dark";
                 viewCoverLetterButton.Click += new EventHandler((obj, eArgs) => ViewCoverLetterButton_Click(obj, eArgs, item.UserID, item.CoverLetter));
                 aNewCell.Controls.Add(viewCoverLetterButton);
                 aNewRow.Cells.Add(aNewCell);
@@ -78,7 +78,7 @@ public partial class JobCandidateStatus : System.Web.UI.Page
                 Button viewResumeButton = new Button();
                 viewResumeButton.ID = "ViewResumeButton" + index;
                 viewResumeButton.Text = "View";
-                viewResumeButton.CssClass = "btn btn-outline-primary";
+                viewResumeButton.CssClass = "btn btn-dark";
                 viewResumeButton.Click += new EventHandler((obj, eArgs) => ViewResumeButton_Click(obj, eArgs, item.UserID, item.Resume));
                 aNewCell.Controls.Add(viewResumeButton);
                 aNewRow.Cells.Add(aNewCell);
@@ -142,16 +142,31 @@ public partial class JobCandidateStatus : System.Web.UI.Page
 
     protected void ViewCoverLetterButton_Click(object sender, EventArgs e, int userID, string coverLetter)
     {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/CoverLetter/" + coverLetter;
+        try
+        {
+            string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/CoverLetter/" + coverLetter;
 
-        Response.Redirect(path);
+            Response.Redirect(path);
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''File does not exist.'')", true);
+        }
     }
 
     protected void ViewResumeButton_Click(object sender, EventArgs e, int userID, string resume)
     {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/Resume/" + resume;
+        try
+        {
+            string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/Resume/" + resume;
 
-        Response.Redirect(path);
+            Response.Redirect(path);
+        }
+        catch (Exception)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''File does not exist.'')", true);
+        }
+
     }
 
 

@@ -136,6 +136,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
                         //Results.ForeColor = System.Drawing.Color.Green;
                         //Results.Text = "Candidate was added";
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Candidate was added successfully.')", true);
+                        Page.Response.Redirect(Page.Request.Url.ToString(), true);
                         #region add professions
                         int newUserID;
                         newUserID = controller.GetUserIDByEmail(EmailTextBox.Text);
@@ -185,6 +186,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
         }
         catch (Exception)
         {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Must have at least one profession, skill, and region added.’)", true);
             Results.Text = "Candidate must have at least one profession, skill, and region added.";            
             throw;
         }
