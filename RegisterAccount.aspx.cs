@@ -230,6 +230,7 @@ public partial class RegisterAccount : System.Web.UI.Page
                         }
 
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have successfully registered an account.')", true);
+                        Page.Response.Redirect(Page.Request.Url.ToString(), true);
                     }
                     #endregion
                 }
@@ -242,6 +243,7 @@ public partial class RegisterAccount : System.Web.UI.Page
             else //if(dropdownsChecked)
             {
                 Results.Text = "You must select at least one profession, skill, and region preference.";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Must have at least one profession, skill, and region added.’)", true);
             }
     }
         catch (Exception ex)

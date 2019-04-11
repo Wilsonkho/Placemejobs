@@ -20,7 +20,7 @@ public partial class JobPostingStatus : System.Web.UI.Page
             TableHeaderRow tableHRow = new TableHeaderRow();
             List<String> headerList = new List<String>()
             {
-                "JobPostingID", "CompanyName", "Description", "Status", "Modify"
+                "JobPostingID", "CompanyName", "Description", "Assigned Candidates", "Modify"
             };
 
             foreach (string header in headerList)
@@ -57,7 +57,7 @@ public partial class JobPostingStatus : System.Web.UI.Page
                 Button viewButton = new Button();
                 viewButton.ID = "ViewButton" + index;
                 viewButton.Text = "View";
-                viewButton.CssClass = "btn btn-outline-primary";
+                viewButton.CssClass = "btn btn-dark";
                 viewButton.Click += new EventHandler((obj, eArgs) => ViewButton_Click(obj, eArgs, item.JobPostingID, item.CompanyName, item.Description));
                 aNewCell.Controls.Add(viewButton);
                 aNewRow.Cells.Add(aNewCell);
@@ -66,7 +66,7 @@ public partial class JobPostingStatus : System.Web.UI.Page
                 Button UpdateButton = new Button();
                 UpdateButton.ID = "Update" + index;
                 UpdateButton.Text = "Update";
-                UpdateButton.CssClass = "btn btn-outline-primary";
+                UpdateButton.CssClass = "btn btn-dark";
                 UpdateButton.Click += new EventHandler((obj, eArgs) => UpdateButton_Click(obj, eArgs, item.JobPostingID));
                 aNewCell.Controls.Add(UpdateButton);
                 aNewRow.Cells.Add(aNewCell);

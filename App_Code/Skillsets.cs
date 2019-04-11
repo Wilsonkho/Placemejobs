@@ -103,6 +103,52 @@ public class Skillsets
         return Success;
     }
 
+    internal bool DeleteSkillSet(string skillID)
+    {
+        bool Success;
+        SqlConnection PlacemeJobsConnection;
+        PlacemeJobsConnection = new SqlConnection();
+        PlacemeJobsConnection.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand DeleteSkillCommand;
+        DeleteSkillCommand = new SqlCommand();
+        DeleteSkillCommand.CommandType = CommandType.StoredProcedure;
+        DeleteSkillCommand.Connection = PlacemeJobsConnection;
+        DeleteSkillCommand.CommandText = "DeleteSkillset";
+
+        SqlParameter SkillID;
+        SkillID = new SqlParameter();
+        SkillID.ParameterName = "@SkillID";
+        SkillID.SqlDbType = SqlDbType.Int;
+        SkillID.Direction = ParameterDirection.Input;
+        SkillID.Value = skillID;
+
+        SqlParameter ReturnParameter;
+        ReturnParameter = new SqlParameter();
+        ReturnParameter.ParameterName = "ReturnValue";
+        ReturnParameter.SqlDbType = SqlDbType.Int;
+        ReturnParameter.Direction = ParameterDirection.ReturnValue;
+
+
+
+
+        DeleteSkillCommand.Parameters.Add(SkillID);
+        DeleteSkillCommand.Parameters.Add(ReturnParameter);
+        PlacemeJobsConnection.Open();
+
+
+        int rowsAffected = DeleteSkillCommand.ExecuteNonQuery();
+        if (rowsAffected != 0)
+        {
+            Success = true;
+        }
+        else
+        {
+            Success = false;
+        }
+        return Success;
+    }
+
     public bool AddJobSkill(int jobID, int skillID)
     {
         bool Success;
@@ -221,13 +267,10 @@ public class Skillsets
 
         SqlParameter SkillSetIDParameter;
         SqlParameter UpdatedDescriptionParameter;
-        SqlParameter ProfessionIDParameter;
 
         SkillSetIDParameter = new SqlParameter();
         UpdatedDescriptionParameter = new SqlParameter();
-        ProfessionIDParameter = new SqlParameter();
         UpdatedDescriptionParameter.ParameterName = "@UpdatedDescription";
-        ProfessionIDParameter.ParameterName = "@ProfessionId";
         SkillSetIDParameter.ParameterName = "@SkillSetID";
 
         SkillSetIDParameter.SqlDbType = SqlDbType.Int;
@@ -235,18 +278,14 @@ public class Skillsets
 
         UpdatedDescriptionParameter.SqlDbType = SqlDbType.NChar;
         UpdatedDescriptionParameter.Direction = ParameterDirection.Input;
-
-        ProfessionIDParameter.SqlDbType = SqlDbType.Int;
-        ProfessionIDParameter.Direction = ParameterDirection.Input;
+        
    
         UpdatedDescriptionParameter.Value = updatedSkillSetDescription;
-        ProfessionIDParameter.Value = professionID;
         SkillSetIDParameter.Value = skillsetid;
 
         con.Open();
 
         UpdateSkillSetCommand.Parameters.Add(UpdatedDescriptionParameter);
-        UpdateSkillSetCommand.Parameters.Add(ProfessionIDParameter);
         UpdateSkillSetCommand.Parameters.Add(SkillSetIDParameter);
 
         int rowsAffected = UpdateSkillSetCommand.ExecuteNonQuery();
