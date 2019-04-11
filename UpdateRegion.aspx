@@ -1,28 +1,47 @@
-﻿<%@ Page Title="Update Region" Language="C#" AutoEventWireup="true" CodeFile="UpdateRegion.aspx.cs" Inherits="UpdateRegion" %>
+﻿<%@ Page Title="Update Region" Language="C#" AutoEventWireup="true" CodeFile="UpdateRegion.aspx.cs" Inherits="UpdateRegion" MasterPageFile="~/MasterPage.master"%>
 
-<!DOCTYPE html>
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
+    <br /><br /><h1 class="text-center header-blue">Modify Region</h1><br />  
+    
+    <asp:Table runat="server" ID="UpdateRegionTable" HorizontalAlign="Center" CssClass="table-active">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-      <table class="auto-style1">
-                 <tr>
-     <asp:TableRow ID="RegionRow" runat="server">
-                <asp:TableCell HorizontalAlign="Right">Region:</asp:TableCell>
+        <asp:TableRow runat="server">
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Region:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:CompareValidator ID="RegionCompareValidator" runat="server" ErrorMessage="Must Select Region" ControlToValidate="Region" 
+                        ValueToCompare="0" Operator="NotEqual" Display="None"  ></asp:CompareValidator>                   
+                </asp:TableCell>
+        </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell CssClass="label-text">
+                    <h5>New Region Title:</h5>
+                </asp:TableCell>
                 <asp:TableCell>
-          <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-                    <br /> Enter UpdatedRegion:   <asp:TextBox ID="UpdateDescription" runat="server"></asp:TextBox>                                
-             <asp:Button ID="RegionUpdateButton" runat="server" Text="Submit" OnClick="RegionUpdateButton1_Click" />
-              </asp:TableCell>
-              </asp:TableRow>
-                 </tr>
-                 </table>
-        <asp:Label ID="Confirmation" runat="server" Text="Label"></asp:Label>              
-             &nbsp;&nbsp;&nbsp;
-    </form>
-</body>
-</html>
+                    <asp:TextBox runat="server" ID="RegionUpdated" CssClass="form-control" ></asp:TextBox> 
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="RegionUpdated" ErrorMessage="Must input text into New Region Title" Display="None"></asp:RequiredFieldValidator>                           
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Button ID="RegionUpdateButton" runat="server" Text="Update" OnClick="RegionUpdateButton1_Click" CssClass="btn btn-dark" />&nbsp;&nbsp;
+                    <asp:Button ID="Delete" runat="server" Text="Delete" OnClick="Delete_Click" CssClass="btn btn-dark" OnClientClick="return AlertFunction();"/>
+                </asp:TableCell>
+            </asp:TableRow>
+        </asp:Table>
+    <asp:ValidationSummary ShowSummary="false" ShowMessageBox="true" runat="server" />
+    <script>
+        function AlertFunction() {
+            if (confirm('Are you sure you want to delete?')) {
+                return;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+</asp:Content>
   

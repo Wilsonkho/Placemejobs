@@ -23,13 +23,12 @@ public partial class AddRegion : System.Web.UI.Page
 
             if (confirmation)
             {
-                Confirmation.Text = "Region added successfully.";
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was added successfully.')", true);
             }
             else
             {
-                Confirmation.Text = "Error has occurred.";
-                
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Region was not added.')", true);
+
             }
             Region.Text = "";
         }
