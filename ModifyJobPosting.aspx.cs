@@ -213,8 +213,10 @@ public partial class ModifyJobPosting : System.Web.UI.Page
         if(Success)
         {
             ClearForm();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Deleted')", true);
-            
+            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Job Posting Deleted')", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(),"alert","alert('Job Posting Deleted');window.location ='ViewJobPosting.aspx';",true);
+            //Response.Redirect("ViewJobPosting.aspx");
+
         }
         else
         {
