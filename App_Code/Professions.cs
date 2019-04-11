@@ -226,8 +226,8 @@ public class Professions
         PlacemeJobsConnection.Open();
 
 
-        DeleteProfessionCommand.ExecuteNonQuery();
-        if ((int)DeleteProfessionCommand.Parameters["ReturnValue"].Value == 0)
+        int rowsAffected = DeleteProfessionCommand.ExecuteNonQuery();
+        if (rowsAffected != 0)
         {
             Success = true;
         }
