@@ -101,6 +101,7 @@ public class Professions
         return Success;
     }
 
+
     public bool AddProfession(string professiondescription)
     {
         SqlConnection con;
@@ -190,5 +191,50 @@ public class Professions
             success = false;
         }
         return success;
+    }
+    public bool DeleteProfession(string professionID)
+    {
+        bool Success;
+        SqlConnection PlacemeJobsConnection;
+        PlacemeJobsConnection = new SqlConnection();
+        PlacemeJobsConnection.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand DeleteProfessionCommand;
+        DeleteProfessionCommand = new SqlCommand();
+        DeleteProfessionCommand.CommandType = CommandType.StoredProcedure;
+        DeleteProfessionCommand.Connection = PlacemeJobsConnection;
+        DeleteProfessionCommand.CommandText = "DeleteProfession";
+
+        SqlParameter ProfessionID;
+        ProfessionID = new SqlParameter();
+        ProfessionID.ParameterName = "@ProfessionID";
+        ProfessionID.SqlDbType = SqlDbType.Int;
+        ProfessionID.Direction = ParameterDirection.Input;
+        ProfessionID.Value = professionID;
+
+        SqlParameter ReturnParameter;
+        ReturnParameter = new SqlParameter();
+        ReturnParameter.ParameterName = "ReturnValue";
+        ReturnParameter.SqlDbType = SqlDbType.Int;
+        ReturnParameter.Direction = ParameterDirection.ReturnValue;
+
+
+
+
+        DeleteProfessionCommand.Parameters.Add(ProfessionID);
+        DeleteProfessionCommand.Parameters.Add(ReturnParameter);
+        PlacemeJobsConnection.Open();
+
+
+        int rowsAffected = DeleteProfessionCommand.ExecuteNonQuery();
+        if (rowsAffected != 0)
+        {
+            Success = true;
+        }
+        else
+        {
+            Success = false;
+        }
+        return Success;
     }
 }

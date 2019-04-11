@@ -163,7 +163,7 @@
         </asp:TableRow>
         
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Submit" Text="Submit Candidate" OnClick="Submit_Click" Class="btn btn-dark"/></asp:TableCell>
+            <asp:TableCell ColumnSpan="2"><asp:Button runat="server" ID="Submit" Text="Submit" OnClick="Submit_Click" Class="btn btn-dark"/></asp:TableCell>
             <asp:TableCell ColumnSpan="1"><asp:Button runat="server" ID="Clear" Text="Clear"  Class="btn btn-dark" OnClick="Clear_Click" CausesValidation="false"/></asp:TableCell>
         </asp:TableRow>
 

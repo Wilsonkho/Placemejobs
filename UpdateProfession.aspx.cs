@@ -17,6 +17,7 @@ public partial class UpdateProfession : System.Web.UI.Page
     }
     protected void BindDropDowns()
     {
+        Profession.Items.Clear();
         PRMS controller = new PRMS();
 
         Profession.DataSource = controller.GetProfessions();
@@ -46,17 +47,39 @@ public partial class UpdateProfession : System.Web.UI.Page
             int professionID = Convert.ToInt32(Profession.Text);
             confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
 
-            //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
-
             if (confirmation)
             {
-                Confirmation.Text = "Profession updated successfully.";
+                ClearForm();
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession was updated successfully.')", true);
             }
         }
         catch (Exception ex)
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating profession. Please contact customer support for assistance if this issue persists.’)", true);
+        }
+    }
+
+    private void ClearForm()
+    {
+        Profession.SelectedValue = "0";
+        UpdateDescription.Text = "";
+        BindDropDowns();
+    }
+
+    protected void Delete_Click(object sender, EventArgs e)
+    {
+        PRMS controller = new PRMS();
+        bool Success;
+        Success = controller.DeleteProfession(Profession.SelectedValue);
+        if (Success)
+        {
+            ClearForm();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession Deleted')", true);
+
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession not Deleted')", true);
         }
     }
 }

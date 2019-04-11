@@ -102,6 +102,12 @@ public class PRMS
         return confirmation;
     }
 
+    public bool DeleteProfession(string professionID)
+    {
+        Professions professionManager = new Professions();
+        return professionManager.DeleteProfession(professionID);
+    }
+
     public bool AddUserRegions(int userID, int regionID)
     {
         bool confirmation = false;
