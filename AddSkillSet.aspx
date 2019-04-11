@@ -1,27 +1,40 @@
-﻿<%@ Page Title="Add SkillSet" Language="C#" AutoEventWireup="true" CodeFile="AddSkillSet.aspx.cs" Inherits="AddSkillSet" MasterPageFile="~/MasterPage.master" %>
+﻿
+<%@ Page Title="Add SkillSet" Language="C#" AutoEventWireup="true" CodeFile="AddSkillSet.aspx.cs" Inherits="AddSkillSet" %>
 
-<asp:Content ContentPlaceHolderID="MainContent" runat="server">
-<br /><br /><h1 class="text-center header-blue">Add New Skillset</h1><br />
+<!DOCTYPE html>
 
-
-
-     <asp:Table ID="SkillsetTable" runat="server" CssClass="table-active" HorizontalAlign="Center">
-        <asp:TableRow>
-            <asp:TableCell CssClass="label-text">
-                <h5>Skillset:</h5>
-            </asp:TableCell>
-            <asp:TableCell>                
-                <asp:TextBox ID="Skillset" runat="server" CssClass="form-control"></asp:TextBox>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Skillset" ErrorMessage="Must input text in Skillset" Display="None"></asp:RequiredFieldValidator>
-            </asp:TableCell>
-        </asp:TableRow>
-
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="2">
-                <asp:Button ID="AddSkillsetButton" runat="server" class="btn btn-dark" Text="Add" OnClick="SkillSetAddButton1_Click" />
-            </asp:TableCell>
-        </asp:TableRow>
-        
-        </asp:Table>
-    <asp:ValidationSummary ShowSummary="false" ShowMessageBox="true" runat="server" />
-</asp:Content>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        .auto-style2 {
+            width: 215px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:Image ID="Image1" ImageUrl="~/images/Logos/PMJ@0.5x.png" runat="server" Height="37px" Width="207px" />
+        <h1>Placemejob Add SkillSet</h1> 
+        <br />
+        <table class="auto-style1">
+            <tr>
+                <td class="auto-style2">Add Skillset:</td>
+                <td> <asp:TextBox ID="SkillsetDescription" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+<%--            <tr>
+                <td class="auto-style2">select Profession:</td>
+                <td> <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                     </td>
+            </tr>--%>
+        </table>
+        &nbsp;<asp:Button ID="SkillsetAddButton" runat="server" Text="Submit" OnClick="SkillSetAddButton1_Click" />
+        <br />
+        <asp:Label ID="Confirmation" runat="server" Text="Label"></asp:Label>
+    </form>
+</body>
+</html>

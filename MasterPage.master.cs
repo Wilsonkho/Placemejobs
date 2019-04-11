@@ -126,9 +126,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             FormsAuthentication.SignOut();
             FormsAuthentication.RedirectToLoginPage();
-            Response.Redirect("Default.aspx");
-        }
-        else
+        }else
         {
             Response.Redirect("/Default.aspx");
         }

@@ -92,12 +92,6 @@ public class PRMS
         return confirmation;
     }
 
-    public bool DeleteSkillset(string skillID)
-    {
-        Skillsets skillsetManager = new Skillsets();
-        return skillsetManager.DeleteSkillSet(skillID);
-    }
-
     public bool AddUserSkills(int userID, int skillID)
     {
         bool confirmation = false;

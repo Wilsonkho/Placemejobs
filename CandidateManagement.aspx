@@ -1,4 +1,4 @@
-﻿ <%@ Page Title="Candidate Management" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="CandidateManagement.aspx.cs" Inherits="CandidateManagement" %>
+﻿<%@ Page Title="Candidate Management" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="CandidateManagement.aspx.cs" Inherits="CandidateManagement" %>
 <asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
 
 
@@ -22,7 +22,7 @@
     </div>
     
     <asp:Table ID="QualifiedCandidate" runat="server" class="table table-striped table-bordered"/>
-    <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" Class="btn btn-dark"/><br />
+    <asp:Button ID="BackButton" runat="server" Text="Back" OnClick="BackButton_Click" /><br />
     
 </asp:Content>
 

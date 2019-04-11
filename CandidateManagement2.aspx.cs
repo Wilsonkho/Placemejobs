@@ -57,7 +57,7 @@ public partial class CandidateManagement2 : System.Web.UI.Page
                 Button viewButton = new Button();
                 viewButton.ID = "ViewButton" + index;
                 viewButton.Text = "View";
-                viewButton.CssClass = "btn btn-dark";
+                viewButton.CssClass = "btn btn-outline-primary";
                 viewButton.Click += new EventHandler((obj, eArgs) => ViewButton_Click(obj, eArgs, item.JobPostingID, item.CompanyName, item.Description));
                 aNewCell.Controls.Add(viewButton);
                 aNewRow.Cells.Add(aNewCell);
