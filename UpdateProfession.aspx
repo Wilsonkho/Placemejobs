@@ -1,19 +1,19 @@
 ﻿<%@ Page Title="Update Profession" Language="C#" AutoEventWireup="true" CodeFile="UpdateProfession.aspx.cs" Inherits="UpdateProfession" MasterPageFile="~/MasterPage.master" %>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
-    <br /><br /><h1 class="text-center">Modify Profession</h1><br />  
+    <br /><br /><h1 class="text-center header-blue">Modify Profession</h1><br />  
     
     <asp:Table runat="server" ID="UpdateProfessionTable" HorizontalAlign="Center" CssClass="table-active">
 
         <asp:TableRow ID="ProfessionRow" runat="server">
-                <asp:TableCell HorizontalAlign="Right">Profession:</asp:TableCell>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Profession:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
                     <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>                     
                 </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableCell>
-                Enter Updated Profession:      
+            <asp:TableCell CssClass="label-text">
+                <h5>Enter Updated Profession:</h5>
             </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox ID="UpdateDescription" runat="server" CssClass="form-control"></asp:TextBox>                                
