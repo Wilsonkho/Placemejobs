@@ -17,6 +17,7 @@ public partial class UpdateSkillSet : System.Web.UI.Page
 
     protected void BindDropDowns()
     {
+        Skillset.Items.Clear();
         PRMS controller = new PRMS();
 
         Skillset.DataSource = controller.GetSkillsets();
@@ -24,12 +25,6 @@ public partial class UpdateSkillSet : System.Web.UI.Page
         Skillset.DataValueField = "SkillsetID";
         Skillset.Items.Insert(0, new ListItem("Select Skillset...", "0"));
         Skillset.DataBind();
-
-        Profession.DataSource = controller.GetProfessions();
-        Profession.DataTextField = "Description";
-        Profession.DataValueField = "ProfessionID";
-        Profession.Items.Insert(0, new ListItem("Select Profession...", "0"));
-        Profession.DataBind();
     }
 
     protected void SkillSetUpdateButton1_Click(object sender, EventArgs e)
@@ -39,13 +34,11 @@ public partial class UpdateSkillSet : System.Web.UI.Page
             bool confirmation = false;
             PRMS controller = new PRMS();
             int skillsetID = Convert.ToInt32(Skillset.Text);
-            int ProfessionID = Convert.ToInt32(Profession.Text);
-            //confirmation = controller.UpdateProfession(UpdateDescription.Text, professionID);
-            //confirmation = controller.UpdateRegion(UpdateDescription.Text, skillsetID);
-            //confirmation = controller.AddSkillSet(SkillSet.Text, professionID);
-            confirmation = controller.UpdateSkillSet(UpdateDescription.Text, skillsetID, ProfessionID);
+            int ProfessionID = Convert.ToInt32(Skillset.Text);
+            confirmation = controller.UpdateSkillSet(UpdateSkillset.Text, skillsetID, ProfessionID);
             if (confirmation)
             {
+                ClearForm();
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Skillset was updated successfully.')", true);
             }
         }
@@ -53,6 +46,30 @@ public partial class UpdateSkillSet : System.Web.UI.Page
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(‘Error occurred with updating skillset. Please contact customer support for assistance if this issue persists.’)", true);
             throw;
+        }
+    }
+
+    private void ClearForm()
+    {
+        Skillset.SelectedValue = "0";
+        UpdateSkillset.Text = "";
+        BindDropDowns();
+    }
+
+    protected void Delete_Click(object sender, EventArgs e)
+    {
+        PRMS controller = new PRMS();
+        bool Success;
+        Success = controller.DeleteSkillset(Skillset.SelectedValue);
+        if (Success)
+        {
+            ClearForm();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession Deleted')", true);
+
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Profession not Deleted')", true);
         }
     }
 }
