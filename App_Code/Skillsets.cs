@@ -156,7 +156,7 @@ public class Skillsets
     }
 
 
-    public bool AddSkillSet(string skillSetDescription, int professionID)
+    public bool AddSkillSet(string skillSetDescription)
     {
         SqlConnection con;
         con = new SqlConnection();
@@ -169,27 +169,27 @@ public class Skillsets
         AddRegionCommand.CommandText = "PopulateSkillSet";
 
         SqlParameter descriptionparameter;
-        SqlParameter ProfessionIdParameter;
+        //SqlParameter ProfessionIdParameter;
 
         descriptionparameter = new SqlParameter();
-        ProfessionIdParameter = new SqlParameter();
+        //ProfessionIdParameter = new SqlParameter();
 
         descriptionparameter.ParameterName = "@Description";
-        ProfessionIdParameter.ParameterName = "@ProfessionID";
+        //ProfessionIdParameter.ParameterName = "@ProfessionID";
 
         descriptionparameter.SqlDbType = SqlDbType.NChar;
         descriptionparameter.Direction = ParameterDirection.Input;
 
-        ProfessionIdParameter.SqlDbType = SqlDbType.Int;
-        ProfessionIdParameter.Direction = ParameterDirection.Input;
+        //ProfessionIdParameter.SqlDbType = SqlDbType.Int;
+        //ProfessionIdParameter.Direction = ParameterDirection.Input;
 
         descriptionparameter.Value = skillSetDescription;
-        ProfessionIdParameter.Value = professionID;
+        //ProfessionIdParameter.Value = professionID;
 
         con.Open();
 
         AddRegionCommand.Parameters.Add(descriptionparameter);
-        AddRegionCommand.Parameters.Add(ProfessionIdParameter);
+        //AddRegionCommand.Parameters.Add(ProfessionIdParameter);
 
         int rowsAffected = AddRegionCommand.ExecuteNonQuery();
 
