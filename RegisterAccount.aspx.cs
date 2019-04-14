@@ -228,10 +228,8 @@ public partial class RegisterAccount : System.Web.UI.Page
                         {
                             Results.Text = "Error occurred with sending email.";
                         }
-
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have successfully registered an account.')", true);
-                        Page.Response.Redirect(Page.Request.Url.ToString(), true);
                     }
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('You have successfully registered an account.');window.location ='RegisterAccount.aspx';", true);
                     #endregion
                 }
                 else //if(success)

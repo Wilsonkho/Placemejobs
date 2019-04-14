@@ -58,12 +58,12 @@ public partial class ReportDisplay : System.Web.UI.Page
         doc.Add(new Paragraph("Date: " + DateTime.Now.ToString() + "\n\n"));
 
 
-        PdfPTable table = new PdfPTable(5);
+        PdfPTable table = new PdfPTable(4);
         table.AddCell("First Name");
         table.AddCell("Last Name");
         table.AddCell("Email");
         table.AddCell("Phone");
-        table.AddCell("Date");
+        //table.AddCell("Date");
 
         foreach (var userJobPostingItem in userJobPostingList)
         {
@@ -99,7 +99,7 @@ public partial class ReportDisplay : System.Web.UI.Page
                     table.AddCell(aUser.LastName);
                     table.AddCell(aUser.UserEmail);
                     table.AddCell(aUser.Phone);
-                    table.AddCell(statusDate);
+                    //table.AddCell(statusDate);
                    
                 }
                 doc.Add(table);
