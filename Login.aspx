@@ -27,7 +27,7 @@
                 <h5>Email Address:</h5>
             </asp:TableCell>
             <asp:TableCell>
-                <asp:Textbox ID="UserEmail" runat="server" Text="tester@email.com" CssClass="form-control" />
+                <asp:Textbox ID="UserEmail" runat="server" CssClass="form-control" />
                 <asp:RequiredFieldValidator ID="RequiredFieldvalidator1" ControlToValidate="UserEmail" Display="None" ErrorMessage="Email address cannot be empty." runat="server" />
             </asp:TableCell>
         </asp:TableRow>
@@ -37,7 +37,7 @@
                 <h5>Password:</h5>
             </asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox ID="UserPass" TextMode="Password" runat="server" Text="password" CssClass="form-control"/>
+                <asp:TextBox ID="UserPass" TextMode="Password" runat="server" CssClass="form-control"/>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="UserPass" ErrorMessage="Password cannot be empty" runat="server" Display="None" />
             </asp:TableCell>
         </asp:TableRow>
