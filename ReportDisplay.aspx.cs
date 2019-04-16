@@ -12,6 +12,8 @@ using System.Web.UI.HtmlControls;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using System.Data.SqlClient;
+using System.Configuration;
 
 public partial class ReportDisplay : System.Web.UI.Page
 {
@@ -39,6 +41,48 @@ public partial class ReportDisplay : System.Web.UI.Page
         Response.OutputStream.Close();
         m.Close();
     }
+    public string GetStatusDate (int UserID, int JobPostingID, string Status)
+    {
+        string StatusDate; 
+        SqlConnection con;
+        con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["key"].ConnectionString;
+
+        SqlCommand cmd;
+        cmd = new SqlCommand("");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+        cmd.CommandText = "GetUserJobStatus";
+
+        SqlParameter UseridParameter;
+        UseridParameter = new SqlParameter();
+        UseridParameter.ParameterName = "@UserID";
+        UseridParameter.Value = UserID;
+
+        SqlParameter JobPostingParameter;
+        JobPostingParameter = new SqlParameter();
+        JobPostingParameter.ParameterName = "@JobPostingID";
+        JobPostingParameter.Value = JobPostingID;
+
+        SqlParameter JobStatus;
+        JobStatus = new SqlParameter();
+        JobStatus.ParameterName = "@Status";
+        JobStatus.Value = Status;
+
+        cmd.Parameters.Add(UseridParameter);
+        cmd.Parameters.Add(JobPostingParameter);
+        cmd.Parameters.Add(JobStatus);
+
+
+        con.Open();
+
+        SqlDataReader reader = cmd.ExecuteReader();
+        reader.Read();
+        StatusDate = Convert.ToDateTime(reader["StatusDate"]).ToString("MMM dd, yyyy");
+        con.Close();
+
+        return StatusDate;
+    }
 
     protected void PopulatePDF(ref iTextSharp.text.Document doc)
     {
@@ -61,12 +105,12 @@ public partial class ReportDisplay : System.Web.UI.Page
 
         foreach (var userJobPostingItem in userJobPostingList)
         {
-            table = new PdfPTable(4);
+            table = new PdfPTable(5);
             table.AddCell("First Name");
             table.AddCell("Last Name");
             table.AddCell("Email");
             table.AddCell("Phone");
-            //table.AddCell("Date");
+            table.AddCell("Date");
 
             int searchJobPostingID = userJobPostingItem.JobPostingID;
             string statusDate = userJobPostingItem.StatusDate.ToString("MMM dd, yyyy");
@@ -100,7 +144,7 @@ public partial class ReportDisplay : System.Web.UI.Page
                     table.AddCell(aUser.LastName);
                     table.AddCell(aUser.UserEmail);
                     table.AddCell(aUser.Phone);
-                    //table.AddCell(statusDate);
+                    table.AddCell(GetStatusDate(searchUserID,searchJobPostingID,Request["Status"]));
                    
                 }
                 doc.Add(table);

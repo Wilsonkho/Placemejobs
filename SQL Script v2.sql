@@ -1102,3 +1102,9 @@ GO
 	set nocount on
 	update Skillset set [Description] = @UpdatedDescription where SkillsetID = @SkillSetID
 
+GO 
+CREATE PROCEDURE GetUserJobStatus (@UserID INT, @JobPostingID INT, @Status VARCHAR(20))
+	AS
+		SELECT StatusDate
+		FROM UserJobPosting
+		WHERE UserID=@UserID AND JobPostingID=@JobPostingID AND Status=@Status
