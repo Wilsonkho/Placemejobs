@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 public partial class CandidateManagement : System.Web.UI.Page
 {
@@ -65,6 +66,11 @@ public partial class CandidateManagement : System.Web.UI.Page
                 viewCoverLetterButton.Text = "View";
                 viewCoverLetterButton.CssClass = "btn btn-dark";
                 viewCoverLetterButton.Click += new EventHandler((obj, eArgs) => ViewCoverLetterButton_Click(obj, eArgs, item.UserID, item.CoverLetter));
+                string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + item.UserID + "/CoverLetter/" + item.CoverLetter;
+                if (File.Exists(path))
+                {
+                    viewCoverLetterButton.Enabled = false;
+                }
                 aNewCell.Controls.Add(viewCoverLetterButton);
                 aNewRow.Cells.Add(aNewCell);
 
@@ -74,6 +80,11 @@ public partial class CandidateManagement : System.Web.UI.Page
                 viewResumeButton.Text = "View";
                 viewResumeButton.CssClass = "btn btn-dark";
                 viewResumeButton.Click += new EventHandler((obj, eArgs) => ViewResumeButton_Click(obj, eArgs, item.UserID, item.Resume));
+                string path2 = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + item.UserID + "/CoverLetter/" + item.Resume;
+                if (File.Exists(path2))
+                {
+                    viewResumeButton.Enabled = false;
+                }
                 aNewCell.Controls.Add(viewResumeButton);
                 aNewRow.Cells.Add(aNewCell);
 
@@ -109,9 +120,9 @@ public partial class CandidateManagement : System.Web.UI.Page
     {
         try
         {
-        string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/CoverLetter/" + coverLetter;
+            string path = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath + "/Files/" + userID + "/CoverLetter/" + coverLetter;
 
-        Response.Redirect(path);
+            Response.Redirect(path);
         }
         catch (Exception)
         {
