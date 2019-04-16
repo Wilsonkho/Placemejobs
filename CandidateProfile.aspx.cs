@@ -28,7 +28,18 @@ public partial class CandidateProfile : System.Web.UI.Page
             CurrentUser = UserController.ViewProfile(cp.Identity.Name);
             CurrentUserID = CurrentUser.UserID;
             CurrentUserCoverLetter = CurrentUser.CoverLetter;
-            CurrentUserResume = CurrentUser.Resume;           
+            CurrentUserResume = CurrentUser.Resume;
+            string strPath = Server.MapPath("~");
+            string path = strPath + "\\Files\\" + CurrentUser.UserID + "\\CoverLetter\\" + CurrentUser.CoverLetter;
+            if (!File.Exists(path))
+            {
+                ViewCoverLetter.Enabled = false;
+            }
+            string path2 = strPath + "\\Files\\" + CurrentUser.UserID + "\\Resume\\" + CurrentUser.Resume;
+            if (!File.Exists(path2))
+            {
+                ViewResume.Enabled = false;
+            }
 
 
             if (!IsPostBack)
