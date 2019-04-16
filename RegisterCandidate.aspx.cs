@@ -70,6 +70,7 @@ public partial class RegisterCandidate : System.Web.UI.Page
 
                 PRMS controller = new PRMS();
 
+                
                 #region add user
                 success = controller.AddCandidate(newCandidate);
 
