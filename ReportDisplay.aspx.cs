@@ -57,16 +57,17 @@ public partial class ReportDisplay : System.Web.UI.Page
         doc.Add(new Chunk("Candidate Status Report (" + Request["status"] + ")", FontFactory.GetFont("arial", 22f)).SetUnderline(1f, -1.5f));
         doc.Add(new Paragraph("Date: " + DateTime.Now.ToString() + "\n\n"));
 
-
-        PdfPTable table = new PdfPTable(4);
-        table.AddCell("First Name");
-        table.AddCell("Last Name");
-        table.AddCell("Email");
-        table.AddCell("Phone");
-        //table.AddCell("Date");
+        PdfPTable table;
 
         foreach (var userJobPostingItem in userJobPostingList)
         {
+            table = new PdfPTable(4);
+            table.AddCell("First Name");
+            table.AddCell("Last Name");
+            table.AddCell("Email");
+            table.AddCell("Phone");
+            //table.AddCell("Date");
+
             int searchJobPostingID = userJobPostingItem.JobPostingID;
             string statusDate = userJobPostingItem.StatusDate.ToString("MMM dd, yyyy");
 
