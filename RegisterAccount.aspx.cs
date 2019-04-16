@@ -215,7 +215,7 @@ public partial class RegisterAccount : System.Web.UI.Page
                         message.BodyEncoding = System.Text.Encoding.UTF8;
                         message.IsBodyHtml = true;
 
-                        SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                        SmtpClient client = new SmtpClient("smtp.gmail.com", 25);
                         client.UseDefaultCredentials = false;
                         client.EnableSsl = true;
                         client.Credentials = new NetworkCredential("automatedreplyfromplacemejob@gmail.com", "mejob986");
