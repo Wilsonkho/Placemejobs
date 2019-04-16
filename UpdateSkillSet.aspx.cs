@@ -35,7 +35,7 @@ public partial class UpdateSkillSet : System.Web.UI.Page
             PRMS controller = new PRMS();
             int skillsetID = Convert.ToInt32(Skillset.Text);
             int ProfessionID = Convert.ToInt32(Skillset.Text);
-            confirmation = controller.UpdateSkillSet(UpdateSkillset.Text, skillsetID, ProfessionID);
+            confirmation = controller.UpdateSkillSet(UpdateSkillset.Text, skillsetID);
             if (confirmation)
             {
                 ClearForm();

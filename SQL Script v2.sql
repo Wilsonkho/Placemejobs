@@ -1096,8 +1096,9 @@ GO
 	update Region set [Description] = @updatedRegionDescription where RegionID= @RegionID
 GO
 
-	CREATE procedure UpdateSkillSet
-	@UpdatedDescription VARCHAR(30),	@ProfessionID int, @SkillSetID int
+	Create procedure UpdateSkillSet
+	@UpdatedDescription VARCHAR(30),	 @SkillSetID int
 	as 
 	set nocount on
 	update Skillset set [Description] = @UpdatedDescription where SkillsetID = @SkillSetID
+

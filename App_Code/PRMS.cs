@@ -203,7 +203,6 @@ public class PRMS
     }
 
 
-
     public bool AddRegion(string description)
     {
         bool confirmation = false;
@@ -261,12 +260,12 @@ public class PRMS
         return confirmation;
     }
 
-    public bool UpdateSkillSet(string UpdatedSkillSetDescription, int skillsetid, int ProfessionID)
+    public bool UpdateSkillSet(string UpdatedSkillSetDescription, int skillsetid)
     {
         bool confirmation = false;
 
         Skillsets skillsetManager = new Skillsets();
-        confirmation = skillsetManager.UpdateSkillSet(UpdatedSkillSetDescription, skillsetid, ProfessionID);
+        confirmation = skillsetManager.UpdateSkillSet(UpdatedSkillSetDescription, skillsetid);
 
         return confirmation;
     }

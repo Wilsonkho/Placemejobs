@@ -252,7 +252,7 @@ public class Skillsets
     }
 
 
-    public bool UpdateSkillSet(string updatedSkillSetDescription, int skillsetid, int professionID)
+    public bool UpdateSkillSet(string updatedSkillSetDescription, int skillsetid)
     {
 
         SqlConnection con;
