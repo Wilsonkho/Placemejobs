@@ -126,4 +126,5 @@ public partial class AddJobPosting : System.Web.UI.Page
         Session.Clear();
         skillsetsLabel.Text = "";
     }
+
 }

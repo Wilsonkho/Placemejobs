@@ -67,7 +67,7 @@
             <asp:TableRow CssClass="border-bottom">
                 <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Skills:</h5></asp:TableCell>
                 <asp:TableCell ColumnSpan="2">
-                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"><h5>Skills:</h5></asp:Label>
+                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 

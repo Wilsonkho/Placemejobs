@@ -9,7 +9,7 @@
         <h1>View Candidates by Job Matches</h1>
         <hr />
     </div>
-    <asp:Table ID="JobPostingsTable" runat="server" class="table table-striped table-bordered" />
+    <asp:Table ID="JobPostingsTable" runat="server" class="table table-striped table-bordered table-white" />
  
 </asp:Content>
 

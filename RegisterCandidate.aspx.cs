@@ -233,8 +233,8 @@ public partial class RegisterCandidate : System.Web.UI.Page
         {
             professionList.Add(int.Parse(Profession.SelectedValue));
             professionsLabel.Visible = true;
-            professionsLabel.ForeColor = System.Drawing.Color.Blue;
-            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + ",";
+            professionsLabel.ForeColor = System.Drawing.Color.White;
+            professionsLabel.Text = professionsLabel.Text + " " + Profession.SelectedItem + "<br>";
         }
 
         Session["professions"] = professionList;
@@ -255,8 +255,8 @@ public partial class RegisterCandidate : System.Web.UI.Page
         {
             skillsList.Add(int.Parse(Skillset.SelectedValue));
             skillsetsLabel.Visible = true;
-            skillsetsLabel.ForeColor = System.Drawing.Color.Blue;
-            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + ",";
+            skillsetsLabel.ForeColor = System.Drawing.Color.White;
+            skillsetsLabel.Text = skillsetsLabel.Text + " " + Skillset.SelectedItem + "<br>";
         }
         
         Session["skills"] = skillsList;
@@ -277,8 +277,8 @@ public partial class RegisterCandidate : System.Web.UI.Page
         {
             regionsList.Add(int.Parse(Region.SelectedValue));
             regionsLabel.Visible = true;
-            regionsLabel.ForeColor = System.Drawing.Color.Blue;
-            regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + ",";
+            regionsLabel.ForeColor = System.Drawing.Color.White;
+            regionsLabel.Text = regionsLabel.Text + " " + Region.SelectedItem + "<br>";
         }
 
 
@@ -291,4 +291,23 @@ public partial class RegisterCandidate : System.Web.UI.Page
         Response.Redirect(Request.RawUrl);
     }
 
+    protected void ClearSkillsButton_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        skillsetsLabel.Text = "";
+    }
+
+
+
+    protected void ClearProfessionsButton_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        professionsLabel.Text = "";
+    }
+
+    protected void ClearRegionButton_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        regionsLabel.Text = "";
+    }
 }

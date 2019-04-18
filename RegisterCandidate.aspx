@@ -50,53 +50,66 @@
                 </asp:TableCell>
             </asp:TableRow>            
          
-            <asp:TableRow ID="ProfessionRow" runat="server">
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Profession:</asp:TableCell>
-                <asp:TableCell>
-                    <asp:DropDownList runat="server" ID="Profession" Wrap="true" Class="form-control" AppendDataBoundItems="true">
-                    </asp:DropDownList>
-                </asp:TableCell>
-                <asp:TableCell>
-                    <asp:Button runat="server" ID="AddProfession" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddProfession_Click"/>
-                </asp:TableCell>
-            </asp:TableRow>
 
-            <asp:TableRow>
-                <asp:TableCell ColumnSpan="3" CssClass="label-text">
-                    <asp:Label ID="professionsLabel" runat="server">Professions: </asp:Label>
-                </asp:TableCell>
-            </asp:TableRow>
-
-            <asp:TableRow ID="SkillsetRow" runat="server">
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Skillset:</asp:TableCell>
+            <asp:TableRow CssClass="border-top">
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Skillset:</h5></asp:TableCell>
                 <asp:TableCell >
-                    <asp:DropDownList runat="server" ID="Skillset" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="Skillset" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                 </asp:TableCell>
-                <asp:TableCell  >
-                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click"/>
-                </asp:TableCell>
-            </asp:TableRow>
-
-            <asp:TableRow>
-                <asp:TableCell ColumnSpan="3" CssClass="label-text">
-                    <asp:Label ID="skillsetsLabel" runat="server">Skills: </asp:Label>
-                </asp:TableCell>
-            </asp:TableRow>
-
-            <asp:TableRow ID="RegionRow" runat="server">
-                <asp:TableCell HorizontalAlign="Right" CssClass="label-text">Region:</asp:TableCell>
                 <asp:TableCell>
-                    <asp:DropDownList runat="server" ID="Region" Wrap="true" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:Button runat="server" ID="AddSkill" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddSkill_Click" />&nbsp
+                    <asp:Button runat="server" ID="ClearSkillsButton" Text="Clear" Class="btn btn-dark" CausesValidation="false" OnClick="ClearSkillsButton_Click" 
+                        ToolTip="Click to clear the list of Skills"/>
                 </asp:TableCell>
-                <asp:TableCell  >
-                    <asp:Button runat="server" ID="AddRegion" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddRegion_Click"/>
+            </asp:TableRow>
+
+            <asp:TableRow CssClass="border-bottom">
+                <asp:TableCell ID="skillLabel" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Skills:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="skillsetsLabel" runat="server" CssClass="label-text"></asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
+
+              <asp:TableRow>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Profession:</h5></asp:TableCell>
+                <asp:TableCell>
+                    <asp:DropDownList runat="server" ID="Profession" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:CompareValidator ID="ProfessionCompareValidator" runat="server" ErrorMessage="Must Select Profession" ControlToValidate="Profession" 
+                        ValueToCompare="0" Operator="NotEqual" Display="None"></asp:CompareValidator>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button runat="server" ID="AddProfessionButton" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddProfession_Click" />&nbsp
+                    <asp:Button runat="server" ID="ClearProfessionsButton" Text="Clear" Class="btn btn-dark" CausesValidation="false" OnClick="ClearProfessionsButton_Click"
+                        ToolTip="Click to clear the list of Skills"/>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow CssClass="border-bottom">
+                <asp:TableCell ID="TableCell1" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Professions:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="professionsLabel" runat="server" CssClass="label-text"></asp:Label>
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell HorizontalAlign="Right" CssClass="label-text"><h5>Region:</h5></asp:TableCell>
+                <asp:TableCell>
+                    <asp:DropDownList runat="server" ID="Region" Class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                    <asp:CompareValidator ID="RegionCompareValidator" runat="server" ErrorMessage="Must Select Region" ControlToValidate="Region" 
+                        ValueToCompare="0" Operator="NotEqual" Display="None"></asp:CompareValidator>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button runat="server" ID="AddRegionButton" Text="Add" Class="btn btn-dark" CausesValidation="false" OnClick="AddRegion_Click" />&nbsp
+                    <asp:Button runat="server" ID="ClearRegionButton" Text="Clear" Class="btn btn-dark" CausesValidation="false" OnClick="ClearRegionButton_Click"
+                        ToolTip="Click to clear the list of Skills"/>
                 </asp:TableCell>
             </asp:TableRow>
 
 
-            <asp:TableRow>
-                <asp:TableCell ColumnSpan="3" CssClass="label-text">
-                    <asp:Label ID="regionsLabel" runat="server">Regions: </asp:Label>
+            <asp:TableRow CssClass="border-bottom">
+                <asp:TableCell ID="TableCell2" runat="server" ForeColor="White" HorizontalAlign="Right" VerticalAlign="Top"><h5>Professions:</h5></asp:TableCell>
+                <asp:TableCell ColumnSpan="2">
+                    <asp:Label ID="regionsLabel" runat="server" CssClass="label-text"></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
 

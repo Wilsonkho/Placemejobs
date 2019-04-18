@@ -10,7 +10,7 @@
 
 
     <div class="col-md-5 float-left">
-        <asp:Table ID="ContactTable" runat="server" CssClass="table">
+        <asp:Table ID="ContactTable" runat="server" CssClass="table table-white table-bordered table-striped">
             <asp:TableRow>
                 <asp:TableCell>Address:</asp:TableCell>
                 <asp:TableCell>

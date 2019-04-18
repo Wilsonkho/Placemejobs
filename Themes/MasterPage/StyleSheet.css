@@ -124,6 +124,10 @@
     }
 }
 
+.table-white{
+    background-color:white !important;
+}
+
     .table-active > tbody {
         /*background-color:#2c5685;*/
         background-image: linear-gradient(to bottom right, #298bf1 12%, #2c5685 75%);

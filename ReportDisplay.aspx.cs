@@ -17,6 +17,7 @@ using System.Configuration;
 
 public partial class ReportDisplay : System.Web.UI.Page
 {
+    List<int> idTrackerList = new List<int>();
     protected void Page_Load(object sender, EventArgs e)
     {
         MemoryStream m = new MemoryStream();
@@ -121,6 +122,7 @@ public partial class ReportDisplay : System.Web.UI.Page
                 if (idTrackerItem == searchJobPostingID)
                 {
                     exists = true;
+                    break;
                 }
                 else
                 {

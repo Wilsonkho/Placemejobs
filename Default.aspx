@@ -57,7 +57,7 @@
         seriously and based on the availability of suitable openings, it is positioned to prospective employer for hirings. If you are a corporate employer 
         please get in touch with us and we shall be more than happy to assist you to meet your requirements.</p>
     <h2 class="featurette-heading">Current Job Openings:</h2>
-    <asp:Table ID="JobPostingsTable" runat="server" class="table table-striped table-bordered" />
+    <asp:Table ID="JobPostingsTable" runat="server" class="table table-striped table-bordered table-white" />
 
   </div><!-- /.container -->
 </asp:Content>
